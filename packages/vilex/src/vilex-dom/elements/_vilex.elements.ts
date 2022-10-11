@@ -1,7 +1,7 @@
 import { ViItemPart, ViEvent } from "./velements"
 import { vn, VnItem } from "../vn" 
 import { ViElement } from "../../vii" 
-type PartialElement<T> = { [P in keyof T]?: T[P] | { value: T[P] } } 
+type PartialElement<T> = { [P in keyof T]?: T[P] } 
 
 type ViHTMLAnchorElementPart = ViItemPart | Omit<PartialElement<HTMLAnchorElement>, keyof ViEvent> ;
 type ViHTMLAnchorElement = ViElement & { el: HTMLAnchorElement };
