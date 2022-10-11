@@ -14,7 +14,6 @@ const program = new Command(packageJson.name)
   .parse();
 
 if (projectName) {
-  // console.log(projectName);
   console.log('start creating vilex app ...')
   const result = execSync(
     `git clone -b master https://e.coding.net/worksite/vilex/vilex-app-base.git ${projectName} --depth=1`
