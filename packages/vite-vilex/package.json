@@ -1,0 +1,23 @@
+{
+  "name": "vite-vilex",
+  "version": "0.0.3",
+  "description": "",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "ts-types": "tsc --emitDeclarationOnly --outDir lib",
+    "build": "rimraf lib && node ./esbuild.js && npm run ts-types",
+    "init-tsconfig": "tsc --init"
+  },
+  "keywords": [],
+  "author": "wangxiaowei",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.15.9",
+    "rimraf": "^3.0.2"
+  }
+}

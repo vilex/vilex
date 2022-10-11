@@ -1,0 +1,14 @@
+{
+  "name": "create-vilex-app",
+  "version": "0.0.2",
+  "description": "",
+  "bin": {
+    "create-vilex-app": "src/index.js"
+  },
+  "keywords": [],
+  "author": "wangxiaowei",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^9.4.1"
+  }
+}
