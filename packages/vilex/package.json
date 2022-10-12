@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "ts-types": "tsc --emitDeclarationOnly --outDir lib",
+    "ts-types": "node ./scripts/genElements/exports.js && tsc --emitDeclarationOnly --outDir lib",
     "build": "rimraf lib && node ./esbuild.js && npm run ts-types",
     "init-tsconfig": "tsc --init"
   },
