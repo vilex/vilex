@@ -2,6 +2,7 @@ import { Properties } from "csstype"
 import { IAttr, IClass, IEvents, IStyle, ViElement } from "../../vii"
 import { IDataEmit } from "../../vilex/dataType/DataEmit"
 import { IDataModel } from "../../vilex/dataType/DataModel"
+import { ref } from '../../vilex/store/store'
 
 export interface IDataNode extends IDataEmit {
   $: IDataModel;
@@ -40,10 +41,12 @@ type ViEventMap = {
 
 export type ViEvent = Prefixer<ViEventMap, 'on'>
 
+export type Ref = ReturnType<typeof ref>
+
 export type ViItemPart = 
   | ViLabel
   | ViStyle
   | ViClass
   | ViEvent
   | ViChildren
-
+  | Ref

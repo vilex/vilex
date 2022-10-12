@@ -1,6 +1,10 @@
 const { writeFile, writeFileSync } = require('fs')
+const { resolve } = require('path')
 const { HTMLElementTagNameMap } = require('./source')
 
+function pathResolve(path) {
+  return resolve(process.cwd(), '.', path)
+}
 
 // interface 
 
@@ -10,7 +14,7 @@ let outputStr = ''
 outputStr += 'import { ViItemPart, ViEvent } from "./velements"\n'
 outputStr += 'import { vn, VnItem } from "../vn" \n'
 outputStr += 'import { ViElement } from "../../vii" \n'
-outputStr += 'type PartialElement<T> = { [P in keyof T]?: T[P] | { value: T[P] } } \n'
+outputStr += 'type PartialElement<T> = { [P in keyof T]?: T[P] } \n'
 
 const recordTyped = { }
 for(let k in HTMLElementTagNameMap) {
@@ -32,7 +36,7 @@ export function ${k}(...items:Vi${HTMLElementTagNameMap[k]}Part[]): Vi${HTMLElem
 outputStr += str + '\n'
 }
 
-writeFileSync('../../src/vilex-dom/elements/_vilex.elements.ts', outputStr)
+writeFileSync(pathResolve('src/vilex-dom/elements/_vilex.elements.ts'), outputStr)
 
 
 
