@@ -20,8 +20,8 @@ for (let k in HTMLElementTagNameMap) {
   if (!recordTyped[HTMLElementTagNameMap[k]]) {
     recordTyped[HTMLElementTagNameMap[k]] = true;
     outputStr += `
-    export type Vi${HTMLElementTagNameMap[k]}Part = ViItemPart | Omit<PartialElement<${HTMLElementTagNameMap[k]}>, keyof ViEvent> ;
-    export type Vi${HTMLElementTagNameMap[k]} = ViElement & { el: ${HTMLElementTagNameMap[k]} };
+export type Vi${HTMLElementTagNameMap[k]}Part = ViItemPart | Omit<PartialElement<${HTMLElementTagNameMap[k]}>, keyof ViEvent> ;
+export type Vi${HTMLElementTagNameMap[k]} = ViElement & { el: ${HTMLElementTagNameMap[k]} };
 `;
   }
 }
