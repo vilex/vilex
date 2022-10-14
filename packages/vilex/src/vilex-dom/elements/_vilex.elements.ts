@@ -3,197 +3,197 @@ import { vn, VnItem } from "../vn"
 import { ViElement } from "../../vii" 
 type PartialElement<T> = { [P in keyof T]?: T[P] } 
 
-type ViHTMLAnchorElementPart = ViItemPart | Omit<PartialElement<HTMLAnchorElement>, keyof ViEvent> ;
-type ViHTMLAnchorElement = ViElement & { el: HTMLAnchorElement };
+    export type ViHTMLAnchorElementPart = ViItemPart | Omit<PartialElement<HTMLAnchorElement>, keyof ViEvent> ;
+    export type ViHTMLAnchorElement = ViElement & { el: HTMLAnchorElement };
 
-type ViHTMLElementPart = ViItemPart | Omit<PartialElement<HTMLElement>, keyof ViEvent> ;
-type ViHTMLElement = ViElement & { el: HTMLElement };
+    export type ViHTMLElementPart = ViItemPart | Omit<PartialElement<HTMLElement>, keyof ViEvent> ;
+    export type ViHTMLElement = ViElement & { el: HTMLElement };
 
-type ViHTMLAreaElementPart = ViItemPart | Omit<PartialElement<HTMLAreaElement>, keyof ViEvent> ;
-type ViHTMLAreaElement = ViElement & { el: HTMLAreaElement };
+    export type ViHTMLAreaElementPart = ViItemPart | Omit<PartialElement<HTMLAreaElement>, keyof ViEvent> ;
+    export type ViHTMLAreaElement = ViElement & { el: HTMLAreaElement };
 
-type ViHTMLAudioElementPart = ViItemPart | Omit<PartialElement<HTMLAudioElement>, keyof ViEvent> ;
-type ViHTMLAudioElement = ViElement & { el: HTMLAudioElement };
+    export type ViHTMLAudioElementPart = ViItemPart | Omit<PartialElement<HTMLAudioElement>, keyof ViEvent> ;
+    export type ViHTMLAudioElement = ViElement & { el: HTMLAudioElement };
 
-type ViHTMLBaseElementPart = ViItemPart | Omit<PartialElement<HTMLBaseElement>, keyof ViEvent> ;
-type ViHTMLBaseElement = ViElement & { el: HTMLBaseElement };
+    export type ViHTMLBaseElementPart = ViItemPart | Omit<PartialElement<HTMLBaseElement>, keyof ViEvent> ;
+    export type ViHTMLBaseElement = ViElement & { el: HTMLBaseElement };
 
-type ViHTMLQuoteElementPart = ViItemPart | Omit<PartialElement<HTMLQuoteElement>, keyof ViEvent> ;
-type ViHTMLQuoteElement = ViElement & { el: HTMLQuoteElement };
+    export type ViHTMLQuoteElementPart = ViItemPart | Omit<PartialElement<HTMLQuoteElement>, keyof ViEvent> ;
+    export type ViHTMLQuoteElement = ViElement & { el: HTMLQuoteElement };
 
-type ViHTMLBodyElementPart = ViItemPart | Omit<PartialElement<HTMLBodyElement>, keyof ViEvent> ;
-type ViHTMLBodyElement = ViElement & { el: HTMLBodyElement };
+    export type ViHTMLBodyElementPart = ViItemPart | Omit<PartialElement<HTMLBodyElement>, keyof ViEvent> ;
+    export type ViHTMLBodyElement = ViElement & { el: HTMLBodyElement };
 
-type ViHTMLBRElementPart = ViItemPart | Omit<PartialElement<HTMLBRElement>, keyof ViEvent> ;
-type ViHTMLBRElement = ViElement & { el: HTMLBRElement };
+    export type ViHTMLBRElementPart = ViItemPart | Omit<PartialElement<HTMLBRElement>, keyof ViEvent> ;
+    export type ViHTMLBRElement = ViElement & { el: HTMLBRElement };
 
-type ViHTMLButtonElementPart = ViItemPart | Omit<PartialElement<HTMLButtonElement>, keyof ViEvent> ;
-type ViHTMLButtonElement = ViElement & { el: HTMLButtonElement };
+    export type ViHTMLButtonElementPart = ViItemPart | Omit<PartialElement<HTMLButtonElement>, keyof ViEvent> ;
+    export type ViHTMLButtonElement = ViElement & { el: HTMLButtonElement };
 
-type ViHTMLCanvasElementPart = ViItemPart | Omit<PartialElement<HTMLCanvasElement>, keyof ViEvent> ;
-type ViHTMLCanvasElement = ViElement & { el: HTMLCanvasElement };
+    export type ViHTMLCanvasElementPart = ViItemPart | Omit<PartialElement<HTMLCanvasElement>, keyof ViEvent> ;
+    export type ViHTMLCanvasElement = ViElement & { el: HTMLCanvasElement };
 
-type ViHTMLTableCaptionElementPart = ViItemPart | Omit<PartialElement<HTMLTableCaptionElement>, keyof ViEvent> ;
-type ViHTMLTableCaptionElement = ViElement & { el: HTMLTableCaptionElement };
+    export type ViHTMLTableCaptionElementPart = ViItemPart | Omit<PartialElement<HTMLTableCaptionElement>, keyof ViEvent> ;
+    export type ViHTMLTableCaptionElement = ViElement & { el: HTMLTableCaptionElement };
 
-type ViHTMLTableColElementPart = ViItemPart | Omit<PartialElement<HTMLTableColElement>, keyof ViEvent> ;
-type ViHTMLTableColElement = ViElement & { el: HTMLTableColElement };
+    export type ViHTMLTableColElementPart = ViItemPart | Omit<PartialElement<HTMLTableColElement>, keyof ViEvent> ;
+    export type ViHTMLTableColElement = ViElement & { el: HTMLTableColElement };
 
-type ViHTMLDataElementPart = ViItemPart | Omit<PartialElement<HTMLDataElement>, keyof ViEvent> ;
-type ViHTMLDataElement = ViElement & { el: HTMLDataElement };
+    export type ViHTMLDataElementPart = ViItemPart | Omit<PartialElement<HTMLDataElement>, keyof ViEvent> ;
+    export type ViHTMLDataElement = ViElement & { el: HTMLDataElement };
 
-type ViHTMLDataListElementPart = ViItemPart | Omit<PartialElement<HTMLDataListElement>, keyof ViEvent> ;
-type ViHTMLDataListElement = ViElement & { el: HTMLDataListElement };
+    export type ViHTMLDataListElementPart = ViItemPart | Omit<PartialElement<HTMLDataListElement>, keyof ViEvent> ;
+    export type ViHTMLDataListElement = ViElement & { el: HTMLDataListElement };
 
-type ViHTMLModElementPart = ViItemPart | Omit<PartialElement<HTMLModElement>, keyof ViEvent> ;
-type ViHTMLModElement = ViElement & { el: HTMLModElement };
+    export type ViHTMLModElementPart = ViItemPart | Omit<PartialElement<HTMLModElement>, keyof ViEvent> ;
+    export type ViHTMLModElement = ViElement & { el: HTMLModElement };
 
-type ViHTMLDetailsElementPart = ViItemPart | Omit<PartialElement<HTMLDetailsElement>, keyof ViEvent> ;
-type ViHTMLDetailsElement = ViElement & { el: HTMLDetailsElement };
+    export type ViHTMLDetailsElementPart = ViItemPart | Omit<PartialElement<HTMLDetailsElement>, keyof ViEvent> ;
+    export type ViHTMLDetailsElement = ViElement & { el: HTMLDetailsElement };
 
-type ViHTMLDialogElementPart = ViItemPart | Omit<PartialElement<HTMLDialogElement>, keyof ViEvent> ;
-type ViHTMLDialogElement = ViElement & { el: HTMLDialogElement };
+    export type ViHTMLDialogElementPart = ViItemPart | Omit<PartialElement<HTMLDialogElement>, keyof ViEvent> ;
+    export type ViHTMLDialogElement = ViElement & { el: HTMLDialogElement };
 
-type ViHTMLDivElementPart = ViItemPart | Omit<PartialElement<HTMLDivElement>, keyof ViEvent> ;
-type ViHTMLDivElement = ViElement & { el: HTMLDivElement };
+    export type ViHTMLDivElementPart = ViItemPart | Omit<PartialElement<HTMLDivElement>, keyof ViEvent> ;
+    export type ViHTMLDivElement = ViElement & { el: HTMLDivElement };
 
-type ViHTMLDListElementPart = ViItemPart | Omit<PartialElement<HTMLDListElement>, keyof ViEvent> ;
-type ViHTMLDListElement = ViElement & { el: HTMLDListElement };
+    export type ViHTMLDListElementPart = ViItemPart | Omit<PartialElement<HTMLDListElement>, keyof ViEvent> ;
+    export type ViHTMLDListElement = ViElement & { el: HTMLDListElement };
 
-type ViHTMLEmbedElementPart = ViItemPart | Omit<PartialElement<HTMLEmbedElement>, keyof ViEvent> ;
-type ViHTMLEmbedElement = ViElement & { el: HTMLEmbedElement };
+    export type ViHTMLEmbedElementPart = ViItemPart | Omit<PartialElement<HTMLEmbedElement>, keyof ViEvent> ;
+    export type ViHTMLEmbedElement = ViElement & { el: HTMLEmbedElement };
 
-type ViHTMLFieldSetElementPart = ViItemPart | Omit<PartialElement<HTMLFieldSetElement>, keyof ViEvent> ;
-type ViHTMLFieldSetElement = ViElement & { el: HTMLFieldSetElement };
+    export type ViHTMLFieldSetElementPart = ViItemPart | Omit<PartialElement<HTMLFieldSetElement>, keyof ViEvent> ;
+    export type ViHTMLFieldSetElement = ViElement & { el: HTMLFieldSetElement };
 
-type ViHTMLFormElementPart = ViItemPart | Omit<PartialElement<HTMLFormElement>, keyof ViEvent> ;
-type ViHTMLFormElement = ViElement & { el: HTMLFormElement };
+    export type ViHTMLFormElementPart = ViItemPart | Omit<PartialElement<HTMLFormElement>, keyof ViEvent> ;
+    export type ViHTMLFormElement = ViElement & { el: HTMLFormElement };
 
-type ViHTMLHeadingElementPart = ViItemPart | Omit<PartialElement<HTMLHeadingElement>, keyof ViEvent> ;
-type ViHTMLHeadingElement = ViElement & { el: HTMLHeadingElement };
+    export type ViHTMLHeadingElementPart = ViItemPart | Omit<PartialElement<HTMLHeadingElement>, keyof ViEvent> ;
+    export type ViHTMLHeadingElement = ViElement & { el: HTMLHeadingElement };
 
-type ViHTMLHeadElementPart = ViItemPart | Omit<PartialElement<HTMLHeadElement>, keyof ViEvent> ;
-type ViHTMLHeadElement = ViElement & { el: HTMLHeadElement };
+    export type ViHTMLHeadElementPart = ViItemPart | Omit<PartialElement<HTMLHeadElement>, keyof ViEvent> ;
+    export type ViHTMLHeadElement = ViElement & { el: HTMLHeadElement };
 
-type ViHTMLHRElementPart = ViItemPart | Omit<PartialElement<HTMLHRElement>, keyof ViEvent> ;
-type ViHTMLHRElement = ViElement & { el: HTMLHRElement };
+    export type ViHTMLHRElementPart = ViItemPart | Omit<PartialElement<HTMLHRElement>, keyof ViEvent> ;
+    export type ViHTMLHRElement = ViElement & { el: HTMLHRElement };
 
-type ViHTMLHtmlElementPart = ViItemPart | Omit<PartialElement<HTMLHtmlElement>, keyof ViEvent> ;
-type ViHTMLHtmlElement = ViElement & { el: HTMLHtmlElement };
+    export type ViHTMLHtmlElementPart = ViItemPart | Omit<PartialElement<HTMLHtmlElement>, keyof ViEvent> ;
+    export type ViHTMLHtmlElement = ViElement & { el: HTMLHtmlElement };
 
-type ViHTMLIFrameElementPart = ViItemPart | Omit<PartialElement<HTMLIFrameElement>, keyof ViEvent> ;
-type ViHTMLIFrameElement = ViElement & { el: HTMLIFrameElement };
+    export type ViHTMLIFrameElementPart = ViItemPart | Omit<PartialElement<HTMLIFrameElement>, keyof ViEvent> ;
+    export type ViHTMLIFrameElement = ViElement & { el: HTMLIFrameElement };
 
-type ViHTMLImageElementPart = ViItemPart | Omit<PartialElement<HTMLImageElement>, keyof ViEvent> ;
-type ViHTMLImageElement = ViElement & { el: HTMLImageElement };
+    export type ViHTMLImageElementPart = ViItemPart | Omit<PartialElement<HTMLImageElement>, keyof ViEvent> ;
+    export type ViHTMLImageElement = ViElement & { el: HTMLImageElement };
 
-type ViHTMLInputElementPart = ViItemPart | Omit<PartialElement<HTMLInputElement>, keyof ViEvent> ;
-type ViHTMLInputElement = ViElement & { el: HTMLInputElement };
+    export type ViHTMLInputElementPart = ViItemPart | Omit<PartialElement<HTMLInputElement>, keyof ViEvent> ;
+    export type ViHTMLInputElement = ViElement & { el: HTMLInputElement };
 
-type ViHTMLLabelElementPart = ViItemPart | Omit<PartialElement<HTMLLabelElement>, keyof ViEvent> ;
-type ViHTMLLabelElement = ViElement & { el: HTMLLabelElement };
+    export type ViHTMLLabelElementPart = ViItemPart | Omit<PartialElement<HTMLLabelElement>, keyof ViEvent> ;
+    export type ViHTMLLabelElement = ViElement & { el: HTMLLabelElement };
 
-type ViHTMLLegendElementPart = ViItemPart | Omit<PartialElement<HTMLLegendElement>, keyof ViEvent> ;
-type ViHTMLLegendElement = ViElement & { el: HTMLLegendElement };
+    export type ViHTMLLegendElementPart = ViItemPart | Omit<PartialElement<HTMLLegendElement>, keyof ViEvent> ;
+    export type ViHTMLLegendElement = ViElement & { el: HTMLLegendElement };
 
-type ViHTMLLIElementPart = ViItemPart | Omit<PartialElement<HTMLLIElement>, keyof ViEvent> ;
-type ViHTMLLIElement = ViElement & { el: HTMLLIElement };
+    export type ViHTMLLIElementPart = ViItemPart | Omit<PartialElement<HTMLLIElement>, keyof ViEvent> ;
+    export type ViHTMLLIElement = ViElement & { el: HTMLLIElement };
 
-type ViHTMLLinkElementPart = ViItemPart | Omit<PartialElement<HTMLLinkElement>, keyof ViEvent> ;
-type ViHTMLLinkElement = ViElement & { el: HTMLLinkElement };
+    export type ViHTMLLinkElementPart = ViItemPart | Omit<PartialElement<HTMLLinkElement>, keyof ViEvent> ;
+    export type ViHTMLLinkElement = ViElement & { el: HTMLLinkElement };
 
-type ViHTMLMapElementPart = ViItemPart | Omit<PartialElement<HTMLMapElement>, keyof ViEvent> ;
-type ViHTMLMapElement = ViElement & { el: HTMLMapElement };
+    export type ViHTMLMapElementPart = ViItemPart | Omit<PartialElement<HTMLMapElement>, keyof ViEvent> ;
+    export type ViHTMLMapElement = ViElement & { el: HTMLMapElement };
 
-type ViHTMLMenuElementPart = ViItemPart | Omit<PartialElement<HTMLMenuElement>, keyof ViEvent> ;
-type ViHTMLMenuElement = ViElement & { el: HTMLMenuElement };
+    export type ViHTMLMenuElementPart = ViItemPart | Omit<PartialElement<HTMLMenuElement>, keyof ViEvent> ;
+    export type ViHTMLMenuElement = ViElement & { el: HTMLMenuElement };
 
-type ViHTMLMetaElementPart = ViItemPart | Omit<PartialElement<HTMLMetaElement>, keyof ViEvent> ;
-type ViHTMLMetaElement = ViElement & { el: HTMLMetaElement };
+    export type ViHTMLMetaElementPart = ViItemPart | Omit<PartialElement<HTMLMetaElement>, keyof ViEvent> ;
+    export type ViHTMLMetaElement = ViElement & { el: HTMLMetaElement };
 
-type ViHTMLMeterElementPart = ViItemPart | Omit<PartialElement<HTMLMeterElement>, keyof ViEvent> ;
-type ViHTMLMeterElement = ViElement & { el: HTMLMeterElement };
+    export type ViHTMLMeterElementPart = ViItemPart | Omit<PartialElement<HTMLMeterElement>, keyof ViEvent> ;
+    export type ViHTMLMeterElement = ViElement & { el: HTMLMeterElement };
 
-type ViHTMLObjectElementPart = ViItemPart | Omit<PartialElement<HTMLObjectElement>, keyof ViEvent> ;
-type ViHTMLObjectElement = ViElement & { el: HTMLObjectElement };
+    export type ViHTMLObjectElementPart = ViItemPart | Omit<PartialElement<HTMLObjectElement>, keyof ViEvent> ;
+    export type ViHTMLObjectElement = ViElement & { el: HTMLObjectElement };
 
-type ViHTMLOListElementPart = ViItemPart | Omit<PartialElement<HTMLOListElement>, keyof ViEvent> ;
-type ViHTMLOListElement = ViElement & { el: HTMLOListElement };
+    export type ViHTMLOListElementPart = ViItemPart | Omit<PartialElement<HTMLOListElement>, keyof ViEvent> ;
+    export type ViHTMLOListElement = ViElement & { el: HTMLOListElement };
 
-type ViHTMLOptGroupElementPart = ViItemPart | Omit<PartialElement<HTMLOptGroupElement>, keyof ViEvent> ;
-type ViHTMLOptGroupElement = ViElement & { el: HTMLOptGroupElement };
+    export type ViHTMLOptGroupElementPart = ViItemPart | Omit<PartialElement<HTMLOptGroupElement>, keyof ViEvent> ;
+    export type ViHTMLOptGroupElement = ViElement & { el: HTMLOptGroupElement };
 
-type ViHTMLOptionElementPart = ViItemPart | Omit<PartialElement<HTMLOptionElement>, keyof ViEvent> ;
-type ViHTMLOptionElement = ViElement & { el: HTMLOptionElement };
+    export type ViHTMLOptionElementPart = ViItemPart | Omit<PartialElement<HTMLOptionElement>, keyof ViEvent> ;
+    export type ViHTMLOptionElement = ViElement & { el: HTMLOptionElement };
 
-type ViHTMLOutputElementPart = ViItemPart | Omit<PartialElement<HTMLOutputElement>, keyof ViEvent> ;
-type ViHTMLOutputElement = ViElement & { el: HTMLOutputElement };
+    export type ViHTMLOutputElementPart = ViItemPart | Omit<PartialElement<HTMLOutputElement>, keyof ViEvent> ;
+    export type ViHTMLOutputElement = ViElement & { el: HTMLOutputElement };
 
-type ViHTMLParagraphElementPart = ViItemPart | Omit<PartialElement<HTMLParagraphElement>, keyof ViEvent> ;
-type ViHTMLParagraphElement = ViElement & { el: HTMLParagraphElement };
+    export type ViHTMLParagraphElementPart = ViItemPart | Omit<PartialElement<HTMLParagraphElement>, keyof ViEvent> ;
+    export type ViHTMLParagraphElement = ViElement & { el: HTMLParagraphElement };
 
-type ViHTMLParamElementPart = ViItemPart | Omit<PartialElement<HTMLParamElement>, keyof ViEvent> ;
-type ViHTMLParamElement = ViElement & { el: HTMLParamElement };
+    export type ViHTMLParamElementPart = ViItemPart | Omit<PartialElement<HTMLParamElement>, keyof ViEvent> ;
+    export type ViHTMLParamElement = ViElement & { el: HTMLParamElement };
 
-type ViHTMLPictureElementPart = ViItemPart | Omit<PartialElement<HTMLPictureElement>, keyof ViEvent> ;
-type ViHTMLPictureElement = ViElement & { el: HTMLPictureElement };
+    export type ViHTMLPictureElementPart = ViItemPart | Omit<PartialElement<HTMLPictureElement>, keyof ViEvent> ;
+    export type ViHTMLPictureElement = ViElement & { el: HTMLPictureElement };
 
-type ViHTMLPreElementPart = ViItemPart | Omit<PartialElement<HTMLPreElement>, keyof ViEvent> ;
-type ViHTMLPreElement = ViElement & { el: HTMLPreElement };
+    export type ViHTMLPreElementPart = ViItemPart | Omit<PartialElement<HTMLPreElement>, keyof ViEvent> ;
+    export type ViHTMLPreElement = ViElement & { el: HTMLPreElement };
 
-type ViHTMLProgressElementPart = ViItemPart | Omit<PartialElement<HTMLProgressElement>, keyof ViEvent> ;
-type ViHTMLProgressElement = ViElement & { el: HTMLProgressElement };
+    export type ViHTMLProgressElementPart = ViItemPart | Omit<PartialElement<HTMLProgressElement>, keyof ViEvent> ;
+    export type ViHTMLProgressElement = ViElement & { el: HTMLProgressElement };
 
-type ViHTMLScriptElementPart = ViItemPart | Omit<PartialElement<HTMLScriptElement>, keyof ViEvent> ;
-type ViHTMLScriptElement = ViElement & { el: HTMLScriptElement };
+    export type ViHTMLScriptElementPart = ViItemPart | Omit<PartialElement<HTMLScriptElement>, keyof ViEvent> ;
+    export type ViHTMLScriptElement = ViElement & { el: HTMLScriptElement };
 
-type ViHTMLSelectElementPart = ViItemPart | Omit<PartialElement<HTMLSelectElement>, keyof ViEvent> ;
-type ViHTMLSelectElement = ViElement & { el: HTMLSelectElement };
+    export type ViHTMLSelectElementPart = ViItemPart | Omit<PartialElement<HTMLSelectElement>, keyof ViEvent> ;
+    export type ViHTMLSelectElement = ViElement & { el: HTMLSelectElement };
 
-type ViHTMLSlotElementPart = ViItemPart | Omit<PartialElement<HTMLSlotElement>, keyof ViEvent> ;
-type ViHTMLSlotElement = ViElement & { el: HTMLSlotElement };
+    export type ViHTMLSlotElementPart = ViItemPart | Omit<PartialElement<HTMLSlotElement>, keyof ViEvent> ;
+    export type ViHTMLSlotElement = ViElement & { el: HTMLSlotElement };
 
-type ViHTMLSourceElementPart = ViItemPart | Omit<PartialElement<HTMLSourceElement>, keyof ViEvent> ;
-type ViHTMLSourceElement = ViElement & { el: HTMLSourceElement };
+    export type ViHTMLSourceElementPart = ViItemPart | Omit<PartialElement<HTMLSourceElement>, keyof ViEvent> ;
+    export type ViHTMLSourceElement = ViElement & { el: HTMLSourceElement };
 
-type ViHTMLSpanElementPart = ViItemPart | Omit<PartialElement<HTMLSpanElement>, keyof ViEvent> ;
-type ViHTMLSpanElement = ViElement & { el: HTMLSpanElement };
+    export type ViHTMLSpanElementPart = ViItemPart | Omit<PartialElement<HTMLSpanElement>, keyof ViEvent> ;
+    export type ViHTMLSpanElement = ViElement & { el: HTMLSpanElement };
 
-type ViHTMLStyleElementPart = ViItemPart | Omit<PartialElement<HTMLStyleElement>, keyof ViEvent> ;
-type ViHTMLStyleElement = ViElement & { el: HTMLStyleElement };
+    export type ViHTMLStyleElementPart = ViItemPart | Omit<PartialElement<HTMLStyleElement>, keyof ViEvent> ;
+    export type ViHTMLStyleElement = ViElement & { el: HTMLStyleElement };
 
-type ViHTMLTableElementPart = ViItemPart | Omit<PartialElement<HTMLTableElement>, keyof ViEvent> ;
-type ViHTMLTableElement = ViElement & { el: HTMLTableElement };
+    export type ViHTMLTableElementPart = ViItemPart | Omit<PartialElement<HTMLTableElement>, keyof ViEvent> ;
+    export type ViHTMLTableElement = ViElement & { el: HTMLTableElement };
 
-type ViHTMLTableSectionElementPart = ViItemPart | Omit<PartialElement<HTMLTableSectionElement>, keyof ViEvent> ;
-type ViHTMLTableSectionElement = ViElement & { el: HTMLTableSectionElement };
+    export type ViHTMLTableSectionElementPart = ViItemPart | Omit<PartialElement<HTMLTableSectionElement>, keyof ViEvent> ;
+    export type ViHTMLTableSectionElement = ViElement & { el: HTMLTableSectionElement };
 
-type ViHTMLTableCellElementPart = ViItemPart | Omit<PartialElement<HTMLTableCellElement>, keyof ViEvent> ;
-type ViHTMLTableCellElement = ViElement & { el: HTMLTableCellElement };
+    export type ViHTMLTableCellElementPart = ViItemPart | Omit<PartialElement<HTMLTableCellElement>, keyof ViEvent> ;
+    export type ViHTMLTableCellElement = ViElement & { el: HTMLTableCellElement };
 
-type ViHTMLTemplateElementPart = ViItemPart | Omit<PartialElement<HTMLTemplateElement>, keyof ViEvent> ;
-type ViHTMLTemplateElement = ViElement & { el: HTMLTemplateElement };
+    export type ViHTMLTemplateElementPart = ViItemPart | Omit<PartialElement<HTMLTemplateElement>, keyof ViEvent> ;
+    export type ViHTMLTemplateElement = ViElement & { el: HTMLTemplateElement };
 
-type ViHTMLTextAreaElementPart = ViItemPart | Omit<PartialElement<HTMLTextAreaElement>, keyof ViEvent> ;
-type ViHTMLTextAreaElement = ViElement & { el: HTMLTextAreaElement };
+    export type ViHTMLTextAreaElementPart = ViItemPart | Omit<PartialElement<HTMLTextAreaElement>, keyof ViEvent> ;
+    export type ViHTMLTextAreaElement = ViElement & { el: HTMLTextAreaElement };
 
-type ViHTMLTimeElementPart = ViItemPart | Omit<PartialElement<HTMLTimeElement>, keyof ViEvent> ;
-type ViHTMLTimeElement = ViElement & { el: HTMLTimeElement };
+    export type ViHTMLTimeElementPart = ViItemPart | Omit<PartialElement<HTMLTimeElement>, keyof ViEvent> ;
+    export type ViHTMLTimeElement = ViElement & { el: HTMLTimeElement };
 
-type ViHTMLTitleElementPart = ViItemPart | Omit<PartialElement<HTMLTitleElement>, keyof ViEvent> ;
-type ViHTMLTitleElement = ViElement & { el: HTMLTitleElement };
+    export type ViHTMLTitleElementPart = ViItemPart | Omit<PartialElement<HTMLTitleElement>, keyof ViEvent> ;
+    export type ViHTMLTitleElement = ViElement & { el: HTMLTitleElement };
 
-type ViHTMLTableRowElementPart = ViItemPart | Omit<PartialElement<HTMLTableRowElement>, keyof ViEvent> ;
-type ViHTMLTableRowElement = ViElement & { el: HTMLTableRowElement };
+    export type ViHTMLTableRowElementPart = ViItemPart | Omit<PartialElement<HTMLTableRowElement>, keyof ViEvent> ;
+    export type ViHTMLTableRowElement = ViElement & { el: HTMLTableRowElement };
 
-type ViHTMLTrackElementPart = ViItemPart | Omit<PartialElement<HTMLTrackElement>, keyof ViEvent> ;
-type ViHTMLTrackElement = ViElement & { el: HTMLTrackElement };
+    export type ViHTMLTrackElementPart = ViItemPart | Omit<PartialElement<HTMLTrackElement>, keyof ViEvent> ;
+    export type ViHTMLTrackElement = ViElement & { el: HTMLTrackElement };
 
-type ViHTMLUListElementPart = ViItemPart | Omit<PartialElement<HTMLUListElement>, keyof ViEvent> ;
-type ViHTMLUListElement = ViElement & { el: HTMLUListElement };
+    export type ViHTMLUListElementPart = ViItemPart | Omit<PartialElement<HTMLUListElement>, keyof ViEvent> ;
+    export type ViHTMLUListElement = ViElement & { el: HTMLUListElement };
 
-type ViHTMLVideoElementPart = ViItemPart | Omit<PartialElement<HTMLVideoElement>, keyof ViEvent> ;
-type ViHTMLVideoElement = ViElement & { el: HTMLVideoElement };
+    export type ViHTMLVideoElementPart = ViItemPart | Omit<PartialElement<HTMLVideoElement>, keyof ViEvent> ;
+    export type ViHTMLVideoElement = ViElement & { el: HTMLVideoElement };
 
 export function a(...items:ViHTMLAnchorElementPart[]): ViHTMLAnchorElement {
   return vn('a', items) as unknown as ViHTMLAnchorElement 
