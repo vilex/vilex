@@ -9,7 +9,6 @@
     "lib"
   ],
   "scripts": {
-    "postinstall": "npm run gen-elements-type",
     "gen-elements-type": "node ./scripts/genElements/exports.js",
     "ts-types": "tsc --emitDeclarationOnly --outDir lib",
     "build": "rimraf lib && node ./esbuild.js && npm run ts-types",
