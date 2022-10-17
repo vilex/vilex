@@ -7,8 +7,8 @@
   "scripts": {
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
-    "ia": "pnpm i -r",
-    "bv": "pnpm -F vilex build",
+    "bootstrap": "pnpm i -r",
+    "build-vilex": "pnpm -F vilex build",
     "lint:lint-staged": "lint-staged"
   },
   "keywords": [],
