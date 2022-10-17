@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ia": "pnpm i -r",
-    "bv": "pnpm -F vilex build"
+    "bootstrap": "pnpm i -r",
+    "build-vilex": "pnpm -F vilex build"
   },
   "keywords": [],
   "author": "",
