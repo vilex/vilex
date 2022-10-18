@@ -4,6 +4,7 @@ const t = require('@babel/types')
 const { default: generate } = require('@babel/generator')
 const { dirname, resolve } = require('path')
 
+const images = ['.png', '.jpg', '.svg', '.mp3', '.mp4', '.gif', '.webp', '.md']
 function TransformCode(code, id, namePrefix, endOfImportIndentification, endOfFileIdentification) {
     let importPath, programPath, localImportSpecifiers = []
     const astfile = parse(code, { plugins: ['typescript'], sourceType: 'module' })
@@ -12,11 +13,13 @@ function TransformCode(code, id, namePrefix, endOfImportIndentification, endOfFi
         ImportDeclaration(path) {
             importPath = path
 
-            const isLocalImport = path.node.source.value.startsWith('.')
+            const value = path.node.source.value
+
+            const isLocalImport = value.startsWith('.') && !images.some(v => value.includes(v))
             if (isLocalImport) {
                 path.node.specifiers.forEach(specifier => {
                     localImportSpecifiers.push({
-                        name: specifier.imported.name,
+                        name: specifier.local.name,
                         path: resolve(path.node.source.value),
                         from: path.node.source.value
                     })
@@ -31,7 +34,8 @@ function TransformCode(code, id, namePrefix, endOfImportIndentification, endOfFi
                     t.isVariableDeclarator(path.parent) && path.parentPath.node.id.name == path.node.name,
                     t.isFunctionDeclaration(path.parentPath),
                     t.isProperty(path.parentPath) && path.parentPath.node.value.name != path.node.name,
-                    t.isClassDeclaration(path.parentPath)
+                    t.isClassDeclaration(path.parentPath),
+                    t.isImportDefaultSpecifier(path.parentPath)
                 ]
         
                 const replace = blacklist.some(bool => bool)

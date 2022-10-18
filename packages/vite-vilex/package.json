@@ -1,7 +1,13 @@
 {
   "name": "vite-vilex",
-  "version": "0.1.1",
-  "description": "",
+  "version": "0.1.3",
+  "author": "wangxiaowei",
+  "homepage": "https://github.com/vilex/vilex/blob/main/packages/vite-vilex/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vilex/vilex.git",
+    "directory": "packages/vite-vilex"
+  },
   "main": "src/index.js",
   "module": "src/index.js",
   "types": "lib/index.d.ts",
@@ -14,7 +20,6 @@
     "init-tsconfig": "tsc --init"
   },
   "keywords": [],
-  "author": "wangxiaowei",
   "license": "ISC",
   "devDependencies": {
     "esbuild": "^0.15.9",
