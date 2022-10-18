@@ -48,6 +48,7 @@ function vilexPlugin() {
 
   return {
     name: "vite:vilex",
+    apply: 'serve',
     transform,
     transformIndexHtml
   };
