@@ -1,25 +1,24 @@
-import { isPromise } from "../../utils/isPromise"
-import { VnItem } from "../vn"
-import { isCssKey } from "./isCssKey"
+import { isPromise } from '../../utils/isPromise'
+import { VnItem } from '../vn'
+import { isCssKey } from './isCssKey'
 
-export function invisibleTypeToDisplayType( options:VnItem[]) {
+export function invisibleTypeToDisplayType(options: VnItem[]) {
   const list: VnItem[] = []
   options.forEach(option => {
     // string, array, object
     if (typeof option === 'function') {
       option = option()
     }
-    if (typeof option === 'string') {
+    if (typeof option === 'string' || typeof option === 'number') {
       list.push(option)
     } else if (Array.isArray(option)) {
-
       const isChildren = option.some(item => {
         return isPromise(item) || (item.$ && item.$.type)
       })
       if (isChildren) {
         list.push(...option)
       } else {
-        const obj = { $dataType: 'class'}
+        const obj = { $dataType: 'class' }
         option.forEach(item => {
           if (typeof item === 'string') {
             // @ts-ignore
@@ -30,13 +29,12 @@ export function invisibleTypeToDisplayType( options:VnItem[]) {
         })
         list.push(obj)
       }
-     
     } else {
       // attr， style
       // object
-      
+
       let isCss = true
-      for(const key in option) {
+      for (const key in option) {
         if (!isCssKey(key)) {
           isCss = false
           break
@@ -51,7 +49,7 @@ export function invisibleTypeToDisplayType( options:VnItem[]) {
       } else {
         // event, props
         let isEvents = true
-        for(const key in option) {
+        for (const key in option) {
           if (!key.startsWith('on')) {
             isEvents = false
             break
@@ -69,7 +67,6 @@ export function invisibleTypeToDisplayType( options:VnItem[]) {
             ...option
           })
         }
-        
       }
     }
   })

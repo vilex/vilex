@@ -1,14 +1,18 @@
 {
   "name": "vilex",
-  "version": "0.0.7",
-  "description": "",
-  "main": "lib/vii.js",
-  "module": "lib/vii.js",
+  "version": "0.0.8",
+  "publishConfig": {
+    "main": "lib/vii.js",
+    "module": "lib/vii.js"
+  },
+  "main": "src/vii.ts",
+  "module": "src/vii.ts",
   "types": "lib/src/vii.d.ts",
   "files": [
     "lib"
   ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "gen-elements-type": "node ./scripts/genElements/exports.js",
     "ts-types": "tsc --emitDeclarationOnly --outDir lib",
     "build": "rimraf lib && node ./esbuild.js && npm run ts-types",
