@@ -52,29 +52,29 @@ function InsertCodeEndOfFile(code, specifiers) {
 
     fileMap.forEach((item, from) => {
         const template = `
-        import.meta.hot.accept('${from}', mod => {
-            console.log('文件变化：', '${item.path}')
-            console.log(mod)
-            for (const key in mod) {
-                console.log('类型', typeof mod[key])
-                if (typeof mod[key] === 'object') {
-                    if (mod[key].$ && mod[key].$.type) {
-                        __vilex__hmr__.register(ret, '${item.path}', key, null)
-                        __vilex__hmr__.render(ret)
-                    }
-                } else if (typeof mod[key] === 'function') {
-                    const ret = mod[key]()
-                    console.log('进入function')
-                    console.log('ret是', ret)
-                    if (ret && ret.$ && ret.$.type) {
-                        console.log('是组件方法', ret)
-                        __vilex__hmr__.register(ret, '${item.path}', key, null)
-                        __vilex__hmr__.render(ret, null, mod, key)
-                    }
-                }
-            }
-        })
-        `
+import.meta.hot.accept('${from}', mod => {
+  for (const key in mod) {
+      if (typeof mod[key] === 'object') {
+          if (mod[key].$ && mod[key].$.type) {
+              __vilex__hmr__.register(ret, '${item.path}', key, null)
+              __vilex__hmr__.render(ret)
+          }
+      } else if (typeof mod[key] === 'function') {
+          const args = __vilex__hmr__.getArgs('${item.path}', key)
+          let ret
+          if (Array.isArray(args)) {
+            ret = mod[key](...args)
+          } else {
+            ret = mod[key]()
+          }
+          if (ret && ret.$ && ret.$.type) {
+              __vilex__hmr__.register(ret, '${item.path}', key, args)
+              __vilex__hmr__.render(ret, null, mod, key)
+          }
+      }
+  }
+})
+`
         output.push(template)
     })
 
