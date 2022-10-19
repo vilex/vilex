@@ -8,7 +8,7 @@ function RewriteImportSpecifiers(code, specifiers, prefix) {
             let ${prefix}${item.name} = ${item.name}
             if (typeof ${item.name} === 'object') {
                 if (${item.name}.$ && ${item.name}.$.type) {
-                    __vilex__hmr.register(${item.name}, '${item.path}', '${item.name}', null)
+                    __vilex__hmr__.register(${item.name}, '${item.path}', '${item.name}', null)
                 }
             } else if (typeof ${item.name} === 'function') {
                 ${prefix}${item.name} = new Proxy(${item.name}, {
