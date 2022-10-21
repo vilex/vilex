@@ -49,3 +49,4 @@ export type ViItemPart =
   | ViEvent
   | ViChildren
   | Ref
+  | ViElement
