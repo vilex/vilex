@@ -11,6 +11,10 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
     }
     if (typeof option === 'string' || typeof option === 'number') {
       list.push(option)
+    }
+    // @ts-ignore
+    else if (isPromise(option) || (option.$ && option.$.type)) {
+      list.push(option)
     } else if (Array.isArray(option)) {
       const isChildren = option.some(item => {
         return isPromise(item) || (item.$ && item.$.type)

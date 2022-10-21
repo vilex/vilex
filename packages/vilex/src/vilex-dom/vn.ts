@@ -10,6 +10,7 @@ import { eventBehavior } from './events'
 import { g } from './g'
 import { isPromise } from '../utils/isPromise'
 import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
+import { ViElement } from '../vii'
 
 export type Transit = Record<string, unknown>
 
@@ -26,6 +27,7 @@ export type VnItem =
   | IClass
   | IEvents
   | IStyle
+  | ViElement
 
 export type VNode = IDataNode & {
   el: HTMLElement | Text | SVGSVGElement | SVGUseElement
@@ -95,7 +97,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
   })
 
   eventBehavior(vnode)
-  return vnode
+  return vnode as unknown as ViElement
 }
 
 export function element(tag: string) {
