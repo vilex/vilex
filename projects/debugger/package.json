@@ -15,7 +15,7 @@
     "vite-vilex": "workspace:^0.1.6"
   },
   "dependencies": {
-    "vilex": "workspace:^0.0.7",
+    "vilex": "workspace:^0.0.8",
     "vilex-router": "^0.0.3"
   }
 }
