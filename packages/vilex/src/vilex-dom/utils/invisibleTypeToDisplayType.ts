@@ -45,7 +45,7 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
         list.push({
           $dataType: 'style',
           ...option
-        })
+        } as VnItem)
       } else {
         // event, props
         let isEvents = true
@@ -60,12 +60,12 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
           list.push({
             $dataType: 'event',
             ...option
-          })
+          } as VnItem)
         } else {
           list.push({
             $dataType: 'props',
             ...option
-          })
+          } as VnItem)
         }
       }
     }

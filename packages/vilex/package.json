@@ -3,11 +3,11 @@
   "version": "0.0.8",
   "publishConfig": {
     "main": "lib/vii.js",
-    "module": "lib/vii.js"
+    "module": "lib/vii.js",
+    "types": "lib/src/vii.d.ts"
   },
   "main": "src/vii.ts",
   "module": "src/vii.ts",
-  "types": "lib/src/vii.d.ts",
   "files": [
     "lib"
   ],

@@ -1,5 +1,5 @@
 import { Properties } from 'csstype'
-import { Text } from './elements'
+import { Text, TextValue } from './elements'
 import { messageProcessing } from './processer'
 import { DataNode, IDataNode } from '../vilex/display/DisplayObject'
 import { IAttr, IClass, IEvents, IStyle } from '../vilex/dataType/DataFactor'
@@ -14,10 +14,12 @@ import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
 export type Transit = Record<string, unknown>
 
 export type DisplayFactor = () => IDataNode
+
 export type VnItem =
   | IDataNode
   | Properties
   | string
+  | number
   | Transit
   | DisplayFactor
   | IAttr
@@ -28,7 +30,10 @@ export type VnItem =
 export type VNode = IDataNode & {
   el: HTMLElement | Text | SVGSVGElement | SVGUseElement
 }
-export function vn(tag: string, options: VnItem[]) {
+export function vn<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  options: VnItem[]
+) {
   const items = invisibleTypeToDisplayType(options)
 
   const dataModel = DataModel(tag)
@@ -52,16 +57,18 @@ export function vn(tag: string, options: VnItem[]) {
         itemNode = itemNode.toString()
       }
       if (typeof itemNode === 'string' || isRef(itemNode)) {
-        const text = Text(itemNode)
+        const text = Text(itemNode as TextValue)
         vnode.add(text)
         children.push(text)
+        // @ts-ignore
       } else if (itemNode?.$?.type) {
-        vnode.add(itemNode)
+        vnode.add(itemNode as IDataNode)
         children
       } else if (isPromise(itemNode)) {
-        children.push(itemNode)
+        children.push(itemNode as VNode)
         recordAsyncIndex++
         itemNode
+          // @ts-ignore
           .then((r: IDataNode) => {
             if (r.$ && r.$.type) {
               const index = children.findIndex(item => item === itemNode)
