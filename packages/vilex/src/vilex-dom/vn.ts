@@ -1,8 +1,7 @@
-import { Properties } from 'csstype'
 import { Text, TextValue } from './elements'
 import { messageProcessing } from './processer'
 import { DataNode, IDataNode } from '../vilex/display/DisplayObject'
-import { IAttr, IClass, IEvents, IStyle } from '../vilex/dataType/DataFactor'
+import { IAttr, IClass, IStyle } from '../vilex/dataType/DataFactor'
 import { DataModel } from '../vilex/dataType/DataModel'
 import { EmitType } from '../vilex/constant/EmitType'
 import { isRef } from '../vilex/store/store'
@@ -11,23 +10,25 @@ import { g } from './g'
 import { isPromise } from '../utils/isPromise'
 import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
 import { ViElement } from '../vii'
+import { Ref, ViEvent } from './elements/velements'
 
 export type Transit = Record<string, unknown>
 
 export type DisplayFactor = () => IDataNode
 
 export type VnItem =
+  | IStyle
   | IDataNode
-  | Properties
+  // | Properties
   | string
   | number
-  | Transit
+  // | Transit
   | DisplayFactor
   | IAttr
   | IClass
-  | IEvents
-  | IStyle
+  | ViEvent
   | ViElement
+  | Ref
 
 export type VNode = IDataNode & {
   el: HTMLElement | Text | SVGSVGElement | SVGUseElement
@@ -45,7 +46,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
   vnode.el = element(tag)
   vnode.on(
     EmitType.ON_NODE_CHANGE,
-    (eventType: string | number, ...args: any[]) =>
+    (eventType: string | number, ...args: unknown[]) =>
       messageProcessing(eventType, vnode, ...args)
   )
   dataModel.set(...items)
@@ -60,8 +61,8 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
       }
       if (typeof itemNode === 'string' || isRef(itemNode)) {
         const text = Text(itemNode as TextValue)
-        vnode.add(text)
-        children.push(text)
+        vnode.add(text as unknown as IDataNode)
+        children.push(text as unknown as VNode)
         // @ts-ignore
       } else if (itemNode?.$?.type) {
         vnode.add(itemNode as IDataNode)
@@ -89,7 +90,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
               // vnode.insert(r, vnode.children[index])
             }
           })
-          .catch((err: any) => {
+          .catch((err: unknown) => {
             console.log(err)
           })
       }
