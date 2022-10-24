@@ -30,6 +30,14 @@ importers:
     dependencies:
       commander: 9.4.1
 
+  packages/styled:
+    specifiers:
+      '@types/stylis': ^4.0.2
+      stylis: ^4.1.2
+    dependencies:
+      '@types/stylis': 4.0.2
+      stylis: 4.1.2
+
   packages/vilex:
     specifiers:
       csstype: ^3.1.1
@@ -81,11 +89,13 @@ importers:
 
   projects/debugger:
     specifiers:
+      styled: workspace:^1.0.0
       vilex: workspace:^0.0.8
       vilex-router: ^0.0.3
       vite: ^3.1.2
       vite-vilex: workspace:^0.1.6
     dependencies:
+      styled: link:../../packages/styled
       vilex: link:../../packages/vilex
       vilex-router: 0.0.3
     devDependencies:
@@ -519,6 +529,10 @@ packages:
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
+
+  /@types/stylis/4.0.2:
+    resolution: {integrity: sha512-wtckGuk1eXUlUz0Qb1eXHG37Z7HWT2GfMdqRf8F/ifddTwadSS9Jwsqi4qtXk7cP7MtoyGVIHPElFCLc6HItbg==}
+    dev: false
 
   /@typescript-eslint/eslint-plugin/5.40.0_25sstg4uu2sk4pm7xcyzuov7xq:
     resolution: {integrity: sha512-FIBZgS3DVJgqPwJzvZTuH4HNsZhHMa9SjxTKAZTlMsPw/UzpEjcf9f4dfgDJEHjK+HboUJo123Eshl6niwEm/Q==}
@@ -2520,6 +2534,10 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
     dev: true
+
+  /stylis/4.1.2:
+    resolution: {integrity: sha512-Nn2CCrG2ZaFziDxaZPN43CXqn+j7tcdjPFCkRBkFue8QYXC2HdEwnw5TCBo4yQZ2WxKYeSi0fdoOrtEqgDrXbA==}
+    dev: false
 
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
