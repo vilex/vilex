@@ -5,20 +5,27 @@ import { insert } from './rule'
 import { compile, serialize, stringify, middleware, prefixer } from 'stylis'
 import { genId } from './utils'
 
-function TemplateFunction(strings: TemplateStringsArray) {
+export interface Styled {
+  classname: string
+}
+
+const { sheet } = createStyleElement()
+
+const vsheet = sheet as CSSStyleSheet
+
+function TemplateFunction(strings: TemplateStringsArray): Styled {
   const classname = genId()
+
   const rule = serialize(
     compile(`.${classname} { ${strings[0]} }`),
     middleware([prefixer, stringify])
   )
 
-  const rules = rule.split(`.${classname}`)
-  console.log(rules)
-  rules.forEach(rule => rule.trim() && insert(sheet, `.${classname}${rule}`))
+  rule
+    .split(`.${classname}`)
+    .forEach(rule => rule.trim() && insert(vsheet, `.${classname}${rule}`))
 
-  return classname
+  return { classname }
 }
-
-const { sheet } = createStyleElement()
 
 export const css = TemplateFunction

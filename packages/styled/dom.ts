@@ -6,6 +6,7 @@ export function createStyleElement(target?: HTMLElement): HTMLStyleElement {
   const prevStyle = findLastStyleTag(parent)
   const nextSibling = prevStyle !== undefined ? prevStyle.nextSibling : null
   style.setAttribute(STYLED_ID, STYLED_ID_V)
+  style.setAttribute('type', 'text/css')
   parent.insertBefore(style, nextSibling)
   return style
 }

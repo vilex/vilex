@@ -4,12 +4,17 @@ import { css } from 'styled'
 
 const count = ref(0)
 
-css`
-  background-color: rebeccapurple;
-  font-size: 60px;
-  &:hover {
-    background-color: gray;
-  }
+const Button = createElement(
+  'button',
+  css`
+    color: red;
+    font-size: large;
+    flood-color: antiquewhite;
+  `
+)
+
+const a = createElement('button')`
+  bg
 `
 
 const app = createElement('div', [
@@ -25,6 +30,13 @@ const app = createElement('div', [
   createElement('p', [count]),
   createElement('button', [
     '点我+1',
+    css`
+      background-color: rebeccapurple;
+      font-size: 60px;
+      &:hover {
+        background-color: gray;
+      }
+    `,
     {
       onclick() {
         count.value++
@@ -32,8 +44,7 @@ const app = createElement('div', [
     },
     {
       color: 'rgba(0,0,0,0.8)'
-    },
-    ['auto-css']
+    }
   ])
 ])
 

@@ -11,12 +11,14 @@ import { isPromise } from '../utils/isPromise'
 import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
 import { ViElement } from '../vii'
 import { Ref, ViEvent } from './elements/velements'
+import { Styled } from 'styled'
 
 export type Transit = Record<string, unknown>
 
 export type DisplayFactor = () => IDataNode
 
 export type VnItem =
+  | Styled
   | IStyle
   | IDataNode
   // | Properties
