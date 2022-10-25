@@ -7,6 +7,7 @@ import { genId } from './utils'
 
 export interface Styled {
   classname: string
+  _styled: boolean
 }
 
 const { sheet } = createStyleElement()
@@ -25,7 +26,7 @@ function TemplateFunction(strings: TemplateStringsArray): Styled {
     .split(`.${classname}`)
     .forEach(rule => rule.trim() && insert(vsheet, `.${classname}${rule}`))
 
-  return { classname }
+  return { classname, _styled: true }
 }
 
 export const css = TemplateFunction

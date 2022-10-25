@@ -1,5 +1,6 @@
 import { Properties } from 'csstype'
-import { IAttr, IClass, IEvents, IStyle, ViElement } from '../../vii'
+import { Styled } from 'vilex-css'
+import { ViElement } from '../../vii'
 import { IDataEmit } from '../../vilex/dataType/DataEmit'
 import { IDataModel } from '../../vilex/dataType/DataModel'
 import { ref } from '../../vilex/store/store'
@@ -22,7 +23,7 @@ export interface IDataNode extends IDataEmit {
 type ViStyle = Properties
 type ViLabel = string | number
 // class name
-type ViClass = (string | { [k: string]: any })[]
+type ViClass = (string | { [k: string]: unknown })[]
 // children
 type ViChildren = ViElement[]
 
@@ -43,6 +44,7 @@ export type ViEvent = Prefixer<ViEventMap, 'on'>
 export type Ref = ReturnType<typeof ref>
 
 export type ViItemPart =
+  | Styled
   | ViLabel
   | ViStyle
   | ViClass

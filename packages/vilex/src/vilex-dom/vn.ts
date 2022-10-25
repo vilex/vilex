@@ -11,7 +11,7 @@ import { isPromise } from '../utils/isPromise'
 import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
 import { ViElement } from '../vii'
 import { Ref, ViEvent } from './elements/velements'
-import { Styled } from 'styled'
+import { Styled } from 'vilex-css'
 
 export type Transit = Record<string, unknown>
 

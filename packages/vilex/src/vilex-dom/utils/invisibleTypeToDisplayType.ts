@@ -1,6 +1,7 @@
 import { isPromise } from '../../utils/isPromise'
 import { VnItem } from '../vn'
 import { isCssKey } from './isCssKey'
+import { isStyled } from './isStyled'
 
 export function invisibleTypeToDisplayType(options: VnItem[]) {
   const list: VnItem[] = []
@@ -10,6 +11,8 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
       option = option()
     }
     if (typeof option === 'string' || typeof option === 'number') {
+      list.push(option)
+    } else if (isStyled(option)) {
       list.push(option)
     }
     // @ts-ignore

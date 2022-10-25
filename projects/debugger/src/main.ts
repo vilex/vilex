@@ -1,51 +1,27 @@
-import { createApp, createElement, ref } from 'vilex'
-import 'styled'
-import { css } from 'styled'
+import { createApp, div, h1 } from 'vilex'
 
-const count = ref(0)
+import { css } from 'vilex-css'
 
-const Button = createElement(
-  'button',
+const app = div(
   css`
-    color: red;
-    font-size: large;
-    flood-color: antiquewhite;
-  `
-)
-
-const a = createElement('button')`
-  bg
-`
-
-const app = createElement('div', [
-  {
-    fontFamily: 'cursive',
-    width: '200px',
-    margin: '0 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    textAlign: 'center'
-  },
-  createElement('p', [count]),
-  createElement('button', [
-    '点我+1',
-    css`
-      background-color: rebeccapurple;
-      font-size: 60px;
-      &:hover {
-        background-color: gray;
-      }
-    `,
+    color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    transform: translate(0);
+  `,
+  div(
+    h1('hello'),
     {
       onclick() {
-        count.value++
+        console.log('hit')
       }
     },
     {
-      color: 'rgba(0,0,0,0.8)'
+      id: '777'
     }
-  ])
-])
+  )
+)
 
 createApp(app).mount('#app')

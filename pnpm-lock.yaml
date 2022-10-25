@@ -44,11 +44,11 @@ importers:
       esbuild: ^0.15.7
       rimraf: ^3.0.2
       rollup: ^2.79.0
-      styled: workspace:^1.0.0
       typescript: ^4.8.3
+      vilex-css: workspace:^1.0.0
     dependencies:
       csstype: 3.1.1
-      styled: link:../styled
+      vilex-css: link:../css
     devDependencies:
       esbuild: 0.15.10
       rimraf: 3.0.2
@@ -91,14 +91,14 @@ importers:
 
   projects/debugger:
     specifiers:
-      styled: workspace:^1.0.0
       vilex: workspace:^0.0.8
+      vilex-css: workspace:^1.0.0
       vilex-router: ^0.0.3
       vite: ^3.1.2
       vite-vilex: workspace:^0.1.6
     dependencies:
-      styled: link:../../packages/styled
       vilex: link:../../packages/vilex
+      vilex-css: link:../../packages/css
       vilex-router: 0.0.3
     devDependencies:
       vite: 3.1.8
@@ -928,8 +928,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      is-text-path: 1.0.1
       JSONStream: 1.3.5
+      is-text-path: 1.0.1
       lodash: 4.17.21
       meow: 8.1.2
       split2: 3.2.2
