@@ -1,13 +1,16 @@
 on:
   push:
-    branches:
-    - main
-    
+  pull_request_target:
+    branches: [main]
+name: async to coding
 jobs:
-  sync:
-    runs-on: ubuntu-18.04
+  run:
+    name: Run
+    runs-on: ubuntu-latest
     steps:
-    - name: sync to coding
+    - name: Checkout source codes
+      uses: actions/checkout@v1
+    - name: Mirror Github to Coding with white list
       run: |
         git fetch https://${{ secrets.CODING_KEY }}:${{ secrets.CODING_TOKEN }}@e.coding.net/vilex/vilex/vilex.git
         git push -f https://${{ secrets.CODING_KEY }}:${{ secrets.CODING_TOKEN }}@e.coding.net/vilex/vilex/vilex.git HEAD:github/main
