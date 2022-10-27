@@ -119,6 +119,19 @@ importers:
       vite: 3.1.8
       vite-vilex: link:../../packages/vite-vilex
 
+  projects/demo:
+    specifiers:
+      vilex: workspace:^0.0.8
+      vilex-router: ^0.0.3
+      vite: ^3.1.8
+      vite-vilex: workspace:^0.1.7
+    dependencies:
+      vilex: link:../../packages/vilex
+      vilex-router: 0.0.3
+    devDependencies:
+      vite: 3.1.8
+      vite-vilex: link:../../packages/vite-vilex
+
 packages:
 
   /@babel/code-frame/7.18.6:

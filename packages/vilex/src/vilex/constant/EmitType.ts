@@ -12,7 +12,8 @@ export enum EmitType {
   UpdateStyle = 'style',
   UpdateClass = 'class',
   Event = 'event',
-  
+
   ON_NODE_CHANGE = 'on_node_change',
-  ON_PROXY_CHANGE = 'on_proxy_change'
+  ON_PROXY_CHANGE = 'on_proxy_change',
+  ON_DELETE_PORPERTY = `ON_DELETE_PORPERTY`
 }

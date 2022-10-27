@@ -13,7 +13,8 @@ window.__vilex__hmr__ = {
   render(updated, app, mod, key) {
       const self = app || window.__dev_vilex__app__
       if (this.equal(__dev_vilex__app__, updated)) {
-          import.meta.hot.invalidate()
+        //   import.meta.hot.invalidate()
+        window.location.reload()
           return
       }
       try {
@@ -29,6 +30,7 @@ window.__vilex__hmr__ = {
         }
       } catch(err) {
         import.meta.hot.invalidate()
+        window.location.reload()
         console.error(err)
       }
   },
