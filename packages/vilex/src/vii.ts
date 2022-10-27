@@ -6,5 +6,5 @@ export interface ViElement extends IDataNode {
 
 export * from './vilex'
 export * from './vilex-dom'
-
 export * from './element'
+export * from './css'

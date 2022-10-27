@@ -1,6 +1,4 @@
-import { createApp, div, h1 } from 'vilex'
-
-import { css } from 'vilex-css'
+import { createApp, css, div, h1 } from 'vilex'
 
 const app = div(
   css`
