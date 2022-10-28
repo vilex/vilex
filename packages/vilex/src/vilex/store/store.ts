@@ -5,7 +5,6 @@ import { EmitType } from '../constant/EmitType'
 import { validAttribute } from '../../utils/validAttribute'
 import { canProxy } from '../../utils/canProxy'
 import { isProxy } from '../../utils/isProxy'
-import { ExtendsProtoKeys } from '../../utils/extendsProtoKeys'
 
 // const ArrayActions = ['shift', 'push', 'splice', 'pop', 'unshift']
 
@@ -26,24 +25,8 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
           vp.value = value
           return true
         }
-        if (Array.isArray(target)) {
-          if (typeof key === 'string') {
-            console.log(`set`, key, value)
-          }
-          if (key !== 'length' && typeof key === 'string') {
-            // console.log(key)
-            if (Number(key) >= target.length) {
-              // console.log(`追加一个子元素`)
-            }
-          }
-        } else {
-          ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, value)
-        }
+        ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, value)
         return Reflect.set(target, key, value)
-      },
-      deleteProperty(target, p) {
-        ;(data as IDataEmit).emit(EmitType.ON_DELETE_PORPERTY, p)
-        return Reflect.deleteProperty(target, p)
       }
     },
     dataTypeName
@@ -52,7 +35,7 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
 
 function deepStore<T extends Record<string, unknown>>(
   data: T,
-  root?: any,
+  root?: T,
   key?: string
 ): T {
   if (canProxy(data)) {
@@ -74,11 +57,6 @@ function deepStore<T extends Record<string, unknown>>(
 
 export function store<T>(data: T): T {
   if (canProxy(data)) {
-    if (Array.isArray(data)) {
-      return deepStore(
-        ExtendsProtoKeys(data, DataEmit({ __type__: 'StoreProxy' }))
-      )
-    }
     return deepStore(
       DataEmit({ ...data, __type__: 'StoreProxy' })
     ) as unknown as T
