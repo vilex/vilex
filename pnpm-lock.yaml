@@ -39,6 +39,19 @@ importers:
     devDependencies:
       vite: 3.1.8
 
+  packages/_dev_reactivity:
+    specifiers:
+      reactivity: ^2.4.1
+      vilex: latest
+      vite: ^3.1.8
+      vite-vilex: latest
+    dependencies:
+      reactivity: 2.4.1
+      vilex: link:../vilex
+    devDependencies:
+      vite: 3.1.8
+      vite-vilex: link:../vite-vilex
+
   packages/create-app:
     specifiers:
       commander: ^9.4.1
@@ -52,6 +65,18 @@ importers:
     dependencies:
       '@types/stylis': 4.0.2
       stylis: 4.1.2
+
+  packages/event-emitter:
+    specifiers:
+      eventemitter3: ^4.0.7
+    dependencies:
+      eventemitter3: 4.0.7
+
+  packages/reactivity:
+    specifiers:
+      event-emitter: workspace:^1.0.0
+    dependencies:
+      event-emitter: link:../event-emitter
 
   packages/vilex:
     specifiers:
@@ -1438,6 +1463,10 @@ packages:
     resolution: {integrity: sha512-zbePIHR/HVKUpbKSKGxtAVhHjpuiLNp/s0ZYElSvxujE2jNb505+Wv+uUWbRi/bmsbgjvvFImS8HhhNMVHgJdg==}
     dev: false
 
+  /eventemitter3/4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
+    dev: false
+
   /execa/5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
     engines: {node: '>=10'}
@@ -2270,6 +2299,10 @@ packages:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
     dev: true
+
+  /reactivity/2.4.1:
+    resolution: {integrity: sha512-wly4mtVTPMNU1AMqODZ63feviyUvx5+QZF9cmu4ahW6t/yKh4mp1l67pvrc/+6oJToilwaSeRhksAY4Mby3Mpg==}
+    dev: false
 
   /read-pkg-up/7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
