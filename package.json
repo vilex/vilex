@@ -38,5 +38,10 @@
     "vitest": "^0.24.3",
     "vilex": "workspace:*",
     "vite": "latest"
+  },
+  "dependencies": {
+    "@vilex/runtime-dom": "workspace:*",
+    "@vilex/utils": "workspace:*",
+    "mitt": "latest"
   }
 }
