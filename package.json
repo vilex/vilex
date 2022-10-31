@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "vite --port 3000",
     "test": "vitest",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
@@ -34,6 +35,8 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.3"
+    "vitest": "^0.24.3",
+    "vilex": "workspace:*",
+    "vite": "latest"
   }
 }
