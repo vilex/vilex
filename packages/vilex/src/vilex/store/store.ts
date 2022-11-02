@@ -25,7 +25,9 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
           vp.value = value
           return true
         }
+
         ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, value)
+
         return Reflect.set(target, key, value)
       }
     },
@@ -68,9 +70,7 @@ export function store<T>(data: T): T {
   return data
 }
 
-export function ref<T extends string | number | boolean>(
-  data: T
-): { value: T } {
+export function ref<T>(data: T): { value: T } {
   if (canProxy(data)) {
     console.warn(
       `ref warn: You used value() => ${data}, you should use store() => ${data}`
