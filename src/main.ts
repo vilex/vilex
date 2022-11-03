@@ -1,12 +1,39 @@
-import { disableConsole } from '@vilex/utils'
-import { div, li, listView, store } from 'vilex'
+// import { disableConsole } from '@vilex/utils'
+import { div, listView, store } from 'vilex'
 import { button, createApp } from 'vilex'
 
-const list = store([1, 2, 3])
+const list = store([
+  {
+    name: 'add item',
+    exec: () =>
+      list.push({
+        name: 'newItem',
+        exec: () => {
+          1
+        }
+      })
+  },
+  {
+    name: 'del first item',
+    exec: () => list.shift()
+  },
+  {
+    name: 'del last item',
+    exec: () => list.pop()
+  },
+  {
+    name: '删除第0个并插入1个',
+    exec: () => list.splice(1, 0, 33)
+  }
+])
 const btn = div(
-  // list.map(item => button(item))
-  // ,
-  listView(list, item => button(item))
+  listView(list, item =>
+    button(item.name, {
+      onclick() {
+        item.exec()
+      }
+    })
+  )
 )
 
 window.list = list

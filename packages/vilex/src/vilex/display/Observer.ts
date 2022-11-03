@@ -17,10 +17,8 @@ export function Observer(node: IDataNode) {
             } else {
               node.emit(EmitType.ON_NODE_CHANGE, t, k, vv)
             }
-            console.log(`数据变更`, k, v)
           })
         }
-        console.log(`数据变更`, k, v)
         node.emit(EmitType.ON_NODE_CHANGE, t, k, v)
       })
     }
@@ -35,7 +33,6 @@ export function Observer(node: IDataNode) {
             if (v === 'Del-$_$-Self') {
               delNode(node)
             } else {
-              console.log(`数据变更`, k, v)
               node.emit(EmitType.ON_NODE_CHANGE, t, k, v)
             }
           })

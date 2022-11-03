@@ -7,12 +7,13 @@ import { canProxy } from '../../utils/canProxy'
 import { isProxy } from '../../utils/isProxy'
 import { defineStoreProperty } from './defineStoreProperty'
 import { isObject, isSymbol } from '@vilex/utils'
+import { merge } from './merge'
 
 // const ArrayActions = ['shift', 'push', 'splice', 'pop', 'unshift']
 const blacklist = ['emit', 'on']
 
-let vp
 function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
+  if (typeof data === 'function') return data
   return EnProxy(
     data,
     {
@@ -23,15 +24,23 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         if (isSymbol(key) || isSymbol(value)) {
           return Reflect.set(target, key, value)
         }
+        console.log(`set `, key, value)
+        if (4 === Number(key)) {
+          debugger
+        }
 
         if (blacklist.includes(key as string)) {
           return Reflect.set(target, key, value)
         }
 
-        console.log(`set `, target, key, value)
-        vp = Reflect.get(target, key)
+        const vp = Reflect.get(target, key)
         if (isRef(vp)) {
           vp.value = isRef(value) ? value.value : value
+          return true
+        }
+
+        if (isProxy(vp)) {
+          merge(vp, value)
           return true
         }
 
@@ -39,8 +48,9 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
           if (!isProxy(value)) {
             const nv = isObject(value) ? store(value) : ref(value)
             ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, nv)
-            debugger
             return Reflect.set(target, key, nv)
+          } else {
+            return Reflect.set(target, key, value)
           }
         }
 
@@ -54,8 +64,8 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
       },
       deleteProperty(target, p) {
         console.log(`deleteProperty`, target, p)
-        const item = target[p] as IDataEmit
-        item.emit(EmitType.ON_PROXY_CHANGE, p, `Del-$_$-Self`)
+        // const item = target[p] as IDataEmit
+        target.emit(EmitType.ON_PROXY_CHANGE, p, `Del-$_$-Self`)
         return Reflect.deleteProperty(target, p)
       },
       apply(target, ...args) {
