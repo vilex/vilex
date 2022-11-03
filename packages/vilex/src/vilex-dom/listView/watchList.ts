@@ -7,7 +7,6 @@ export function watchList(node: VNode) {
       node._$_list.sources.on(
         EmitType.ON_PROXY_CHANGE,
         (...args: unknown[]) => {
-          debugger
           console.log(`watch-list`, ...args)
           console.log('2022-11-03 17:56:20')
         }
