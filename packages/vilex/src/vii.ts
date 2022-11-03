@@ -1,4 +1,5 @@
 import { IDataNode } from './vilex-dom/elements/velements'
+import '@vilex/utils'
 
 export interface ViElement extends IDataNode {
   el: HTMLElement

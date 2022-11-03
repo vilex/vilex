@@ -3,13 +3,20 @@ import { IDataModel } from '../dataType/DataModel'
 import { Observer } from './Observer'
 import { EmitType } from '../constant/EmitType'
 import { uuid } from '../../utils/uuid'
-import { VnItem } from '../../vilex-dom/vn'
+import { VnItem, VNode } from '../../vilex-dom/vn'
 import { invisibleTypeToDisplayType } from '../../vilex-dom/utils/invisibleTypeToDisplayType'
+
+export type _$_lIST = {
+  sources?: unknown[]
+  iterator?: <T>(item: T, index: string | number) => VNode
+}
 
 export interface IDataNode extends IDataEmit {
   $: IDataModel
   $ex?: string
   $parent: IDataNode
+  _$_key?: string
+  _$_list?: _$_lIST
   id: string
   children: IDataNode[]
   add: (...childs: IDataNode[]) => this
@@ -32,7 +39,6 @@ export function DataNode(data: IDataModel) {
   }
   node.removeSelf = function () {
     console.log(`remove-self`)
-    debugger
     if (this.$parent) {
       this.$parent.remove(this)
     }

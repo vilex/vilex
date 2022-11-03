@@ -1,6 +1,6 @@
 import { Text, TextValue } from './elements'
 import { messageProcessing } from './processer'
-import { DataNode, IDataNode } from '../vilex/display/DisplayObject'
+import { DataNode, IDataNode, _$_lIST } from '../vilex/display/DisplayObject'
 import { IAttr, IClass, IStyle } from '../vilex/dataType/DataFactor'
 import { DataModel } from '../vilex/dataType/DataModel'
 import { EmitType } from '../vilex/constant/EmitType'
@@ -12,6 +12,8 @@ import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
 import { ViElement } from '../vii'
 import { Ref, ViEvent } from './elements/velements'
 import { Styled } from '../css'
+import { watchList } from './listView/watchList'
+// import { watchNode } from './watcher/watchNode'
 
 export type Transit = Record<string, unknown>
 
@@ -35,6 +37,7 @@ export type VnItem =
 export type VNode = IDataNode & {
   el: HTMLElement | Text | SVGSVGElement | SVGUseElement
 }
+
 export function vn<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   options: VnItem[]
@@ -51,6 +54,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
     (eventType: string | number, ...args: unknown[]) =>
       messageProcessing(eventType, vnode, ...args)
   )
+  // watchNode(vnode)
   dataModel.set(...items)
 
   let children: VNode[] = []
@@ -66,6 +70,16 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
         vnode.add(text as unknown as IDataNode)
         children.push(text as unknown as VNode)
         // @ts-ignore
+      } else if (itemNode._$_type == `list-view`) {
+        console.log('2022-11-03 17:49:45')
+
+        vnode._$_list = itemNode as _$_lIST
+        if ((itemNode as _$_lIST).sources && (itemNode as _$_lIST).iterator) {
+          // children.push(...itemNode.sources.map(itemNode.iterator))
+          vnode.add(...itemNode.sources.map(itemNode.iterator))
+          console.log(`77`)
+          watchList(vnode)
+        }
       } else if (itemNode?.$?.type) {
         vnode.add(itemNode as IDataNode)
         children

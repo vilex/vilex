@@ -10,6 +10,7 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
     if (typeof option === 'function') {
       option = option()
     }
+
     if (typeof option === 'string' || typeof option === 'number') {
       list.push(option)
     } else if (isStyled(option)) {
@@ -40,39 +41,43 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
       // attr， style
       // object
 
-      let isCss = true
-      for (const key in option) {
-        if (!isCssKey(key)) {
-          isCss = false
-          break
-        }
-      }
-
-      if (isCss) {
-        list.push({
-          $dataType: 'style',
-          ...option
-        } as VnItem)
+      if (option._$_type == `list-view`) {
+        list.push(option)
       } else {
-        // event, props
-        let isEvents = true
+        let isCss = true
         for (const key in option) {
-          if (!key.startsWith('on')) {
-            isEvents = false
+          if (!isCssKey(key)) {
+            isCss = false
             break
           }
         }
 
-        if (isEvents) {
+        if (isCss) {
           list.push({
-            $dataType: 'event',
+            $dataType: 'style',
             ...option
           } as VnItem)
         } else {
-          list.push({
-            $dataType: 'props',
-            ...option
-          } as VnItem)
+          // event, props
+          let isEvents = true
+          for (const key in option) {
+            if (!key.startsWith('on')) {
+              isEvents = false
+              break
+            }
+          }
+
+          if (isEvents) {
+            list.push({
+              $dataType: 'event',
+              ...option
+            } as VnItem)
+          } else {
+            list.push({
+              $dataType: 'props',
+              ...option
+            } as VnItem)
+          }
         }
       }
     }

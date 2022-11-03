@@ -6,8 +6,10 @@ import { validAttribute } from '../../utils/validAttribute'
 import { canProxy } from '../../utils/canProxy'
 import { isProxy } from '../../utils/isProxy'
 import { defineStoreProperty } from './defineStoreProperty'
+import { isObject, isSymbol } from '@vilex/utils'
 
 // const ArrayActions = ['shift', 'push', 'splice', 'pop', 'unshift']
+const blacklist = ['emit', 'on']
 
 let vp
 function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
@@ -18,22 +20,32 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         return Reflect.get(target, p, receiver)
       },
       set(target, key, value) {
+        if (isSymbol(key) || isSymbol(value)) {
+          return Reflect.set(target, key, value)
+        }
+
+        if (blacklist.includes(key as string)) {
+          return Reflect.set(target, key, value)
+        }
+
+        console.log(`set `, target, key, value)
         vp = Reflect.get(target, key)
-        if (isRef(vp) && !isRef(value)) {
-          vp.value = value
+        if (isRef(vp)) {
+          vp.value = isRef(value) ? value.value : value
           return true
         }
-        console.log(`emit `, target, key, value)
+
+        if (vp === undefined) {
+          if (!isProxy(value)) {
+            const nv = isObject(value) ? store(value) : ref(value)
+            ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, nv)
+            debugger
+            return Reflect.set(target, key, nv)
+          }
+        }
 
         if (key === 'length') {
           console.log(`len`)
-          // const len = Reflect.get(target, key)
-          // if (len > value) {
-          //   for (let i = len; i > value; i--) {
-          //     const itemData = target[i - 1] as IDataEmit
-          //     itemData.emit(EmitType.ON_PROXY_CHANGE, i - 1, `Del-$_$-Self`)
-          //   }
-          // }
         } else {
           ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, value)
         }
