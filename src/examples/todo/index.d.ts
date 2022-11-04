@@ -1,0 +1,3 @@
+type TodoType = {
+  title: string
+}
