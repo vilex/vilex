@@ -8,6 +8,7 @@ import { isProxy } from '../../utils/isProxy'
 import { defineStoreProperty } from './defineStoreProperty'
 import { isObject, isSymbol } from '@vilex/utils'
 import { merge } from './merge'
+import { cloneProxy } from './clone'
 
 // const ArrayActions = ['shift', 'push', 'splice', 'pop', 'unshift']
 const blacklist = ['emit', 'on']
@@ -23,6 +24,9 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
       set(target, key, value) {
         if (isSymbol(key) || isSymbol(value)) {
           return Reflect.set(target, key, value)
+        }
+        if (value === undefined) {
+          debugger
         }
         console.log(`set `, key, value)
         if (4 === Number(key)) {
@@ -45,12 +49,15 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         }
 
         if (vp === undefined) {
+          let nv
           if (!isProxy(value)) {
-            const nv = isObject(value) ? store(value) : ref(value)
+            nv = isObject(value) ? store(value) : ref(value)
             ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, nv)
             return Reflect.set(target, key, nv)
           } else {
-            return Reflect.set(target, key, value)
+            nv = cloneProxy(value)
+            ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, nv)
+            return Reflect.set(target, key, nv)
           }
         }
 

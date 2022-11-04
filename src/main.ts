@@ -22,8 +22,14 @@ const list = store([
     exec: () => list.pop()
   },
   {
-    name: '删除第0个并插入1个',
-    exec: () => list.splice(1, 0, 33)
+    name: '删除第1个并插入1个',
+    exec: () =>
+      list.splice(1, 1, {
+        name: `newInsert`,
+        exec: () => {
+          2
+        }
+      })
   }
 ])
 const btn = div(
