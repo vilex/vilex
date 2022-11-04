@@ -39,19 +39,18 @@ export function DataModel(type: string): IDataModel {
   // }
   //@ts-ignore
   dataModel.set = (...datas: VnItem[]) => {
-    forDataList(datas, (item: { $dataType: string | number }) => {
+    const dm = dataModel as IDataModelOptions
+    forDataList(datas, (item: { $dataType: string | number } & VnItem) => {
       if (item.$dataType) {
         //@ts-ignore
-        if (!(dataModel as IDataModelOptions)[item.$dataType]) {
+        if (!dm[item.$dataType]) {
           //@ts-ignore
-          ;(dataModel as IDataModelOptions)[item.$dataType] = item
+          dm[item.$dataType] = item
         } else {
           for (const k in item) {
             if (!reservedKey.includes(k)) {
               // @ts-ignore
-              ;(dataModel as IDataModelOptions)[item.$dataType][k] = (
-                item as VnItem
-              )[k]
+              dm[item.$dataType][k] = (item as VnItem)[k]
             }
           }
         }
@@ -66,12 +65,15 @@ export function DataModel(type: string): IDataModel {
   return dataModel as IDataModel
 }
 
-function forDataList(list: VnItem[], handler: (vn: VnItem) => void) {
+function forDataList<T extends VnItem>(
+  list: (T | VnItem)[],
+  handler: (vn: T) => void
+) {
   list.forEach(data => {
     if (data) {
       const item = typeof data === 'function' ? data() : data
       if (item != null && item != undefined) {
-        handler(item)
+        handler(item as T)
       }
     }
   })

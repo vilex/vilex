@@ -1,4 +1,4 @@
-import { Styled } from 'vilex-css'
+import { Styled } from '../../css'
 
 export function isStyled(val: unknown) {
   if ((val as Styled).classname && (val as Styled)._styled) {

@@ -8,8 +8,9 @@ import { findMap } from './findMap'
 export function Observer(node: IDataNode) {
   const m = node.$
   for (const t in m) {
-    if (isProxy((m as unknown as Record<string, object>)[t])) {
-      ;(m as any)[t].on(EmitType.ON_PROXY_CHANGE, (k, v) => {
+    const _m = m as unknown as any
+    if (isProxy(_m[t])) {
+      _m[t].on(EmitType.ON_PROXY_CHANGE, (k: any, v: any) => {
         if (isProxy(v)) {
           v.on(EmitType.ON_PROXY_CHANGE, (kk: any, vv: any) => {
             if (vv === 'Del-$_$-Self') {

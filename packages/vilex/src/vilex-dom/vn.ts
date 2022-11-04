@@ -38,6 +38,12 @@ export type VNode = IDataNode & {
   el: HTMLElement | Text | SVGSVGElement | SVGUseElement
 }
 
+type TextContent = string | number | Ref
+type TextComponentOption = { data: TextContent; $dataType: string }
+
+export function vn(tag: 'text', options: TextComponentOption[]): ViElement
+export function vn(tag: string, options: VnItem[]): ViElement
+
 export function vn<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   options: VnItem[]
@@ -74,13 +80,14 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
         console.log('2022-11-03 17:49:45')
 
         vnode._$_list = itemNode as _$_lIST
-        if ((itemNode as _$_lIST).sources && (itemNode as _$_lIST).iterator) {
+        const sources = vnode._$_list.sources
+        const iterator = vnode._$_list.iterator
+        if (sources && iterator) {
           // children.push(...itemNode.sources.map(itemNode.iterator))
-          vnode.add(...itemNode.sources.map(itemNode.iterator))
-          console.log(`77`)
+          vnode.add(...sources.map(iterator))
           watchList(vnode)
         }
-      } else if (itemNode?.$?.type) {
+      } else if ((itemNode as IDataNode)?.$?.type) {
         vnode.add(itemNode as IDataNode)
         children
       } else if (isPromise(itemNode)) {

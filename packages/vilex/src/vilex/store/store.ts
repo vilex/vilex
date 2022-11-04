@@ -75,11 +75,7 @@ function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
         return Reflect.deleteProperty(target, p)
       },
       apply(target, ...args) {
-        debugger
-        if (target.name === 'map') {
-          debugger
-        }
-        Reflect.apply(target, ...args)
+        Reflect.apply(target as any, ...args)
       }
     },
     dataTypeName
@@ -103,6 +99,7 @@ function deepStore<T extends Record<string, unknown>>(
     return newProxy(data) as unknown as T
   }
   if (root && key) {
+    // @ts-ignore
     root[key] = ref(data as unknown as string)
   }
   return data

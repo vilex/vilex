@@ -8,5 +8,5 @@ import { vn } from './vilex-dom/vn'
  * @returns
  */
 export function createElement<K extends keyof HTMLElementTagNameMap>(tag: K) {
-  return vn(tag)
+  return vn(tag, [])
 }

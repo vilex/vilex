@@ -1,4 +1,4 @@
-type EnProxyTargetType = object & { [Symbol.toStringTag]: string }
+type EnProxyTargetType = object & { [Symbol.toStringTag]?: string }
 
 export function EnProxy<T extends EnProxyTargetType>(
   target: T,

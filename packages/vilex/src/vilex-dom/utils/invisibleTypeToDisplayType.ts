@@ -41,7 +41,7 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
       // attr， style
       // object
 
-      if (option._$_type == `list-view`) {
+      if ((option as { _$_type: string })._$_type == `list-view`) {
         list.push(option)
       } else {
         let isCss = true

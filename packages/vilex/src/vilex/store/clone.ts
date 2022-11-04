@@ -1,11 +1,12 @@
 import { isSymbol } from '@vilex/utils'
 import { isRef, store } from './store'
 
+type Call = (...args: any[]) => void
 const blacklist = ['emit', 'on']
 
-function _clone(target, cache = new Map()) {
-  const isObject = obj => typeof obj === 'object' && obj !== null
-  const forEach = (array, cb) => {
+function _clone(target: any, cache = new Map()) {
+  const isObject = (obj: any) => typeof obj === 'object' && obj !== null
+  const forEach = (array: any[], cb: Call) => {
     const leng = array.length
     let i = -1
 
@@ -21,7 +22,9 @@ function _clone(target, cache = new Map()) {
       return cacheObj
     }
 
-    const cloneTarget = Array.isArray(target) ? [] : {}
+    const cloneTarget: { [K: string | number]: any } = Array.isArray(target)
+      ? []
+      : {}
     const keys = Object.keys(target)
 
     cache.set(target, cloneTarget)
@@ -42,6 +45,6 @@ function _clone(target, cache = new Map()) {
   }
 }
 
-export const cloneProxy = target => {
+export const cloneProxy = (target: unknown) => {
   return store(_clone(target))
 }

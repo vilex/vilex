@@ -1,1 +1,1 @@
-export const isSymbol = val => typeof val === 'symbol'
+export const isSymbol = (val: unknown) => typeof val === 'symbol'

@@ -1,6 +1,6 @@
 import { isObject, isSymbol } from '@vilex/utils'
 import { isRef } from './store'
-export function merge(ori, tar) {
+export function merge(ori: any, tar: any) {
   if (!ori || !tar) return
   isRef(ori) && !isObject(tar) && (ori.value = tar)
 
