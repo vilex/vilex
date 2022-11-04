@@ -1,6 +1,5 @@
 import { Properties } from 'csstype'
-import { Styled } from 'vilex-css'
-import { ViElement } from '../../vii'
+import { Styled, ViElement } from '../../vii'
 import { IDataEmit } from '../../vilex/dataType/DataEmit'
 import { IDataModel } from '../../vilex/dataType/DataModel'
 import { ref } from '../../vilex/store/store'
