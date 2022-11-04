@@ -220,11 +220,6 @@ export type ViHTMLParagraphElementPart =
   | Omit<PartialElement<HTMLParagraphElement>, keyof ViEvent>
 export type ViHTMLParagraphElement = ViElement & { el: HTMLParagraphElement }
 
-export type ViHTMLParamElementPart =
-  | ViItemPart
-  | Omit<PartialElement<HTMLParamElement>, keyof ViEvent>
-export type ViHTMLParamElement = ViElement & { el: HTMLParamElement }
-
 export type ViHTMLPictureElementPart =
   | ViItemPart
   | Omit<PartialElement<HTMLPictureElement>, keyof ViEvent>
@@ -654,10 +649,6 @@ export function p(
   ...items: ViHTMLParagraphElementPart[]
 ): ViHTMLParagraphElement {
   return vn('p', items as VnItem[]) as unknown as ViHTMLParagraphElement
-}
-
-export function param(...items: ViHTMLParamElementPart[]): ViHTMLParamElement {
-  return vn('param', items as VnItem[]) as unknown as ViHTMLParamElement
 }
 
 export function picture(

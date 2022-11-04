@@ -22,8 +22,6 @@
   "author": "wangxiaowei",
   "license": "ISC",
   "dependencies": {
-    "@jsmini/clone": "^0.4.2",
-    "clone-deep": "^4.0.1",
     "csstype": "^3.1.1",
     "stylis": "^4.1.3"
   },
