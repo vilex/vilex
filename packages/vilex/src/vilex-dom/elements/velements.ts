@@ -2,6 +2,7 @@ import { Properties } from 'csstype'
 import { Styled, ViElement } from '../../vii'
 import { IDataEmit } from '../../vilex/dataType/DataEmit'
 import { IDataModel } from '../../vilex/dataType/DataModel'
+import { _$_lIST } from '../../vilex/display/DisplayObject'
 import { ref } from '../../vilex/store/store'
 
 export interface IDataNode extends IDataEmit {
@@ -51,3 +52,4 @@ export type ViItemPart =
   | ViChildren
   | Ref
   | ViElement
+  | _$_lIST

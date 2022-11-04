@@ -13,8 +13,10 @@ import { cloneProxy } from './clone'
 // const ArrayActions = ['shift', 'push', 'splice', 'pop', 'unshift']
 const blacklist = ['emit', 'on']
 
-function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
+function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
+  const data = _data as IDataEmit
   if (typeof data === 'function') return data
+
   return EnProxy(
     data,
     {
@@ -29,9 +31,6 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
           debugger
         }
         // console.log(`set `, key, value)
-        if (4 === Number(key)) {
-          debugger
-        }
 
         if (blacklist.includes(key as string)) {
           return Reflect.set(target, key, value)
@@ -52,11 +51,11 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
           let nv
           if (!isProxy(value)) {
             nv = isObject(value) ? store(value) : ref(value)
-            ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, nv)
+            data.emit(EmitType.ON_PROXY_CHANGE, key, nv)
             return Reflect.set(target, key, nv)
           } else {
             nv = cloneProxy(value)
-            ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, nv)
+            data.emit(EmitType.ON_PROXY_CHANGE, key, nv)
             return Reflect.set(target, key, nv)
           }
         }
@@ -64,7 +63,7 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         if (key === 'length') {
           // console.log(`len`)
         } else {
-          ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, value)
+          data.emit(EmitType.ON_PROXY_CHANGE, key, value)
         }
 
         return Reflect.set(target, key, value)

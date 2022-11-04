@@ -1,9 +1,10 @@
 import { ViElement } from '../../vii'
+import { _$_lIST } from '../../vilex/display/DisplayObject'
 
 export function listView<T>(
   sources: T[],
   iterator: (item: T, index: number | string) => ViElement
-) {
+): _$_lIST {
   const ret = {
     sources,
     iterator
@@ -19,5 +20,5 @@ export function listView<T>(
     // }
   })
 
-  return ret
+  return ret as unknown as _$_lIST
 }
