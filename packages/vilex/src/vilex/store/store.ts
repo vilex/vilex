@@ -28,7 +28,7 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         if (value === undefined) {
           debugger
         }
-        console.log(`set `, key, value)
+        // console.log(`set `, key, value)
         if (4 === Number(key)) {
           debugger
         }
@@ -62,7 +62,7 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         }
 
         if (key === 'length') {
-          console.log(`len`)
+          // console.log(`len`)
         } else {
           ;(data as IDataEmit).emit(EmitType.ON_PROXY_CHANGE, key, value)
         }
@@ -70,7 +70,7 @@ function newProxy(data: Record<string, unknown>, dataTypeName?: string) {
         return Reflect.set(target, key, value)
       },
       deleteProperty(target, p) {
-        console.log(`deleteProperty`, target, p)
+        // console.log(`deleteProperty`, target, p)
         // const item = target[p] as IDataEmit
         target.emit(EmitType.ON_PROXY_CHANGE, p, `Del-$_$-Self`)
         return Reflect.deleteProperty(target, p)
