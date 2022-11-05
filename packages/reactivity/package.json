@@ -10,6 +10,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "event-emitter": "workspace:^1.0.0"
   }
 }
