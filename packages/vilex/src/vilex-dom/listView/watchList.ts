@@ -8,6 +8,7 @@ export function watchList(node: VNode) {
   if (list) {
     if (list.sources && list.iterator) {
       const sources = list.sources as unknown as IDataEmit
+      if (!sources.on) return
       sources.on(EmitType.ON_PROXY_CHANGE, (key, value) => {
         const numKey = Number(key)
         if (node.children && node.children.length === numKey) {

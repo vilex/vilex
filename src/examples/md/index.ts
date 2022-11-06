@@ -9,10 +9,8 @@ import '@corgicoding/theme'
 
 const mdUtil = new Markdwon()
 export function md(filePath: string) {
-  const v = div(
-    // css`padding: 60px;`,
-    ['c-html-render']
-  )
+  console.log(`md ==> ${filePath}`)
+  const v = div(['c-html-render'])
   fetch(filePath)
     .then(res => {
       res.text().then(content => {

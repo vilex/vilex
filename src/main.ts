@@ -1,21 +1,7 @@
-import {
-  a,
-  article,
-  createApp,
-  css,
-  div,
-  header,
-  img,
-  li,
-  listView,
-  main,
-  nav,
-  store,
-  ul
-} from 'vilex'
-import { md } from './examples/md'
-import { Todo } from './examples/todo'
-import mdmd from './assets/md.md'
+import { router } from './../packages/vilex-router/src/index'
+import { article, createApp, css, div, header, img, main } from 'vilex'
+import { sidebar } from './examples/sidebar'
+import { mdRouterView } from './examples/mdRouter'
 
 const app = div(
   header(
@@ -30,9 +16,11 @@ const app = div(
       grid-template-columns: 2fr 10fr;
       margin: 1vmin 10vmin;
     `,
-    nav(listView(store(['todo', 'md']), item => div(item))),
-    article(md(mdmd))
+    sidebar(),
+    article(mdRouterView())
   )
 )
+
+router.push(`/d/quick-start`)
 
 createApp(app).mount('#app')
