@@ -11,8 +11,13 @@ import { mdRoutes } from '../mdRouter'
 
 const css_sidebar_item = css`
   display: block;
+  color: #666;
+  font-size: 16px;
+  margin-top: 16px;
+  text-decoration: none;
+  transform-origin: center center;
   &:hover {
-    color: green;
+    color: #fe4066;
   }
 `
 

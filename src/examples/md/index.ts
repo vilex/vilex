@@ -7,10 +7,24 @@ import '@corgicoding/theme/dist/github.css'
 /* 主要引入文件 */
 import '@corgicoding/theme'
 
+// const mdTheme = css`
+//   color: #44425e;
+//   h1 {
+//     color: #ff3399;
+//   }
+//   pre {
+//     background-color: #f7f7f7;
+//   }
+//   code {
+//     background-color: #f2f2f7;
+//   }
+// `
+
 const mdUtil = new Markdwon()
 export function md(filePath: string) {
   console.log(`md ==> ${filePath}`)
   const v = div(['c-html-render'])
+  // const v = div(mdTheme)
   fetch(filePath)
     .then(res => {
       res.text().then(content => {

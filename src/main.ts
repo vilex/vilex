@@ -7,6 +7,7 @@ import { article, createApp, css, div, header, img, main } from 'vilex'
 import { sidebar } from './examples/sidebar'
 import { mdRouterView } from './examples/mdRouter'
 import { cg } from './examples/cg'
+import Logo from './assets/logo.png'
 
 const app = div(
   routerView([
@@ -14,10 +15,19 @@ const app = div(
     regRoute('/d', () => {
       return div(
         header(
-          img({
-            alt: 'logo',
-            src: '...'
-          })
+          css`
+            padding: 4vmin 10vmin;
+          `,
+          img(
+            {
+              alt: 'logo',
+              src: Logo
+            },
+            css`
+              width: auto;
+              height: 16px;
+            `
+          )
         ),
         main(
           css`
@@ -33,6 +43,6 @@ const app = div(
   ])
 )
 
-router.push(`/e/cg`)
+router.push(`/d/quick-start`)
 
 createApp(app).mount('#app')
