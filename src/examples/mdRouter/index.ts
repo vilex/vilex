@@ -20,7 +20,7 @@ export const mdRoutes = [
   { title: '数据响应', path: '/d/reactivity', filePath: Reactivity },
   { title: '列表渲染', path: '/d/render-list', filePath: List },
   { title: '路由组件', path: '/d/routr', filePath: Router },
-  { title: 'markdown', path: '/d/quick-start', filePath: Md }
+  { title: 'markdown', path: '/d/markdown', filePath: Md }
 ]
 
 export const mdRouterView = () => {

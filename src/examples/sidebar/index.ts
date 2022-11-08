@@ -31,7 +31,7 @@ export function sidebar() {
       `...`
     ),
     listView(mdRoutes, item =>
-      a(css_sidebar_item, { href: `/#/${item.path}` }, item.title)
+      a(css_sidebar_item, { href: `/#${item.path}` }, item.title)
     )
   )
 }
