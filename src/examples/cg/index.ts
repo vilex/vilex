@@ -1,4 +1,4 @@
-import { css, div, h1, img, ref, span, video } from 'vilex'
+import { css, div, img, ref, span, video } from 'vilex'
 import BackgroundVideo from './background.mp4'
 import Logo from './logo.png'
 

@@ -1,13 +1,8 @@
 {
   "name": "vilex",
-  "version": "0.0.8",
-  "publishConfig": {
-    "main": "lib/vii.js",
-    "module": "lib/vii.js",
-    "types": "lib/src/vii.d.ts"
-  },
+  "version": "0.0.9",
   "main": "lib/vii.js",
-  "module": "lib/vij.ts",
+  "module": "lib/vii.js",
   "types": "lib/src/vii.d.ts",
   "files": [
     "lib"
