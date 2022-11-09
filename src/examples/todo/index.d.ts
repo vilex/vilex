@@ -1,3 +1,3 @@
-type TodoType = {
+export type TodoType = {
   title: string
 }

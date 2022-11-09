@@ -1,3 +1,4 @@
+import { TodoType } from './index.d'
 import { button, css, div, input, listView, ref, store } from 'vilex'
 
 const c__taskItem = css`
