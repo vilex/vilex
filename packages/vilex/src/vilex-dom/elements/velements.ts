@@ -16,11 +16,10 @@ export interface IDataNode extends IDataEmit {
   set: (...datas: ViItemPart[]) => this
 }
 
-// export interface ViElement extends IDataNode {
-//   el: HTMLElement
-// }
+type InlineStyle = { [K: string]: string | number | boolean | Ref }
 
-type ViStyle = Properties
+type ViStyle = Properties | InlineStyle
+
 type ViLabel = string | number
 // class name
 type ViClass = (string | { [k: string]: unknown })[]
