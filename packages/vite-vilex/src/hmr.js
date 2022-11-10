@@ -29,9 +29,9 @@ window.__vilex__hmr__ = {
             }
         }
       } catch(err) {
-        import.meta.hot.invalidate()
+        // import.meta.hot.invalidate()
         window.location.reload()
-        console.error(err)
+        // console.error(err)
       }
   },
 
