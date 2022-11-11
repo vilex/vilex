@@ -1,6 +1,6 @@
 {
   "name": "vilex-router",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "lib/index.js",
   "module": "lib/index.js",

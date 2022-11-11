@@ -1,5 +1,6 @@
 import { div, ViElement } from 'vilex'
 import { createHashHistory } from 'history'
+import { isPromise } from './isPromise'
 
 let rootPath = ''
 
@@ -14,7 +15,6 @@ const history = createHashHistory()
 const location = history.location
 
 history.listen(({ location, action }) => {
-  // console.log(action, location)
   if (location.pathname === '/') {
     onPathChange(rootPath)
   } else {
@@ -32,7 +32,7 @@ export function createRouter() {
   }
 }
 
-type RouteComponent<T = any> = (...args: T[]) => ViElement
+type RouteComponent<T = any> = (...args: T[]) => ViElement | Promise<ViElement>
 
 interface RouteParams {
   path: string
@@ -77,7 +77,6 @@ export function routerView(routes: RouteParams[], prefix?: string) {
 }
 
 function onPathChange(path: string) {
-  console.log(`path change => ${path}`)
   if (currentPathStr === path) {
     return
   }
@@ -102,14 +101,21 @@ function onPathChange(path: string) {
   currentMatchedPath = matchedPath(path)
 }
 
-function renderPathView(path: string, matched: string[]) {
+async function renderPathView(path: string, matched: string[]) {
   const len = routeMap.size
   for (let i = 0; i < matched.length; i++) {
     const route = routeMap.get(matched[i])
     if (route && !route.initialed) {
       route.initialed = true
       route.container.clear()
-      route.container.add(route.component())
+      const c = route.component()
+      if (isPromise(c)) {
+        const _promiseChild = await (c as Promise<ViElement>)
+        route.container.add(_promiseChild)
+      } else {
+        const _cpt = c as ViElement
+        route.container.add(_cpt)
+      }
       if (routeMap.size != len) {
         renderPathView(path, matchedPath(path))
       }
