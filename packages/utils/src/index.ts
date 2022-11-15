@@ -1,5 +1,4 @@
 export * from './isObject'
-// export * from './__array.map'
 export * from './sid'
 export * from './disableConsole'
 export * from './isSymbol'
