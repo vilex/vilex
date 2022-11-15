@@ -1,8 +1,6 @@
-import { isProxy } from "./isProxy";
+import { Ref } from '../vilex-dom/elements/velements'
+import { isProxy } from './isProxy'
 
-export function tryGetValue(v: any) {
-  if (isProxy(v)) {
-    return v.value
-  }
-  return v
+export function tryGetValue<T>(value: T): T {
+  return isProxy(value) ? ((value as Ref).value as T) : value
 }
