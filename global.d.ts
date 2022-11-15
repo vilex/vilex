@@ -1,17 +1,14 @@
 declare module '*.md' {
-  const md: string
-  // export = md
-  export default md
+  const path: string
+  export default path
 }
 
 declare module '*.mp4' {
-  const mp4: string
-  // export = md
-  export default mp4
+  const path: string
+  export default path
 }
 
 declare module '*.png' {
-  const png: string
-  // export = md
-  export default png
+  const path: string
+  export default path
 }
