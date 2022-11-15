@@ -2,7 +2,6 @@ import { tryGetValue } from '../../utils/tryGetValue'
 import { validAttribute } from '../../utils/validAttribute'
 import { ViElement } from '../../vii'
 import { EmitType } from '../../vilex/constant/EmitType'
-import { IDataNode } from '../elements/velements'
 import { VNode } from '../vn'
 
 export function messageProcessing(
@@ -23,7 +22,7 @@ const messages = {
   [EmitType.UpdateClass]: UpdateClass,
   [EmitType.UpdateStyle]: UpdateStyle,
   [EmitType.UpdateProps]: UpdateProps,
-  [EmitType.Event]: EventHandler,
+  [EmitType.Event]: EventHandler
 }
 
 function Clear(n: ViElement, t: EmitType, k: string, v: any) {
@@ -35,18 +34,17 @@ function RemoveChild(n: ViElement, child: ViElement) {
 }
 
 function AppendChild(n: VNode, chils: ViElement[]) {
-  let f = document.createDocumentFragment()
-  chils.forEach((c) => f.appendChild(c.el))
+  const f = document.createDocumentFragment()
+  chils.forEach(c => f.appendChild(c.el))
   n.el.appendChild(f)
 }
 
-function InsertChild(n: VNode, child:ViElement, beforeChild: ViElement) {
+function InsertChild(n: VNode, child: ViElement, beforeChild: ViElement) {
   n.el.insertBefore(child.el, beforeChild.el)
 }
 
 function UpdateText(n: VNode, k: string, value: string) {
-  // @ts-ignore
-  ;(n.el as unknown as Text).textContent = tryGetValue(value) //tryGetValue(n.text?.data)
+  n.el.textContent = tryGetValue(value)
 }
 
 export function UpdateClass(vn: VNode, k: string, v: any) {
@@ -57,29 +55,21 @@ export function UpdateClass(vn: VNode, k: string, v: any) {
       if (!el.classList.contains(k)) {
         el.classList.add(k)
       }
-    }else {
+    } else {
       if (el.classList.contains(k)) {
         el.classList.remove(k)
       }
     }
-    // let classname = ''
-    // for (const key in dataModel.class) {
-    //   if (dataModel.class[key] && validAttribute(key)) {
-    //     classname += ' ' + key
-    //   }
-    // }
-    // if (classname) {
-    //   el.setAttribute('class', classname)
-    // }
   }
 }
 
 function UpdateStyle(n: VNode, k: string, v: any) {
+  const el = n.el as HTMLElement
   // @ts-ignore
-  ;(n.el as HTMLElement).style[k] = tryGetValue(v)
+  el.style[k] = tryGetValue(v)
 }
 
-function UpdateProps(n: VNode,  k: string, v: any) {
+function UpdateProps(n: VNode, k: string, v: any) {
   if (validAttribute(k)) {
     const val = tryGetValue(v)
     // @ts-ignore
@@ -90,11 +80,12 @@ function UpdateProps(n: VNode,  k: string, v: any) {
 }
 
 function EventHandler(n: VNode, k: string | number, v: any) {
+  const el = n.el as HTMLElement
   if (typeof v === 'function') {
     // @ts-ignore
-    ;(n.el as HTMLElement)[k] = (ev: any) => v({ vn: n, ev })
+    el[k] = (ev: any) => v({ vn: n, ev })
   } else {
     // @ts-ignore
-    ;(n.el as HTMLElement)[k] = null
+    el[k] = null
   }
 }
