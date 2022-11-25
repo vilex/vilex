@@ -4,7 +4,6 @@ import { DataNode, IDataNode, _$_lIST } from '../vilex/display/DisplayObject'
 import { IAttr, IClass, IStyle } from '../vilex/dataType/DataFactor'
 import { DataModel } from '../vilex/dataType/DataModel'
 import { EmitType } from '../vilex/constant/EmitType'
-import { isRef } from '../vilex/store/store'
 import { eventBehavior } from './events'
 import { g } from './g'
 import { isPromise } from '../utils/isPromise'
@@ -13,7 +12,7 @@ import { ViElement } from '../vii'
 import { Ref, ViEvent } from './elements/velements'
 import { Styled } from '../css'
 import { watchList } from './listView/watchList'
-// import { watchNode } from './watcher/watchNode'
+import { isRef } from '../vilex/store/isRef'
 
 export type Transit = Record<string, unknown>
 

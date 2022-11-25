@@ -9,8 +9,8 @@ import { defineStoreProperty } from './defineStoreProperty'
 import { isObject, isSymbol } from '@vilex/utils'
 import { merge } from './merge'
 import { cloneProxy } from './clone'
+import { isRef } from './isRef'
 
-// const ArrayActions = ['shift', 'push', 'splice', 'pop', 'unshift']
 const blacklist = ['emit', 'on']
 
 function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
@@ -128,8 +128,4 @@ export function ref<T>(data: T): { value: T } {
   return newProxy(DataEmit({ value: data }), 'RefProxy') as unknown as {
     value: T
   }
-}
-
-export function isRef(ref: unknown) {
-  return Object.prototype.toString.call(ref) === '[object RefProxy]'
 }

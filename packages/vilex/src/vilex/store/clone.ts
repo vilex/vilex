@@ -1,5 +1,6 @@
 import { isSymbol } from '@vilex/utils'
-import { isRef, store } from './store'
+import { isRef } from './isRef'
+import { store } from './store'
 
 type Call = (...args: any[]) => void
 const blacklist = ['emit', 'on']
