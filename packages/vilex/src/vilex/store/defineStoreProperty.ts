@@ -1,4 +1,3 @@
-import mitt from 'mitt'
 import Emitter from 'tiny-emitter'
 
 function value(value: unknown): PropertyDescriptor {

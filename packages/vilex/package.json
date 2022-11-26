@@ -11,9 +11,8 @@
     "preinstall": "npx only-allow pnpm",
     "gen-elements-type": "node ./scripts/genElements/exports.js",
     "ts-types": "tsc --emitDeclarationOnly --outDir dist",
-    "build": "ts-node ./scripts/build.ts",
+    "build": "rimraf dist && node ./scripts/build/esbuild.js && npm run ts-types",
     "build-with-microbundel": "npx microbundle",
-    "build-with-esbuild": "rimraf dist && node ./esbuild.js && npm run ts-types",
     "init-tsconfig": "tsc --init",
     "test": "vitest"
   },

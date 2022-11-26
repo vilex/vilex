@@ -74,7 +74,7 @@ const LoginButton = createElement(
 
 const usr = store({ name: '', code: '' })
 
-const loginHandler = () => usr.name.value && usr.code.value && alert(`登录成功`)
+const loginHandler = () => alert(`登录成功`)
 
 export default Login(
   LoginTitle('登录'),
