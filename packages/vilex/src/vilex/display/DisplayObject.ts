@@ -5,6 +5,7 @@ import { EmitType } from '../constant/EmitType'
 import { uuid } from '../../utils/uuid'
 import { VnItem, VNode } from '../../vilex-dom/vn'
 import { invisibleTypeToDisplayType } from '../../vilex-dom/utils/invisibleTypeToDisplayType'
+import { isObject } from '@vilex/utils'
 
 export type _$_lIST = {
   sources?: unknown[]
@@ -52,7 +53,9 @@ export function DataNode(data: IDataModel) {
     return this
   }
   node.add = function (...childs: IDataNode[]) {
-    childs.forEach(item => !item.$parent && (item.$parent = this))
+    childs.forEach(
+      item => isObject(item) && !item.$parent && (item.$parent = this)
+    )
     this.children.push(...childs)
     this.emit(EmitType.ON_NODE_CHANGE, EmitType.AppendChild, childs)
     return this

@@ -1,9 +1,9 @@
 {
   "name": "vilex",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "main": "./dist/vii.js",
-  "module": "./src/vii.ts",
-  "tsdfweypes123123": "./dist/vii.d.ts",
+  "module": "./dist/vii.js",
+  "types": "./dist/vii.d.ts",
   "files": [
     "dist"
   ],

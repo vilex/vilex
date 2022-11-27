@@ -2,11 +2,12 @@ import { isPromise } from '../../utils/isPromise'
 import { VnItem } from '../vn'
 import { isCssKey } from './isCssKey'
 import { isStyled } from './isStyled'
+import { IsValidValue } from './IsValidValue'
 
 export function invisibleTypeToDisplayType(options: VnItem[]) {
   const list: VnItem[] = []
-  options.forEach(option => {
-    // string, array, object
+  for (let option of options) {
+    if (!IsValidValue(option)) continue
     if (typeof option === 'function') {
       option = option()
     }
@@ -81,6 +82,7 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
         }
       }
     }
-  })
+  }
+
   return list
 }
