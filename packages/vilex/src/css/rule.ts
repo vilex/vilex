@@ -1,5 +1,7 @@
 let length = 0
 export function insert(sheet: CSSStyleSheet, rule: string) {
-  sheet.insertRule(rule, length)
-  length++
+  try {
+    sheet.insertRule(rule, length)
+    length++
+  } catch {}
 }
