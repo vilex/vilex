@@ -119,13 +119,10 @@ export function store<T>(data: T): T {
   return data
 }
 
-export function ref<T>(data: T): { value: T } {
-  if (canProxy(data)) {
-    console.warn(
-      `ref warn: You used value() => ${data}, you should use store() => ${data}`
-    )
-  }
-  return newProxy(DataEmit({ value: data }), 'RefProxy') as unknown as {
-    value: T
-  }
+export interface Ref<T = any> {
+  value: T
+}
+
+export function ref<T>(data: T): Ref<T> {
+  return newProxy(DataEmit({ value: data }), 'RefProxy') as unknown as Ref<T>
 }
