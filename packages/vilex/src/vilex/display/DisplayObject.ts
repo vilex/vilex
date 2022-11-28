@@ -19,6 +19,7 @@ export interface IDataNode extends IDataEmit {
   _$_key?: string
   _$_list?: _$_lIST
   id: string
+  isVilexNode: true
   children: IDataNode[]
   add: (...childs: IDataNode[]) => this
   insert: (child: IDataNode, beforeChild: IDataNode) => this
@@ -28,9 +29,12 @@ export interface IDataNode extends IDataEmit {
   set: (...datas: VnItem[]) => this
 }
 
+const isNode = (value: any) => isObject(value) && value.isVilexNode
+
 export function DataNode(data: IDataModel) {
   const node: IDataNode = DataEmit({}) as IDataNode
   node.id = uuid()
+  node.isVilexNode = true
   node.$ = data
   node.children = []
   node.clear = function () {
@@ -53,11 +57,12 @@ export function DataNode(data: IDataModel) {
     return this
   }
   node.add = function (...childs: IDataNode[]) {
-    childs.forEach(
-      item => isObject(item) && !item.$parent && (item.$parent = this)
+    const objChilds = childs.filter(isNode)
+    objChilds.forEach(
+      item => !item.$parent && Reflect.set(item, '$parent', this)
     )
-    this.children.push(...childs)
-    this.emit(EmitType.ON_NODE_CHANGE, EmitType.AppendChild, childs)
+    this.children.push(...objChilds)
+    this.emit(EmitType.ON_NODE_CHANGE, EmitType.AppendChild, objChilds)
     return this
   }
   node.insert = function (child: IDataNode, beforeChild: IDataNode) {

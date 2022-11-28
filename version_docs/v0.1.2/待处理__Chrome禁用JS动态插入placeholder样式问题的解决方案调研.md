@@ -13,3 +13,7 @@ document.styleSheets[0].insertRule(cssRule)
 期望结果：
 
 寻找出一个可以动态添加 placeholder 样式的解决方案
+
+输入结果：
+
+调研文档
