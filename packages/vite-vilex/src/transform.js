@@ -2,7 +2,6 @@ const { parse } = require('@babel/parser')
 const { default: traverse } = require('@babel/traverse')
 const t = require('@babel/types')
 const { default: generate } = require('@babel/generator')
-const { dirname, resolve } = require('path')
 
 const images = ['.png', '.jpg', '.svg', '.mp3', '.mp4', '.gif', '.webp', '.md']
 function TransformCode(
@@ -33,8 +32,8 @@ function TransformCode(
         path.node.specifiers.forEach(specifier => {
           localImportSpecifiers.push({
             name: specifier.local.name,
-            path: resolve(path.node.source.value),
-            from: path.node.source.value
+            path: value,
+            from: value
           })
         })
       }

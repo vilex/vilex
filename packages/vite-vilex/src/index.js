@@ -42,7 +42,7 @@ function vilexPlugin() {
     const iceof = InsertCodeEndOfFile(ris.code, tfc.specifiers)
 
     const result = generate(
-      parse(code, {
+      parse(iceof.code, {
         plugins: ['typescript'],
         sourceType: 'module'
       })

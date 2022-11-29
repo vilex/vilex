@@ -1,10 +1,12 @@
-const { END_OF_FILE_IDENTIFICATION, END_OF_IMPORT_IDENTIFICATION } = require("./contants")
+const {
+  END_OF_FILE_IDENTIFICATION,
+  END_OF_IMPORT_IDENTIFICATION
+} = require('./contants')
 
 function RewriteImportSpecifiers(code, specifiers, prefix) {
-
-    const output = []
-    specifiers.forEach(item => {
-        let template = `
+  const output = []
+  specifiers.forEach(item => {
+    let template = `
             let ${prefix}${item.name} = ${item.name}
             if (typeof ${item.name} === 'object') {
                 if (${item.name}.$ && ${item.name}.$.type) {
@@ -14,48 +16,45 @@ function RewriteImportSpecifiers(code, specifiers, prefix) {
                 ${prefix}${item.name} = new Proxy(${item.name}, {
                     apply(target, thisArg, args) {
                         const ret = Reflect.apply(target, thisArg, args)
-                        if (ret && ret.$ && ret.$.type) {
-                            __vilex__hmr__.register(ret, '${item.path}', '${item.name}', args)
-                        }
+                        try {
+                            if (ret && ret.$ && ret.$.type) {
+                                __vilex__hmr__.register(ret, '${item.path}', '${item.name}', args)
+                            }
+                        }catch(err) { }
                         return ret
                     }
                 })
             }
         `
-        output.push(template)
-    })
+    output.push(template)
+  })
 
+  const recode = code.replace(END_OF_IMPORT_IDENTIFICATION, output.join('\n'))
 
-    const recode = code.replace(END_OF_IMPORT_IDENTIFICATION, output.join('\n'))
-
-    return { code: recode }
-
+  return { code: recode }
 }
 
-
 function InsertCodeEndOfFile(code, specifiers) {
+  const output = []
 
-    const output = []
+  const fileMap = new Map()
+  specifiers.forEach(item => {
+    // if (fileMap.has(item.from)) {
+    //     fileMap.get(item.from).push(item)
+    // } else {
+    //     fileMap.set(item.from, [item])
+    // }
 
-    const fileMap = new Map()
-    specifiers.forEach(item => {
-        // if (fileMap.has(item.from)) {
-        //     fileMap.get(item.from).push(item)
-        // } else {
-        //     fileMap.set(item.from, [item])
-        // }
+    fileMap.set(item.from, item)
+  })
 
-        fileMap.set(item.from, item)
-    })
-
-    
-
-    fileMap.forEach((item, from) => {
-        const template = `
+  fileMap.forEach((item, from) => {
+    const template = `
 import.meta.hot.accept('${from}', mod => {
   for (const key in mod) {
       if (typeof mod[key] === 'object') {
-          if (mod[key].$ && mod[key].$.type) {
+        const ret = mod[key]
+          if (ret.$ && ret.$.type) {
               __vilex__hmr__.register(ret, '${item.path}', key, null)
               __vilex__hmr__.render(ret)
           }
@@ -75,18 +74,18 @@ import.meta.hot.accept('${from}', mod => {
   }
 })
 `
-        output.push(template)
-    })
+    output.push(template)
+  })
 
-    output.unshift(`if (import.meta.hot) {`)
-    output.push(`}`)
+  output.unshift(`if (import.meta.hot) {`)
+  output.push(`}`)
 
-    const recode = code.replace(END_OF_FILE_IDENTIFICATION,  output.join('\n'))
+  const recode = code.replace(END_OF_FILE_IDENTIFICATION, output.join('\n'))
 
-    return { code: recode }
+  return { code: recode }
 }
 
 module.exports = {
-    RewriteImportSpecifiers,
-    InsertCodeEndOfFile
+  RewriteImportSpecifiers,
+  InsertCodeEndOfFile
 }
