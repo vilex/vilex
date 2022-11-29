@@ -15,6 +15,9 @@ export interface IDataNode extends IDataEmit {
   remove: (child: IDataNode) => this
   set: (...datas: ViItemPart[]) => this
 }
+export interface IDataNode<T = any> {
+  [k: string]: T | any
+}
 
 type InlineStyle = { [K: string]: string | number | boolean | Ref }
 

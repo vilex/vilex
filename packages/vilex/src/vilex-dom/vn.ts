@@ -14,18 +14,14 @@ import { Styled } from '../css'
 import { watchList } from './listView/watchList'
 import { isRef } from '../vilex/store/isRef'
 
-export type Transit = Record<string, unknown>
-
 export type DisplayFactor = () => IDataNode
 
 export type VnItem =
   | Styled
   | IStyle
   | IDataNode
-  // | Properties
   | string
   | number
-  // | Transit
   | DisplayFactor
   | IAttr
   | IClass
@@ -59,7 +55,6 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
     (eventType: string | number, ...args: unknown[]) =>
       messageProcessing(eventType, vnode, ...args)
   )
-  // watchNode(vnode)
   dataModel.set(...items)
 
   let children: VNode[] = []
@@ -76,19 +71,15 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
         children.push(text as unknown as VNode)
         // @ts-ignore
       } else if (itemNode._$_type == `list-view`) {
-        console.log('2022-11-03 17:49:45')
-
         vnode._$_list = itemNode as _$_lIST
         const sources = vnode._$_list.sources
         const iterator = vnode._$_list.iterator
         if (sources && iterator) {
-          // children.push(...itemNode.sources.map(itemNode.iterator))
           vnode.add(...sources.map(iterator))
           watchList(vnode)
         }
       } else if ((itemNode as IDataNode)?.$?.type) {
         vnode.add(itemNode as IDataNode)
-        children
       } else if (isPromise(itemNode)) {
         children.push(itemNode as VNode)
         recordAsyncIndex++
@@ -97,24 +88,12 @@ export function vn<K extends keyof HTMLElementTagNameMap>(
           .then((r: IDataNode) => {
             if (r.$ && r.$.type) {
               const index = children.findIndex(item => item === itemNode)
-              if (index > -1) {
-                vnode.insert(r, vnode.children[index])
-              } else {
-                vnode.add(r)
-              }
-              recordAsyncIndex--
-              if (recordAsyncIndex == 0) {
-                // @ts-ignore
-                children = undefined
-              }
-              // debugger
-              // vnode.add(r)
-              // vnode.insert(r, vnode.children[index])
+              index > -1 ? vnode.insert(r, vnode.children[index]) : vnode.add(r)
+              // @ts-ignore
+              --recordAsyncIndex == 0 && (children = undefined)
             }
           })
-          .catch((err: unknown) => {
-            console.log(err)
-          })
+          .catch((err: unknown) => console.log(err))
       }
     }
   })
