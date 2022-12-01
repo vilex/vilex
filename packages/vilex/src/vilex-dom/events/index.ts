@@ -1,5 +1,6 @@
 import { isProxy } from '../../utils/isProxy'
 import { validAttribute } from '../../utils/validAttribute'
+import { IDataModel } from '../../vilex/dataType/DataModel'
 import { VNode } from '../vn'
 
 type Tags = {
@@ -13,39 +14,37 @@ type TagType = keyof Tags
 export function eventBehavior(vn: VNode) {
   const tags: Tags = { input: 'input', textarea: 'input', select: 'change' }
   const dataModel = vn.$
+  const el = vn.el as HTMLElement
   if (tags[dataModel.type as TagType]) {
-    vn.el.addEventListener(tags[dataModel.type as TagType], () => {
-      const val = (vn.el as any).value
-      if (isProxy(dataModel.props.value)) {
-        dataModel.props.value.value = val
-      } else {
-        dataModel.props.value = val
-      }
+    el.addEventListener(tags[dataModel.type as TagType], () => {
+      const val = (el as any).value
+      isProxy(dataModel.props.value) ? (dataModel.props.value.value = val) : (dataModel.props.value = val)
     })
   }
+  dataModel.hover && handleHover(el, dataModel)
+}
 
-  if (dataModel.hover) {
-    vn.el.addEventListener('mouseenter', () => {
-      for (const key in dataModel.hover) {
-        if (validAttribute(key)) {
-          // @ts-ignore
-          ;(vn.el as HTMLElement).style[key] = dataModel.hover[key] as string
-        }
+/**
+ * @deprecated
+ */
+const handleHover = (el: HTMLElement, data: IDataModel) => {
+  el.addEventListener('mouseenter', () => {
+    for (const key in data.hover) {
+      if (validAttribute(key)) {
+        el.style[key as any] = data.hover[key] as string
       }
-    })
-    vn.el.addEventListener('mouseleave', () => {
-      for (const key in dataModel.hover) {
-        if (validAttribute(key)) {
-          // @ts-ignore
-          ;(vn.el as HTMLElement).style.removeProperty(key)
-        }
+    }
+  })
+  el.addEventListener('mouseleave', () => {
+    for (const key in data.hover) {
+      if (validAttribute(key)) {
+        el.style.removeProperty(key)
       }
-      for (const key in vn.$.style) {
-        if (validAttribute(key)) {
-          // @ts-ignore
-          ;(vn.el as HTMLElement).style[key] = dataModel.style[key]
-        }
+    }
+    for (const key in data.style) {
+      if (validAttribute(key)) {
+        el.style[key as any] = data.style[key]
       }
-    })
-  }
+    }
+  })
 }
