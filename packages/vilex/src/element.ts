@@ -2,8 +2,8 @@ import { isObject } from '@vilex/utils'
 import { isString } from 'markdown-it/lib/common/utils'
 import { createNodeCreator, NodeCreator } from './createNodeCreator/createNodeCreator'
 import { isStyled } from './vilex-dom/utils/isStyled'
+import { AnyObject } from './_types/common'
 
-type AnyObject = { [k: string]: any }
 type StringList = string[]
 type CreateElementArguments = string | AnyObject
 
