@@ -29,14 +29,7 @@ export function DataModel(type: string): IDataModel {
   dataModel.style = DataProxy({})
   dataModel.class = DataProxy({})
   dataModel.event = DataProxy({})
-  // dataModel.reset = (...datas: any[]) => {
-  //   forDataList(datas, (item: { $dataType: string | number }) => {
-  //     if (item.$dataType && dataModel[item.$dataType]) {
-  //       dataModel[item.$dataType] = item
-  //     }
-  //   })
-  //   return dataModel as IDataModel
-  // }
+
   //@ts-ignore
   dataModel.set = (...datas: VnItem[]) => {
     const dm = dataModel as IDataModelOptions
@@ -65,10 +58,7 @@ export function DataModel(type: string): IDataModel {
   return dataModel as IDataModel
 }
 
-function forDataList<T extends VnItem>(
-  list: (T | VnItem)[],
-  handler: (vn: T) => void
-) {
+function forDataList<T extends VnItem>(list: (T | VnItem)[], handler: (vn: T) => void) {
   list.forEach(data => {
     if (data) {
       const item = typeof data === 'function' ? data() : data
