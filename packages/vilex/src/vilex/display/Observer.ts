@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { isProxy } from '../../utils/isProxy'
+import { AnyObject } from '../../_types/common'
 import { EmitType } from '../constant/EmitType'
 import { IDataModel } from '../dataType/DataModel'
 import { IDataNode } from './DisplayObject'
@@ -11,15 +12,7 @@ export function Observer(node: IDataNode) {
     const _m = m as unknown as any
     if (isProxy(_m[t])) {
       _m[t].on(EmitType.ON_PROXY_CHANGE, (k: any, v: any) => {
-        if (isProxy(v)) {
-          v.on(EmitType.ON_PROXY_CHANGE, (kk: any, vv: any) => {
-            if (vv === 'Del-$_$-Self') {
-              delNode(node)
-            } else {
-              node.emit(EmitType.ON_NODE_CHANGE, t, k, vv)
-            }
-          })
-        }
+        isProxy(v) && watchData(v, node, t, k)
         node.emit(EmitType.ON_NODE_CHANGE, t, k, v)
       })
     }
@@ -29,15 +22,7 @@ export function Observer(node: IDataNode) {
   function observerValues(data: any, t: string, m: IDataModel) {
     if (typeof data === 'object') {
       for (const k in data) {
-        if (isProxy(data[k])) {
-          data[k].on(EmitType.ON_PROXY_CHANGE, (k: any, v: any) => {
-            if (v === 'Del-$_$-Self') {
-              delNode(node)
-            } else {
-              node.emit(EmitType.ON_NODE_CHANGE, t, k, v)
-            }
-          })
-        }
+        isProxy(data[k]) && watchData(data[k], node, t)
         observerValues(data[k], t, m)
       }
     }
@@ -46,8 +31,10 @@ export function Observer(node: IDataNode) {
   return 'vilex'
 }
 
-function delNode(node: IDataNode) {
-  const beingRemoved = findMap(node)
-  console.log(`beingRemoved`, beingRemoved)
-  if (beingRemoved) beingRemoved.removeSelf()
+const watchData = (data: AnyObject, node: IDataNode, type: string, outerKey?: string) => {
+  data.on(EmitType.ON_PROXY_CHANGE, (key: string, val: any) => {
+    val === 'Del-$_$-Self' ? delNode(node) : node.emit(EmitType.ON_NODE_CHANGE, type, outerKey || key, val)
+  })
 }
+
+const delNode = (node: IDataNode) => findMap(node)?.removeSelf()
