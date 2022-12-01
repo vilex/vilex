@@ -1,4 +1,4 @@
-import { div, ViElement } from 'vilex'
+import { div, ViElement, ViHTMLDivElement } from 'vilex'
 import { createHashHistory } from 'history'
 import { isPromise } from './isPromise'
 
@@ -8,13 +8,13 @@ let currentPathStr = ''
 
 let currentMatchedPath: string[] = []
 
-const routeMap: Map<string, Route> = new Map()
+const routeMap = new Map()
 
 const history = createHashHistory()
 
 const location = history.location
 
-history.listen(({ location, action }) => {
+history.listen(({ location }) => {
   if (location.pathname === '/') {
     onPathChange(rootPath)
   } else {
@@ -32,29 +32,22 @@ export function createRouter() {
   }
 }
 
-type RouteComponent<T = any> = (...args: T[]) => ViElement | Promise<ViElement>
-
-interface RouteParams {
+interface RegRoute<T> {
   path: string
-  component: RouteComponent
+  component: () => T
 }
 
-interface Route extends RouteParams {
-  container: ViElement
-  initialed: boolean
-}
+type Call<T> = () => T
 
-export function regRoute(
-  path: string,
-  component: RouteComponent,
-  root = false
-) {
+export function regRoute(path: string, component: Call<ViElement>, root?: boolean): RegRoute<ViElement>
+export function regRoute(path: string, component: Call<Promise<ViElement>>, root: boolean): RegRoute<Promise<ViElement>>
+export function regRoute<T>(path: string, component: T, root = false) {
   if (root) rootPath = path
-  return { path, component } as RouteParams
+  return { path, component } as RegRoute<T>
 }
 
-export function routerView(routes: RouteParams[], prefix?: string) {
-  for (let i = 0; i < routes.length; i++) {
+export function routerView<T>(routes: RegRoute<T>[], prefix?: string): ViHTMLDivElement {
+  for (let i = routes.length - 1; i >= 0; i--) {
     const val = routeMap.get(routes[i].path)
     if (val) return val.container
   }
@@ -66,10 +59,10 @@ export function routerView(routes: RouteParams[], prefix?: string) {
   })
 
   if (prefix) {
-    routes.forEach((route: RouteParams) => (route.path = prefix + route.path))
+    routes.forEach(route => (route.path = prefix + route.path))
   }
 
-  routes.forEach((route: RouteParams) => {
+  routes.forEach(route => {
     routeMap.set(route.path, { ...route, container, initialed: false })
   })
 
@@ -85,7 +78,7 @@ function onPathChange(path: string) {
 
   const matched = matchedPath(path)
 
-  for (let i = 0; i < currentMatchedPath.length; i++) {
+  for (let i = currentMatchedPath.length - 1; i >= 0; i--) {
     const path = currentMatchedPath[i]
     if (!matched.includes(path)) {
       const route = routeMap.get(path)
