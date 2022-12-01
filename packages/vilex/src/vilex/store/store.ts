@@ -11,7 +11,7 @@ import { merge } from './merge'
 import { cloneProxy } from './clone'
 import { isRef } from './isRef'
 
-const blacklist = ['emit', 'on']
+const blacklist = ['emit', 'on', 'length']
 
 function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
   const data = _data as IDataEmit
@@ -27,10 +27,6 @@ function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
         if (isSymbol(key) || isSymbol(value)) {
           return Reflect.set(target, key, value)
         }
-        if (value === undefined) {
-          debugger
-        }
-        // console.log(`set `, key, value)
 
         if (blacklist.includes(key as string)) {
           return Reflect.set(target, key, value)
@@ -48,29 +44,16 @@ function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
         }
 
         if (vp === undefined) {
-          let nv
-          if (!isProxy(value)) {
-            nv = isObject(value) ? store(value) : ref(value)
-            data.emit(EmitType.ON_PROXY_CHANGE, key, nv)
-            return Reflect.set(target, key, nv)
-          } else {
-            nv = cloneProxy(value)
-            data.emit(EmitType.ON_PROXY_CHANGE, key, nv)
-            return Reflect.set(target, key, nv)
-          }
+          const nv = isProxy(value) ? cloneProxy(value) : isObject(value) ? store(value) : ref(value)
+          data.emit(EmitType.ON_PROXY_CHANGE, key, nv)
+          return Reflect.set(target, key, nv)
         }
 
-        if (key === 'length') {
-          // console.log(`len`)
-        } else {
-          data.emit(EmitType.ON_PROXY_CHANGE, key, value)
-        }
+        key !== 'length' && data.emit(EmitType.ON_PROXY_CHANGE, key, value)
 
         return Reflect.set(target, key, value)
       },
       deleteProperty(target, p) {
-        // console.log(`deleteProperty`, target, p)
-        // const item = target[p] as IDataEmit
         target.emit(EmitType.ON_PROXY_CHANGE, p, `Del-$_$-Self`)
         return Reflect.deleteProperty(target, p)
       },
@@ -82,19 +65,13 @@ function newProxy(_data: Record<string, unknown>, dataTypeName?: string) {
   )
 }
 
-function deepStore<T extends Record<string, unknown>>(
-  data: T,
-  root?: T,
-  key?: string
-): T {
+function deepStore<T extends Record<string, unknown>>(data: T, root?: T, key?: string): T {
   if (canProxy(data)) {
     if (isProxy(data)) {
       return data
     }
     for (const key in data) {
-      if (validAttribute(key)) {
-        deepStore(data[key] as Record<string, unknown>, data, key)
-      }
+      validAttribute(key) && deepStore(data[key] as Record<string, unknown>, data, key)
     }
     return newProxy(data) as unknown as T
   }
@@ -107,14 +84,9 @@ function deepStore<T extends Record<string, unknown>>(
 
 export function store<T>(data: T): T {
   if (canProxy(data)) {
-    return deepStore(
-      // DataEmit({ ...data, __type__: 'StoreProxy' })
-      defineStoreProperty(data as object) as Record<string, unknown>
-    ) as unknown as T
+    return deepStore(defineStoreProperty(data as object) as Record<string, unknown>) as unknown as T
   } else {
-    console.warn(
-      `Filed to store() => ${data}, you should use value() => ${data}`
-    )
+    console.warn(`Filed to store() => ${data}, you should use value() => ${data}`)
   }
   return data
 }

@@ -14,7 +14,6 @@ export type _$_lIST = {
 
 export interface IDataNode extends IDataEmit {
   $: IDataModel
-  $ex?: string
   $parent: IDataNode
   _$_key?: string
   _$_list?: _$_lIST
@@ -58,9 +57,7 @@ export function DataNode(data: IDataModel) {
   }
   node.add = function (...childs: IDataNode[]) {
     const objChilds = childs.filter(isNode)
-    objChilds.forEach(
-      item => !item.$parent && Reflect.set(item, '$parent', this)
-    )
+    objChilds.forEach(item => !item.$parent && Reflect.set(item, '$parent', this))
     this.children.push(...objChilds)
     this.emit(EmitType.ON_NODE_CHANGE, EmitType.AppendChild, objChilds)
     return this
@@ -70,12 +67,7 @@ export function DataNode(data: IDataModel) {
     if (index > -1) {
       !child.$parent && (child.$parent = this)
       node.children.splice(index, 0, child)
-      this.emit(
-        EmitType.ON_NODE_CHANGE,
-        EmitType.InsertChild,
-        child,
-        beforeChild
-      )
+      this.emit(EmitType.ON_NODE_CHANGE, EmitType.InsertChild, child, beforeChild)
     }
     return this
   }

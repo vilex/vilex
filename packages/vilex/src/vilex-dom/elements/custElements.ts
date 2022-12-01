@@ -1,4 +1,4 @@
-import { vn, VnItem } from '../vn'
+import { vn } from '../vn'
 
 export type TextValue = string | { value: string } | number
 

@@ -5,7 +5,6 @@ import { IAttr, IClass, IStyle } from '../vilex/dataType/DataFactor'
 import { DataModel } from '../vilex/dataType/DataModel'
 import { EmitType } from '../vilex/constant/EmitType'
 import { eventBehavior } from './events'
-import { g } from './g'
 import { isPromise } from '../utils/isPromise'
 import { invisibleTypeToDisplayType } from './utils/invisibleTypeToDisplayType'
 import { ViElement } from '../vii'
@@ -16,18 +15,7 @@ import { isRef } from '../vilex/store/isRef'
 
 export type DisplayFactor = () => IDataNode
 
-export type VnItem =
-  | Styled
-  | IStyle
-  | IDataNode
-  | string
-  | number
-  | DisplayFactor
-  | IAttr
-  | IClass
-  | ViEvent
-  | ViElement
-  | Ref
+export type VnItem = Styled | IStyle | IDataNode | string | number | DisplayFactor | IAttr | IClass | ViEvent | ViElement | Ref
 
 export type VNode = IDataNode & {
   el: HTMLElement | Text | SVGSVGElement | SVGUseElement
@@ -39,22 +27,13 @@ type TextComponentOption = { data: TextContent; $dataType: string }
 export function vn(tag: 'text', options: TextComponentOption[]): ViElement
 export function vn(tag: string, options: VnItem[]): ViElement
 
-export function vn<K extends keyof HTMLElementTagNameMap>(
-  tag: K,
-  options: VnItem[]
-) {
+export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnItem[]) {
   const items = invisibleTypeToDisplayType(options)
 
   const dataModel = DataModel(tag)
   const vnode = DataNode(dataModel) as VNode
-  vnode.$ex = g.ex
-  g.ex = ''
   vnode.el = element(tag)
-  vnode.on(
-    EmitType.ON_NODE_CHANGE,
-    (eventType: string | number, ...args: unknown[]) =>
-      messageProcessing(eventType, vnode, ...args)
-  )
+  vnode.on(EmitType.ON_NODE_CHANGE, (eventType: string | number, ...args: unknown[]) => messageProcessing(eventType, vnode, ...args))
   dataModel.set(...items)
 
   let children: VNode[] = []

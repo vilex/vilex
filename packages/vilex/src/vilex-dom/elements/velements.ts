@@ -7,7 +7,6 @@ import { ref } from '../../vilex/store/store'
 
 export interface IDataNode extends IDataEmit {
   $: IDataModel
-  $ex?: string
   children: IDataNode[]
   add: (...childs: IDataNode[]) => this
   insert: (child: IDataNode, beforeChild: IDataNode) => this
@@ -35,10 +34,7 @@ type Prefixer<K, T extends string> = {
   [P in keyof K as Prefix<T, string & P>]: K[P]
 }
 type ViEventMap = {
-  [P in keyof GlobalEventHandlersEventMap]?: (e: {
-    vn: ViElement
-    ev: GlobalEventHandlersEventMap[P]
-  }) => void
+  [P in keyof GlobalEventHandlersEventMap]?: (e: { vn: ViElement; ev: GlobalEventHandlersEventMap[P] }) => void
 }
 
 export type ViEvent = Prefixer<ViEventMap, 'on'>
@@ -46,14 +42,4 @@ export type ViEvent = Prefixer<ViEventMap, 'on'>
 export type Ref = ReturnType<typeof ref>
 export type Invalid = null | undefined
 
-export type ViItemPart =
-  | Styled
-  | ViLabel
-  | ViStyle
-  | ViClass
-  | ViEvent
-  | ViChildren
-  | Ref
-  | ViElement
-  | _$_lIST
-  | Invalid
+export type ViItemPart = Styled | ViLabel | ViStyle | ViClass | ViEvent | ViChildren | Ref | ViElement | _$_lIST | Invalid
