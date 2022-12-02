@@ -40,5 +40,6 @@ export type ViEvent = Prefixer<ViEventMap, 'on'>
 
 export type Ref = ReturnType<typeof ref>
 export type Invalid = null | undefined
+export type ItemPart = Styled | ViLabel | ViStyle | ViClass | ViEvent | ViChildren | Ref | ViElement | _$_lIST | Invalid
 
-export type ViItemPart = Styled | ViLabel | ViStyle | ViClass | ViEvent | ViChildren | Ref | ViElement | _$_lIST | Invalid
+export type ViItemPart = ItemPart | ((...args: any[]) => ItemPart)
