@@ -1,6 +1,6 @@
 {
   "name": "vite-vilex",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "author": "wangxiaowei",
   "homepage": "https://github.com/vilex/vilex/blob/main/packages/vite-vilex/README.md",
   "repository": {
@@ -12,7 +12,8 @@
   "module": "src/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "src"
+    "src",
+    "lib"
   ],
   "scripts": {
     "ts-types": "tsc --emitDeclarationOnly --outDir lib",
