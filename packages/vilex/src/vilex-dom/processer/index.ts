@@ -4,11 +4,7 @@ import { ViElement } from '../../vii'
 import { EmitType } from '../../vilex/constant/EmitType'
 import { VNode } from '../vn'
 
-export function messageProcessing(
-  eventType: string | number,
-  vn: VNode,
-  ...args: any[]
-) {
+export function messageProcessing(eventType: string | number, vn: VNode, ...args: any[]) {
   // @ts-ignore
   messages[eventType]?.(vn, ...args)
 }
@@ -25,7 +21,7 @@ const messages = {
   [EmitType.Event]: EventHandler
 }
 
-function Clear(n: ViElement, t: EmitType, k: string, v: any) {
+function Clear(n: ViElement) {
   n.el.innerHTML = ''
 }
 

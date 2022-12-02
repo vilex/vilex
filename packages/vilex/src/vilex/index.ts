@@ -1,8 +1,9 @@
 import { ViElement } from '../vii'
 
-export * from './store/store'
+// export * from './store/store'
 export * from './dataType/DataFactor'
 export * from './store/watch'
+export * from './store/ref'
 
 interface App {
   use: (plugin: { install: (app: ViElement) => void }) => App

@@ -1,4 +1,5 @@
 import Emitter from 'tiny-emitter'
+import { AnyObject } from '../../_types/common'
 
 function value(value: unknown): PropertyDescriptor {
   return {
@@ -8,8 +9,8 @@ function value(value: unknown): PropertyDescriptor {
     configurable: false
   }
 }
-export function defineStoreProperty<T extends object>(target: T) {
-  const _ = (target as { __proto__: T }).__proto__
+export function defineStoreProperty<T extends AnyObject>(target: T): T {
+  const _ = (target as AnyObject).__proto__ as object
   // @ts-ignore
   const e = new Emitter() as unknown as Record<string, unknown>
   Reflect.defineProperty(_, '_$proxy', value(true))

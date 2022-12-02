@@ -1,4 +1,4 @@
-type EmitKey = string | number | Symbol
+type EmitKey = string | number | symbol
 export type IDataEmit = {
   emit: (key: EmitKey, ...args: any[]) => void
   on: (key: EmitKey, handler: (...args: any[]) => any) => void
@@ -7,7 +7,7 @@ export type IDataEmit = {
 export function DataEmit<T extends object>(o: T): T & IDataEmit {
   return {
     ...o,
-    ...b(),
+    ...b()
   } as T & IDataEmit
 }
 
@@ -19,13 +19,13 @@ function b() {
       // @ts-ignore
       const hs = this[handlers][key]
       if (Array.isArray(hs)) {
-        hs.forEach((h) => h(...args))
+        hs.forEach(h => h(...args))
       }
     },
-    on(key: string, handler: Function) {
+    on(key: string, handler: (...args: any[]) => void) {
       // @ts-ignore
       !this[handlers][key] && (this[handlers][key] = [])
       ;(this as any)[handlers][key].push(handler)
-    },
+    }
   }
 }
