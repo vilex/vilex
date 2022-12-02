@@ -1,59 +1,38 @@
-const {
-  VAR_PREFIX,
-  END_OF_IMPORT_IDENTIFICATION,
-  END_OF_FILE_IDENTIFICATION
-} = require('./contants')
-const { hmr } = require('./hmr')
-const { RewriteImportSpecifiers, InsertCodeEndOfFile } = require('./templates')
 const { TransformCode } = require('./transform')
 const { default: generate } = require('@babel/generator')
 const { parse } = require('@babel/parser')
 const { normalizePath } = require('vite')
+const { createFilter } = require('vite')
+const { join } = require('path')
+const { VirtualFile } = require('./hmrManager')
 
 function vilexPlugin() {
   const root = normalizePath(process.cwd())
+  const pkg = require(normalizePath(join(root, 'package.json')))
+  const allDeps = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.devDependencies)]
+  const virtualModuleId = 'virtual:vilex-hmr-manager'
+  const resolvedVirtualModuleId = '\0' + virtualModuleId
 
-  function transformIndexHtml(html) {
-    const tags = [
-      {
-        tag: 'script',
-        attrs: { type: 'module' },
-        children: hmr,
-        injectTo: 'head'
-      }
-    ]
-    return { html, tags }
-  }
+  const filter = createFilter(['src/**/*.ts', 'src/**/*.js'], ['node_modules/**'])
 
   function transform(code, id) {
-    if (!id.includes('.ts')) return
-    if (!id.includes(root)) return
+    if (filter(id)) {
+      const transformCode = TransformCode(code, id, allDeps)
 
-    const tfc = TransformCode(
-      code,
-      id,
-      VAR_PREFIX,
-      END_OF_IMPORT_IDENTIFICATION,
-      END_OF_FILE_IDENTIFICATION
-    )
+      const result = generate(
+        parse(transformCode.code, {
+          plugins: ['typescript'],
+          sourceType: 'module'
+        })
+      )
 
-    const ris = RewriteImportSpecifiers(tfc.code, tfc.specifiers, VAR_PREFIX)
-
-    const iceof = InsertCodeEndOfFile(ris.code, tfc.specifiers)
-
-    const result = generate(
-      parse(iceof.code, {
-        plugins: ['typescript'],
-        sourceType: 'module'
-      })
-    )
-
-    return {
-      map: result.map,
-      code: iceof.code,
-      vite: {
-        meta: {
-          lang: 'ts'
+      return {
+        map: result.map,
+        code: transformCode.code,
+        vite: {
+          meta: {
+            lang: 'ts'
+          }
         }
       }
     }
@@ -62,8 +41,17 @@ function vilexPlugin() {
   return {
     name: 'vite:vilex',
     apply: 'serve',
-    transform,
-    transformIndexHtml
+    resolveId(id) {
+      if (id === virtualModuleId) {
+        return resolvedVirtualModuleId
+      }
+    },
+    load(id) {
+      if (id === resolvedVirtualModuleId) {
+        return VirtualFile
+      }
+    },
+    transform
   }
 }
 

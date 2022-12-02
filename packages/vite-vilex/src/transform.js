@@ -2,59 +2,32 @@ const { parse } = require('@babel/parser')
 const { default: traverse } = require('@babel/traverse')
 const t = require('@babel/types')
 const { default: generate } = require('@babel/generator')
+const { DepManager, Dep } = require('./dep')
 
-const images = ['.png', '.jpg', '.svg', '.mp3', '.mp4', '.gif', '.webp', '.md']
-function TransformCode(
-  code,
-  id,
-  namePrefix,
-  endOfImportIndentification,
-  endOfFileIdentification
-) {
-  let importPath,
-    programPath,
-    localImportSpecifiers = []
+function TransformCode(code, id, allDeps) {
+  const dep = new Dep()
+  dep.keepOn = true
+  let programPath
   const astfile = parse(code, { plugins: ['typescript'], sourceType: 'module' })
 
   traverse(astfile, {
     ImportDeclaration(path) {
-      importPath = path
-
       const value = path.node.source.value
-      const blacklist = [
-        !value.startsWith('.'),
-        value.startsWith('/@fs/'),
-        images.some(v => value.includes(v))
-      ]
-
-      const nolocal = blacklist.some(v => v)
-      if (!nolocal) {
-        path.node.specifiers.forEach(specifier => {
-          localImportSpecifiers.push({
-            name: specifier.local.name,
-            path: value,
-            from: value
-          })
-        })
-      }
+      !allDeps.includes(value) && dep.use(value)
     },
-    Identifier(path) {
-      if (localImportSpecifiers.some(item => item.name == path.node.name)) {
-        const blacklist = [
-          t.isImportSpecifier(path.parentPath),
-          t.isVariableDeclarator(path.parent) &&
-            path.parentPath.node.id.name == path.node.name,
-          t.isFunctionDeclaration(path.parentPath),
-          t.isProperty(path.parentPath) &&
-            path.parentPath.node.value.name != path.node.name,
-          t.isClassDeclaration(path.parentPath),
-          t.isImportDefaultSpecifier(path.parentPath)
-        ]
 
-        const replace = blacklist.some(bool => bool)
-        if (!replace) {
-          // console.log(path.node.name, blacklist)
-          path.node.name = `${namePrefix}${path.node.name}`
+    CallExpression(path) {
+      if (path.node.callee.name === 'defineComponent') {
+        if (path.node.arguments.length) {
+          const first = path.node.arguments[0]
+          if (!t.isStringLiteral(first) && !t.isIdentifier(first)) {
+            if (t.isVariableDeclarator(path.parent)) {
+              if (path.parent.id.name) {
+                path.node.arguments.unshift(t.stringLiteral(id + '#' + path.parent.id.name))
+                dep.keepOn = false
+              }
+            }
+          }
         }
       }
     },
@@ -63,14 +36,22 @@ function TransformCode(
     }
   })
 
-  if (importPath) {
-    importPath.insertAfter(t.identifier(endOfImportIndentification))
-    programPath.node.body.push(t.identifier(endOfFileIdentification))
+  const list = dep.useList
+  DepManager.set(id, dep)
+  if (id.includes('src/main.ts')) {
+    programPath.node.body.unshift(t.identifier(`import 'virtual:vilex-hmr-manager';`))
   }
+  const hmrHandlers = [`import.meta.hot.accept(module => HmrManager.update(module,'${id}'));`]
+  hmrHandlers.shift()
+  if (list.length) {
+    const accepts = list.map(item => `import.meta.hot.accept('${item}', module => HmrManager.update(module, '${id}'));`)
+    hmrHandlers.push(...accepts)
+  }
+  hmrHandlers.unshift(`if(import.meta.hot){`)
+  hmrHandlers.push(`}`)
+  programPath.node.body.push(t.identifier(hmrHandlers.join('')))
 
-  const recode = generate(astfile).code
-
-  return { code: recode, specifiers: localImportSpecifiers }
+  return { code: generate(astfile).code }
 }
 
 exports.TransformCode = TransformCode
