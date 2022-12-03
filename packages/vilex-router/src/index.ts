@@ -1,6 +1,7 @@
 import { div, ViElement, ViHTMLDivElement } from 'vilex'
 import { createHashHistory } from 'history'
 import { isPromise } from './isPromise'
+import { error } from './log'
 
 let rootPath = ''
 
@@ -46,10 +47,14 @@ export function regRoute<T>(path: string, component: T, root = false) {
   return { path, component } as RegRoute<T>
 }
 
-export function routerView<T>(routes: RegRoute<T>[], prefix?: string): ViHTMLDivElement {
+export function routerView<T>(...routes: RegRoute<T>[]): ViHTMLDivElement {
   for (let i = routes.length - 1; i >= 0; i--) {
-    const val = routeMap.get(routes[i].path)
-    if (val) return val.container
+    const route = routes[i]
+    const val = routeMap.get(route.path)
+    if (val) {
+      error(route.path, `already exists, please change it`)
+      return val.container
+    }
   }
 
   const container = div({
@@ -57,10 +62,6 @@ export function routerView<T>(routes: RegRoute<T>[], prefix?: string): ViHTMLDiv
     height: '100%',
     boxSizing: 'border-box'
   })
-
-  if (prefix) {
-    routes.forEach(route => (route.path = prefix + route.path))
-  }
 
   routes.forEach(route => {
     routeMap.set(route.path, { ...route, container, initialed: false })
