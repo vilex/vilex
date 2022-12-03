@@ -1,7 +1,8 @@
 import { isProxy } from '../../utils/isProxy'
 import { isRef } from './isRef'
+import { Ref } from './ref'
 
-export function unref<T>(ref: T): T
+export function unref<T>(ref: Ref<T>): T
 export function unref(ref: any) {
   if (isRef(ref)) return ref.value
   if (isProxy(ref)) {
@@ -15,3 +16,5 @@ export function unref(ref: any) {
   }
   return ref
 }
+
+export const unval = unref

@@ -76,6 +76,7 @@ export function DataNode(data: IDataModel) {
     node.$.set(...items)
     return node
   }
+
   Observer(node)
   return node
 }

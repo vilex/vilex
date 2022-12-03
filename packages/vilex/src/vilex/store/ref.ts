@@ -14,3 +14,5 @@ export function ref<T>(value: T): Ref<T>
 export function ref(value: any) {
   return isObject(value) ? createStore(value) : createRef(value)
 }
+
+export const val = ref

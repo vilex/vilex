@@ -5,6 +5,7 @@ export * from './dataType/DataFactor'
 export * from './store/watch'
 export * from './store/ref'
 export * from './store/computed'
+export * from './store/unref'
 
 interface App {
   use: (plugin: { install: (app: ViElement) => void }) => App
