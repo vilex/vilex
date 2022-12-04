@@ -12,6 +12,7 @@ import { Ref, ViEvent } from './elements/velements'
 import { Styled } from '../css'
 import { watchList } from './listView/watchList'
 import { isRef } from '../vilex/store/isRef'
+import { createElement } from './dom/createElement'
 
 export type DisplayFactor = () => IDataNode
 
@@ -32,7 +33,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
 
   const dataModel = DataModel(tag)
   const vnode = DataNode(dataModel) as VNode
-  vnode.el = element(tag)
+  vnode.el = createElement(tag)
   vnode.on(EmitType.ON_NODE_CHANGE, (eventType: string | number, ...args: unknown[]) => messageProcessing(eventType, vnode, ...args))
   dataModel.set(...items)
 
@@ -81,12 +82,12 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
   return vnode as unknown as ViElement
 }
 
-export function element(tag: string) {
-  if (tag === 'text') {
-    return document.createTextNode('')
-  }
-  if (tag === 'svg' || tag === 'use') {
-    return document.createElementNS('http://www.w3.org/2000/svg', tag)
-  }
-  return document.createElement(tag)
-}
+// export function element(tag: string) {
+//   if (tag === 'text') {
+//     return document.createTextNode('')
+//   }
+//   if (tag === 'svg' || tag === 'use') {
+//     return document.createElementNS('http://www.w3.org/2000/svg', tag)
+//   }
+//   return document.createElement(tag)
+// }

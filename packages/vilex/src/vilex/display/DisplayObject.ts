@@ -19,6 +19,7 @@ export interface IDataNode extends IDataEmit {
   _$_list?: _$_lIST
   id: string
   isVilexNode: true
+  definedComponentName?: string
   children: IDataNode[]
   add: (...childs: IDataNode[]) => this
   insert: (child: IDataNode, beforeChild: IDataNode) => this
