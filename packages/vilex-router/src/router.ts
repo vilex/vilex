@@ -17,7 +17,6 @@ const history = createHashHistory()
 const location = history.location
 
 history.listen(({ location }) => {
-  console.log(location.pathname)
   onPathChange(location)
 })
 
