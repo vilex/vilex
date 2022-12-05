@@ -44,8 +44,8 @@ function getPathContainer<T>(routes: RegRoute<T>[]) {
   return null
 }
 
-function createRouterView<T>(creator: () => ViHTMLDivElement, routes: RegRoute<T>[]) {
-  let root = getPathContainer(routes)
+function createRouterView<Root, T>(creator: () => Root, routes: RegRoute<T>[]) {
+  let root = getPathContainer(routes) as Root
   if (root) return root
   root = creator()
   routes.forEach(route => {
@@ -63,18 +63,18 @@ interface RegRoute<T> {
 
 type Call<T> = () => T
 
-export function regRoute(path: string, component: Call<ViElement>, root?: boolean): RegRoute<ViElement>
-export function regRoute(path: string, component: Call<Promise<ViElement>>, root: boolean): RegRoute<Promise<ViElement>>
+export function regRoute<T>(path: string, component: Call<T>): RegRoute<T>
+export function regRoute<T>(path: string, component: Call<Promise<T>>, root: boolean): RegRoute<Promise<T>>
 export function regRoute<T>(path: string, component: T) {
   const alias = path === '/' ? '/_default_' : ''
   return { path, component, alias } as RegRoute<T>
 }
 
-export function routerView<T>(...routes: RegRoute<T>[]): ViHTMLDivElement {
-  return createRouterView(defineComponent('router-view', defaultContainer), routes)
+export function routerView<T>(...routes: RegRoute<T>[]): T {
+  return createRouterView(defineComponent('router-view', defaultContainer) as () => T, routes)
 }
 
-export function customRouterView<T>(customContainer: () => ViHTMLDivElement, ...routes: RegRoute<T>[]): ViHTMLDivElement {
+export function customRouterView<T>(customContainer: () => T, ...routes: RegRoute<T>[]): T {
   return createRouterView(defineComponent('router-view', customContainer), routes)
 }
 
