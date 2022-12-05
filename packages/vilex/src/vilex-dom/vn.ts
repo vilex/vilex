@@ -30,7 +30,6 @@ export function vn(tag: string, options: VnItem[]): ViElement
 
 export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnItem[]) {
   const items = invisibleTypeToDisplayType(options)
-
   const dataModel = DataModel(tag)
   const vnode = DataNode(dataModel) as VNode
   vnode.el = createElement(tag)
@@ -81,13 +80,3 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
   eventBehavior(vnode)
   return vnode as unknown as ViElement
 }
-
-// export function element(tag: string) {
-//   if (tag === 'text') {
-//     return document.createTextNode('')
-//   }
-//   if (tag === 'svg' || tag === 'use') {
-//     return document.createElementNS('http://www.w3.org/2000/svg', tag)
-//   }
-//   return document.createElement(tag)
-// }

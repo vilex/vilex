@@ -74,6 +74,14 @@ export function DataNode(data: IDataModel) {
   }
   node.set = function (...datas: VnItem[]) {
     const items = invisibleTypeToDisplayType(datas)
+    items.forEach(item => {
+      if (typeof item === 'string') {
+        const firstChild = node.children[0]
+        if (firstChild && firstChild.$.type === 'text') {
+          firstChild.$.text.data = item
+        }
+      }
+    })
     node.$.set(...items)
     return node
   }
