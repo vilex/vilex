@@ -8,15 +8,15 @@
     "url": "git+https://github.com/vilex/vilex.git",
     "directory": "packages/vite-vilex"
   },
-  "main": "lib/index.js",
-  "module": "lib/index.js",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
     "lib"
   ],
   "scripts": {
-    "ts-types": "tsc --emitDeclarationOnly --outDir lib",
+    "ts-types": "tsc --declaration --outDir lib",
     "build": "rimraf lib && node ./esbuild.js && npm run ts-types",
     "init-tsconfig": "tsc --init"
   },
