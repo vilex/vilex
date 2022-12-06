@@ -11,10 +11,12 @@ export function watchList(node: VNode) {
       if (!sources.on) return
       sources.on(EmitType.ON_PROXY_CHANGE, (key, value) => {
         const numKey = Number(key)
-        if (node.children && node.children.length === numKey) {
+        const length = node.children.length
+        if (length === numKey) {
           if (list.iterator) {
             const child = list?.iterator(value, numKey)
             child && node.add(child)
+            sources.emit(EmitType.on_list_view_change, 'length', length + 1)
           }
           return
         }
@@ -22,6 +24,7 @@ export function watchList(node: VNode) {
         if (value === `Del-$_$-Self`) {
           const child = node.children[numKey]
           child && node.remove(child)
+          sources.emit(EmitType.on_list_view_change, 'length', length - 1)
           return
         }
       })

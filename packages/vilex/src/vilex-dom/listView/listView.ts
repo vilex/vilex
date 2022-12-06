@@ -2,7 +2,8 @@ import { ViElement } from '../../vii'
 
 const handleList = <T>(list: T[], callFn: (item: T, index: number) => ViElement) => {
   const sourceData = { sources: list, iterator: callFn }
-  Reflect.defineProperty(sourceData, '_$_type', { value: 'list-view', writable: false, enumerable: false, configurable: false })
+  Reflect.defineProperty(sourceData, '_$_type', { value: 'list-view', writable: true, enumerable: true, configurable: true })
+  // Reflect.defineProperty(sourceData, '_$_type', { value: 'list-view', writable: false, enumerable: false, configurable: false })
   return sourceData
 }
 

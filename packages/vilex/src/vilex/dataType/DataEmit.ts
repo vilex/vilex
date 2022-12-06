@@ -1,4 +1,4 @@
-import { readonly } from '../../utils/readonly'
+// import { readonly } from '../../utils/readonly'
 
 type EmitKey = string | number | symbol
 export type IDataEmit = {
@@ -11,7 +11,7 @@ export function DataEmit<T extends object>(o: T): T & IDataEmit {
     ...o,
     ...b()
   } as T & IDataEmit
-  readonly(newObject, ['emit', 'on'])
+  // readonly(newObject, ['emit', 'on'])
   return newObject
 }
 

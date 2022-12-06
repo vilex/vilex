@@ -33,7 +33,12 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
             // @ts-ignore
             obj[item] = true
           } else {
-            Object.assign(obj, item)
+            try {
+              Object.assign(obj, item)
+            } catch (err) {
+              // console.log(obj)
+              // console.log(item)
+            }
           }
         })
         list.push(obj)

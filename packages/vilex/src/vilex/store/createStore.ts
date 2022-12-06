@@ -14,7 +14,7 @@ function deepStore<T extends AnyObject, R extends AnyObject, K extends keyof R>(
     for (const key in data) {
       validAttribute(key) && deepStore(data[key], data, key)
     }
-    return createProxy(data) as unknown as T
+    return isProxy(data) ? data : (createProxy(data) as unknown as T)
   }
   if (root && key) {
     root[key] = createRef(data) as R[K]

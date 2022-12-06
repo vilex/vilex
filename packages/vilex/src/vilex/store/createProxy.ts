@@ -3,10 +3,10 @@ import { isProxy } from '../../utils/isProxy'
 import { AnyObject } from '../../_types/common'
 import { EmitType } from '../constant/EmitType'
 import { EnProxy } from '../dataType/EnProxy'
-import { cloneProxy } from './clone'
 import { isRef } from './isRef'
 import { merge } from './merge'
 import { ref } from './ref'
+import { unref } from './unref'
 
 const blacklist = ['emit', 'on', 'length']
 
@@ -39,7 +39,7 @@ export function createProxy<T extends AnyObject>(data: T, dataTypeName?: string)
         }
 
         if (vp === undefined) {
-          const nv = isProxy(value) ? cloneProxy(value) : ref(value)
+          const nv = isProxy(value) ? ref(unref(value)) : ref(value)
           data.emit(EmitType.ON_PROXY_CHANGE, key, nv)
           return Reflect.set(target, key, nv)
         }

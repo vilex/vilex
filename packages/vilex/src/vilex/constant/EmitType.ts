@@ -15,6 +15,7 @@ export enum EmitType {
 
   ON_NODE_CHANGE = 'on_node_change',
   ON_PROXY_CHANGE = 'on_proxy_change',
-  ON_DELETE_PORPERTY = `ON_DELETE_PORPERTY`
+  ON_DELETE_PORPERTY = `ON_DELETE_PORPERTY`,
+  on_list_view_change = 'on_list_view_change'
   // todo ... 增加一个添加的事件？
 }
