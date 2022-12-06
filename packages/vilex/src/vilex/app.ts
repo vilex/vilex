@@ -4,6 +4,7 @@ interface Plugin {
   install: (app: App) => void
 }
 interface AppConf {
+  /** @deprecated */
   disableCustomComponent: boolean
   disableCustomComponentAttribute: boolean
 }

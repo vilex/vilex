@@ -4,12 +4,15 @@ import { isObject } from '@vilex/utils'
 import { createRef } from './createRef'
 import { createStore } from './createStore'
 
-export interface Ref<T> {
-  value: T
-}
-export type Store<T = AnyObject> = { [k in keyof T]: T[k] extends Primitive ? Ref<T[k]> : Store<T[k]> }
+// export interface Ref<T> {
+//   value: T
+// }
 
-export function ref<T extends AnyObject>(value: T): Store<T>
+export type StoreArray<T> = T extends never[] ? any[] : T
+
+export type Store<T = AnyObject> = { [k in keyof T]: Ref<T[k]> }
+export type Ref<T> = T extends Primitive ? { value: T } : T extends never[] ? any[] : Store<T>
+
 export function ref<T>(value: T): Ref<T>
 export function ref(value: any) {
   return isObject(value) ? createStore(value) : createRef(value)

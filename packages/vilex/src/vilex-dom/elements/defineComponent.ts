@@ -1,4 +1,4 @@
-import { customNode } from './../dom/createElement'
+// import { customNode } from './../dom/createElement'
 import { isFun } from '../../utils/isFun'
 import { ViElement } from '../../vii'
 import { appConf } from '../../vilex/app'
@@ -26,7 +26,8 @@ export function defineComponent(...args: any[]) {
       RegisterDevHotModuleReplaceRegisterArguments(first, props)
     }
     BeUsedForDebuggerComponentAttributeName(node, getDefineComponentName)
-    return appConf.disableCustomComponent ? node : getDefineComponentName ? customNode(getDefineComponentName, node) : node
+    // return appConf.disableCustomComponent ? node : getDefineComponentName ? customNode(getDefineComponentName, node) : node
+    return node
   }
 }
 

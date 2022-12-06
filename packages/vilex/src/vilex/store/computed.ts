@@ -8,7 +8,7 @@ export function computed<T extends Ref<any>, R extends CallFn>(ref: T, callFn: R
 export function computed<T extends RefList, R extends CallFn>(refs: T, callFn: R): Ref<ReturnType<R>>
 
 export function computed(refs: any, callFn: any): any {
-  const value = ref(callFn())
+  const value = ref(callFn() as string)
   const list = Array.isArray(refs) ? refs : [refs]
   list.forEach(ref => watch(ref, newVal => newVal != ref.value && nextTick(() => (value.value = callFn()))))
   return value

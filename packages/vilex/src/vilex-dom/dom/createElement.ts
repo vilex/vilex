@@ -26,6 +26,7 @@ export function customElement(tag: string, targetTag: string) {
   return createElement(myTagName) as HTMLElement
 }
 
+/** @deprecated  */
 export function customNode(tag: string, node: ViElement) {
   const html = node.el.innerHTML
   const newEl = customElement(tag, node.$.type)
@@ -37,12 +38,12 @@ export function customNode(tag: string, node: ViElement) {
     if (validAttribute(k)) {
       newEl[k as 'id'] = el[k as 'id']
     } else {
-      newEl[k as 'onclick'] = null
+      // newEl[k as 'onclick'] = null
     }
   })
   Object.keys(node.$.props).forEach(k => {
     if (validAttribute(k)) {
-      console.log('props', k)
+      // console.log('props', k)
       newEl[k as 'id'] = el[k as 'id']
       newEl.setAttribute(k, el[k as 'id'])
     }
