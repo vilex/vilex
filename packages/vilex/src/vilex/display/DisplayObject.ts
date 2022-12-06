@@ -2,10 +2,10 @@ import { DataEmit, IDataEmit } from '../dataType/DataEmit'
 import { IDataModel } from '../dataType/DataModel'
 import { Observer } from './Observer'
 import { EmitType } from '../constant/EmitType'
-import { uuid } from '../../utils/uuid'
 import { VnItem, VNode } from '../../vilex-dom/vn'
 import { invisibleTypeToDisplayType } from '../../vilex-dom/utils/invisibleTypeToDisplayType'
 import { isObject } from '@vilex/utils'
+import { readonly } from '../../utils/readonly'
 
 export type _$_lIST = {
   sources?: unknown[]
@@ -17,7 +17,7 @@ export interface IDataNode extends IDataEmit {
   $parent: IDataNode
   _$_key?: string
   _$_list?: _$_lIST
-  id: string
+  id: symbol
   isVilexNode: true
   definedComponentName?: string
   children: IDataNode[]
@@ -33,10 +33,11 @@ const isNode = (value: any) => isObject(value) && value.isVilexNode
 
 export function DataNode(data: IDataModel) {
   const node: IDataNode = DataEmit({}) as IDataNode
-  node.id = uuid()
+  node.id = Symbol()
   node.isVilexNode = true
   node.$ = data
   node.children = []
+  readonly(node, ['id', 'isVilexNode'])
   node.clear = function () {
     this.children.length = 0
     this.emit(EmitType.ON_NODE_CHANGE, EmitType.Clear)
