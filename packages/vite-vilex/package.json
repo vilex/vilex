@@ -8,8 +8,8 @@
     "url": "git+https://github.com/vilex/vilex.git",
     "directory": "packages/vite-vilex"
   },
-  "main": "src/index.js",
-  "module": "src/index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
