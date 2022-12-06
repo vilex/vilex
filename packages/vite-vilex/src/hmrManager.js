@@ -24,10 +24,10 @@ const hotModuleReplace = (newElement, app) => {
 window.HmrManager = new class {
   arguments = new Map()
   update(module, fileId) {
-    if (Object.keys(module).length === 0) {
+    if (!module || Object.keys(module).length === 0) {
       return window.location.reload()
     }
-    if (typeof module === 'object' && module !== null) {
+    if (typeof module === 'object') {
       for(const key in module) {
         let exportBlock = module[key]
         if (isFn(exportBlock)) {
