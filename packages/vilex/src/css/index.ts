@@ -14,25 +14,19 @@ const { sheet } = createStyleElement()
 
 const vsheet = sheet as CSSStyleSheet
 
-function TemplateFunction(
-  strings: TemplateStringsArray,
-  ...args: (string | number)[]
-): Styled {
+function TemplateFunction(strings: TemplateStringsArray, ...args: (string | number)[]): Styled {
   const classname = 'v' + genId()
-  const finalstri = strings.reduce(
-    (val: string, item: string, index: number) => {
-      return (val += item + (index < args.length ? args[index] : ''))
-    },
-    ''
-  )
-  const rule = serialize(
-    compile(`.${classname} { ${finalstri} }`),
-    middleware([prefixer, stringify])
-  )
+  const len = args.length
 
-  rule
-    .split(`.${classname}`)
-    .forEach(rule => rule.trim() && insert(vsheet, `.${classname}${rule}`))
+  const result = strings.reduce((val, item, index) => {
+    val.push(item)
+    index < len && val.push(strings[index])
+    return val
+  }, [] as string[])
+  const finalStr = result.join('')
+  const rule = serialize(compile(`.${classname} { ${finalStr} }`), middleware([prefixer, stringify]))
+
+  rule.split(`.${classname}`).forEach(rule => rule.trim() && insert(vsheet, `.${classname}${rule}`))
 
   return { classname, _styled: true }
 }
