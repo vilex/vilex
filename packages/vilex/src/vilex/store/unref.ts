@@ -1,7 +1,9 @@
 import { isProxy } from '../../utils/isProxy'
+import { Primitive } from '../../_types/common'
 import { isRef } from './isRef'
 import { Ref } from './ref'
 
+export function unref<T extends Primitive>(ref: T): T
 export function unref<T>(ref: Ref<T>): T
 export function unref(ref: any) {
   if (isRef(ref)) return ref.value
