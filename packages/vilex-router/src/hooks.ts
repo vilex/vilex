@@ -4,7 +4,7 @@ interface Hooks {
   beforeRoute: HookCallFn
 }
 
-type HookCallFn = (from: Location, to: Location) => Location
+type HookCallFn = (from: Location | undefined, to: Location) => Location | Promise<Location>
 
 export const hooks: Partial<Hooks> = {}
 

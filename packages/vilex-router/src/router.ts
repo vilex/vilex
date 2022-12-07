@@ -4,6 +4,7 @@ import { isPromise } from './isPromise'
 import { error } from './log'
 import { defaultContainer } from './RouterView'
 import { hooks } from './hooks'
+import { createLocationOf } from './location'
 
 let currentLocation: Location
 
@@ -78,11 +79,11 @@ export function customRouterView<T>(customContainer: () => T, ...routes: RegRout
   return createRouterView(defineComponent('router-view', customContainer), routes)
 }
 
-function onPathChange(location: Location) {
+async function onPathChange(location: Location) {
   if (currentLocation && currentLocation.pathname === location.pathname) return
-
-  currentLocation = hooks.beforeRoute ? hooks.beforeRoute(currentLocation, location) : location
-
+  const currentPathname = location.pathname
+  currentLocation = hooks.beforeRoute ? await hooks.beforeRoute(currentLocation, createLocationOf(location)) : location
+  currentLocation.pathname != currentPathname && history.push(currentLocation.pathname)
   const pathname = currentLocation.pathname
   const currPath = alias.get(pathname) || pathname
 
