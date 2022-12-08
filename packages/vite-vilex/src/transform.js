@@ -20,7 +20,7 @@ function TransformCode(code, id, allDeps) {
       if (path.node.callee.name === 'defineComponent') {
         if (path.node.arguments.length) {
           const first = path.node.arguments[0]
-          if (!t.isStringLiteral(first) && !t.isIdentifier(first)) {
+          if (!t.isStringLiteral(first) /*&& !t.isIdentifier(first)*/) {
             if (t.isVariableDeclarator(path.parent)) {
               if (path.parent.id.name) {
                 path.node.arguments.unshift(t.stringLiteral(id + '#' + path.parent.id.name))
