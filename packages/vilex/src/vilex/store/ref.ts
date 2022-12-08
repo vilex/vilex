@@ -10,7 +10,7 @@ import { createStore } from './createStore'
 
 export type StoreArray<T> = T extends never[] ? any[] : T
 
-export type Store<T = AnyObject> = { [k in keyof T]: Ref<T[k]> }
+export type Store<T = AnyObject> = { [K in keyof T]: T[K] extends Primitive ? T[K] : T[K] extends never[] ? any[] : Store<T[K]> }
 export type Ref<T> = T extends Primitive ? { value: T } : T extends never[] ? any[] : Store<T>
 
 export function ref<T>(value: T): Ref<T>
