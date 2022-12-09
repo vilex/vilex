@@ -1,3 +1,4 @@
-export function isRef(ref: unknown) {
-  return Object.prototype.toString.call(ref) === '[object RefProxy]'
+type IsRefType = { _$_isRef: boolean }
+export function isRef(val: unknown) {
+  return val && (<IsRefType>val)._$_isRef
 }

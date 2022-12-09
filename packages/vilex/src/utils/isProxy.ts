@@ -1,3 +1,4 @@
-export function isProxy(o: any) {
-  return Object.prototype.toString.call(o).includes('Proxy')
+type IsProxyType = { _$_isProxy: boolean }
+export function isProxy(val: unknown) {
+  return val && (<IsProxyType>val)._$_isProxy
 }

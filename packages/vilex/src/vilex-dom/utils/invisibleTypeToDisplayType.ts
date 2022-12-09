@@ -1,4 +1,5 @@
 import { isPromise } from '../../utils/isPromise'
+import { isRef } from '../../vilex/store/isRef'
 import { VnItem } from '../vn'
 import { isCssKey } from './isCssKey'
 import { isStyled } from './isStyled'
@@ -12,7 +13,7 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
       option = option()
     }
 
-    if (typeof option === 'string' || typeof option === 'number') {
+    if (typeof option === 'string' || typeof option === 'number' || isRef(option)) {
       list.push(option)
     } else if (isStyled(option)) {
       list.push(option)

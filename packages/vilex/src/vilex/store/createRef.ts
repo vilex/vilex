@@ -3,5 +3,6 @@ import { createProxy } from './createProxy'
 import { Ref } from './ref'
 
 export function createRef<T>(data: T): Ref<T> {
-  return createProxy(DataEmit({ value: data }), 'RefProxy') as unknown as Ref<T>
+  const newData = DataEmit({ value: data, _$_isRef: true })
+  return createProxy(newData) as unknown as Ref<T>
 }
