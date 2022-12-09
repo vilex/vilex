@@ -14,7 +14,7 @@ import { watchList } from './listView/watchList'
 import { isRef } from '../vilex/store/isRef'
 import { createElement } from './dom/createElement'
 
-export type DisplayFactor = () => IDataNode
+export type DisplayFactor<T = any> = (...args: T[]) => IDataNode
 
 export type VnItem = Styled | IStyle | IDataNode | string | number | DisplayFactor | IAttr | IClass | ViEvent | ViElement | Ref
 
@@ -39,7 +39,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
   let children: VNode[] = []
   let recordAsyncIndex = 0
   items.forEach((item: VnItem) => {
-    let itemNode = typeof item === 'function' ? item() : item
+    let itemNode = typeof item === 'function' ? item(vnode) : item
     if (itemNode !== undefined && itemNode !== null) {
       if (typeof itemNode === 'number') {
         itemNode = itemNode.toString()
@@ -49,14 +49,8 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
         vnode.add(text as unknown as IDataNode)
         children.push(text as unknown as VNode)
         // @ts-ignore
-      } else if (itemNode._$_type == `list-view`) {
-        vnode._$_list = itemNode as _$_lIST
-        const sources = vnode._$_list.sources
-        const iterator = vnode._$_list.iterator
-        if (sources && iterator) {
-          vnode.add(...sources.map(iterator))
-          watchList(vnode)
-        }
+      } else if (itemNode._$_type) {
+        handlers.get(itemNode._$_type)?.(vnode, itemNode)
       } else if ((itemNode as IDataNode)?.$?.type) {
         vnode.add(itemNode as IDataNode)
       } else if (isPromise(itemNode)) {
@@ -79,4 +73,22 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
 
   eventBehavior(vnode)
   return vnode as unknown as ViElement
+}
+
+const handlers: Map<any, any> = new Map()
+handlers.set('hook_mounted', handleHookMounted)
+handlers.set('list-view', handleListView)
+
+function handleListView(vn: VNode, item: _$_lIST) {
+  vn._$_list = item as _$_lIST
+  const sources = vn._$_list.sources
+  const iterator = vn._$_list.iterator
+  if (sources && iterator) {
+    vn.add(...sources.map(iterator))
+    watchList(vn)
+  }
+}
+
+function handleHookMounted(vn: VNode, item: { _$_call: (vn: VNode) => void }) {
+  item._$_call(vn)
 }
