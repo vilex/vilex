@@ -12,7 +12,6 @@ export function computed(refs: any, callFn: any): any {
   const list = Array.isArray(refs) ? refs : [refs]
   list.forEach(ref =>
     watch(ref, newVal => {
-      console.log(newVal, '==', ref.val)
       newVal != ref.value && nextTick(() => (value.value = callFn()))
     })
   )

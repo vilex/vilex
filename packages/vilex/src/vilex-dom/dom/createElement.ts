@@ -35,11 +35,7 @@ export function customNode(tag: string, node: ViElement) {
 
   el.classList.length && newEl.classList.add(...el.classList)
   Object.keys(node.$.event).forEach(k => {
-    if (validAttribute(k)) {
-      newEl[k as 'id'] = el[k as 'id']
-    } else {
-      // newEl[k as 'onclick'] = null
-    }
+    validAttribute(k) && (newEl[k as 'id'] = el[k as 'id'])
   })
   Object.keys(node.$.props).forEach(k => {
     if (validAttribute(k)) {

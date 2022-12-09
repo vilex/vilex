@@ -49,9 +49,7 @@ export function DataModel(type: string): IDataModel {
         }
       }
       const styled = isStyled(item)
-      if (styled) {
-        Reflect.set(dataModel.class as IDataModelProps, styled.classname, true)
-      }
+      styled && Reflect.set(dataModel.class as IDataModelProps, styled.classname, true)
     })
     return dataModel as IDataModel
   }

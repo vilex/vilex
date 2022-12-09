@@ -6,6 +6,7 @@ import { VnItem, VNode } from '../../vilex-dom/vn'
 import { invisibleTypeToDisplayType } from '../../vilex-dom/utils/invisibleTypeToDisplayType'
 import { isObject } from '@vilex/utils'
 import { readonly } from '../../utils/readonly'
+import { Neonate } from '../../vdom/Neonate'
 
 export type _$_lIST = {
   sources?: unknown[]
@@ -32,7 +33,7 @@ export interface IDataNode extends IDataEmit {
 const isNode = (value: any) => isObject(value) && value.isVilexNode
 
 export function DataNode(data: IDataModel) {
-  const node: IDataNode = DataEmit({}) as IDataNode
+  const node: IDataNode = DataEmit({}) as IDataNode //new Neonate() as unknown as IDataNode//DataEmit({}) as IDataNode
   node.id = Symbol()
   node.isVilexNode = true
   node.$ = data
@@ -44,10 +45,7 @@ export function DataNode(data: IDataModel) {
     return this
   }
   node.removeSelf = function () {
-    console.log(`remove-self`)
-    if (this.$parent) {
-      this.$parent.remove(this)
-    }
+    this.$parent && this.$parent.remove(this)
   }
   node.remove = function (child: IDataNode) {
     const index = this.children.findIndex(item => item === child)
