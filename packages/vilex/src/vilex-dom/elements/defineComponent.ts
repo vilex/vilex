@@ -40,5 +40,5 @@ const RegisterDevHotModuleReplaceRegisterArguments = (id: string, args: any[]) =
 }
 
 const BeUsedForDebuggerComponentAttributeName = (node: ViElement, componentName: string) => {
-  componentName && !appConf.disableCustomComponentAttribute && node.set('v-component-name', componentName)
+  componentName && !appConf.disableCustomComponentAttribute && node.set({ 'v-component-name': componentName })
 }
