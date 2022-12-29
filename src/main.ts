@@ -1,18 +1,5 @@
-import {
-  regRoute,
-  router,
-  routerView
-} from './../packages/vilex-router/src/index'
-import {
-  article,
-  createApp,
-  css,
-  div,
-  header,
-  img,
-  main,
-  createElement
-} from 'vilex'
+import { regRoute, router, routerView } from './../packages/vilex-router/src/index'
+import { article, createApp, css, div, header, img, main, createElement } from 'vilex'
 import { sidebar } from './examples/sidebar'
 import { mdRouterView } from './examples/mdRouter'
 import { cg } from './examples/cg'
@@ -20,7 +7,7 @@ import Logo from './assets/logo.png'
 import Login from './examples/Login'
 
 const app = div(
-  routerView([
+  routerView(
     regRoute('/t/1', () => Login),
     regRoute('/e/cg', cg),
     regRoute('/d', () => {
@@ -51,7 +38,7 @@ const app = div(
         )
       )
     })
-  ])
+  )
 )
 
 router.push(`/t/1`)
