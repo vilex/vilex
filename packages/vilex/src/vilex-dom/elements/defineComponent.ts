@@ -1,5 +1,6 @@
 // import { customNode } from './../dom/createElement'
 import { isFun } from '../../utils/isFun'
+import { isPromise } from '../../utils/isPromise'
 import { ViElement } from '../../vii'
 import { appConf } from '../../vilex/app'
 
@@ -21,6 +22,21 @@ export function defineComponent(...args: any[]) {
   }
   return (...props: any[]) => {
     const node = callOrEl(...props)
+    if (isPromise(node)) {
+      return new Promise(resolve => {
+        node.then((res: ViElement) => {
+          if (res && res.isVilexNode) {
+            if (isHmr) {
+              node.hmrId = first
+              RegisterDevHotModuleReplaceRegisterArguments(first, props)
+            }
+            BeUsedForDebuggerComponentAttributeName(res, getDefineComponentName)
+            resolve(res)
+          }
+          resolve(undefined)
+        })
+      })
+    }
     if (isHmr) {
       node.hmrId = first
       RegisterDevHotModuleReplaceRegisterArguments(first, props)
