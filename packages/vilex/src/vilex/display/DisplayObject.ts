@@ -63,11 +63,17 @@ export function DataNode(data: IDataModel) {
     return this
   }
   node.insert = function (child: IDataNode, beforeChild: IDataNode) {
+    if (!beforeChild) {
+      this.add(child)
+      return this
+    }
     const index = node.children.findIndex(item => item === beforeChild)
     if (index > -1) {
       !child.$parent && (child.$parent = this)
       node.children.splice(index, 0, child)
       this.emit(EmitType.ON_NODE_CHANGE, EmitType.InsertChild, child, beforeChild)
+    } else {
+      this.add(child)
     }
     return this
   }
