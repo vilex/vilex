@@ -1,6 +1,6 @@
 {
   "name": "vilex",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "./dist/vii.js",
   "module": "./dist/vii.js",
   "types": "./dist/vii.d.ts",
