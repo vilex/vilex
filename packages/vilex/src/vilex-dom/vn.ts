@@ -38,7 +38,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
 
   let children: VNode[] = []
   let recordAsyncIndex = 0
-  items.forEach((item: VnItem) => {
+  items.forEach((item: VnItem, index: number) => {
     let itemNode = typeof item === 'function' ? item(vnode) : item
     if (itemNode !== undefined && itemNode !== null) {
       if (typeof itemNode === 'number') {
@@ -54,13 +54,15 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
       } else if ((itemNode as IDataNode)?.$?.type) {
         vnode.add(itemNode as IDataNode)
       } else if (isPromise(itemNode)) {
-        children.push(itemNode as VNode)
+        // children.push(itemNode as VNode)
+        children[index] = itemNode as VNode
         recordAsyncIndex++
         itemNode
           // @ts-ignore
           .then((r: IDataNode) => {
             if (r.$ && r.$.type) {
               const index = children.findIndex(item => item === itemNode)
+              console.log(`处理Promise`, index)
               index > -1 ? vnode.insert(r, vnode.children[index]) : vnode.add(r)
               // @ts-ignore
               --recordAsyncIndex == 0 && (children = undefined)
