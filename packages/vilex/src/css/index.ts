@@ -3,7 +3,7 @@
 import { createStyleElement } from './dom'
 import { insert } from './rule'
 import { compile, serialize, stringify, middleware, prefixer } from 'stylis'
-import { genId } from './utils'
+import { nanoid } from 'nanoid'
 
 export interface Styled {
   classname: string
@@ -15,7 +15,7 @@ const { sheet } = createStyleElement()
 const vsheet = sheet as CSSStyleSheet
 
 function TemplateFunction(strings: TemplateStringsArray, ...args: (string | number)[]): Styled {
-  const classname = 'v' + genId()
+  const classname = 'Vi' + nanoid()
   const len = args.length
 
   const result = strings.reduce((val, item, index) => {
