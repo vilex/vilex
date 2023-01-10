@@ -11,7 +11,9 @@ export function unref(ref: any) {
     const unrefObject: any = {}
     for (const key in ref) {
       if (Object.prototype.hasOwnProperty.call(ref, key)) {
-        unrefObject[key] = unref(ref[key])
+        if (!(typeof key === 'string' && key.startsWith('_$_'))) {
+          unrefObject[key] = unref(ref[key])
+        }
       }
     }
     return unrefObject
