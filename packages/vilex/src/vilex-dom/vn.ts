@@ -62,13 +62,12 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
           .then((r: IDataNode) => {
             if (r.$ && r.$.type) {
               const index = children.findIndex(item => item === itemNode)
-              console.log(`处理Promise`, index)
               index > -1 ? vnode.insert(r, vnode.children[index]) : vnode.add(r)
               // @ts-ignore
               --recordAsyncIndex == 0 && (children = undefined)
             }
           })
-          .catch((err: unknown) => console.log(err))
+          .catch((err: unknown) => console.error(err))
       }
     }
   })

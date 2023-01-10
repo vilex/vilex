@@ -39,7 +39,6 @@ export function customNode(tag: string, node: ViElement) {
   })
   Object.keys(node.$.props).forEach(k => {
     if (validAttribute(k)) {
-      // console.log('props', k)
       newEl[k as 'id'] = el[k as 'id']
       newEl.setAttribute(k, el[k as 'id'])
     }

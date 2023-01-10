@@ -36,10 +36,7 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
           } else {
             try {
               Object.assign(obj, item)
-            } catch (err) {
-              // console.log(obj)
-              // console.log(item)
-            }
+            } catch (err) {}
           }
         })
         list.push(obj)

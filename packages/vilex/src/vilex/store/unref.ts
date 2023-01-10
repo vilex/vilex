@@ -11,7 +11,6 @@ export function unref(ref: any) {
     const unrefObject: any = {}
     for (const key in ref) {
       if (Object.prototype.hasOwnProperty.call(ref, key)) {
-        console.log(ref, key)
         unrefObject[key] = unref(ref[key])
       }
     }
