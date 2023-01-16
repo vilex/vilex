@@ -68,10 +68,15 @@ function UpdateStyle(n: VNode, k: string, v: any) {
 function UpdateProps(n: VNode, k: string, v: any) {
   if (validAttribute(k)) {
     const val = tryGetValue(v)
-    // @ts-ignore
-    ;(n.el as HTMLElement).setAttribute(k, val)
-    // @ts-ignore
-    ;(n.el as HTMLElement)[k] = val
+    const el = n.el as HTMLElement
+    el.setAttribute(k, val)
+    try {
+      el[k as 'id'] = val
+    } catch (err) {}
+    // // @ts-ignore
+    // ;(n.el as HTMLElement).setAttribute(k, val)
+    // // @ts-ignore
+    // ;(n.el as HTMLElement)[k] = val
   }
 }
 
