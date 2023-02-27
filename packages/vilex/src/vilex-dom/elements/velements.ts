@@ -12,7 +12,9 @@ export interface IDataNode extends IDataEmit {
   clear: () => this
   remove: (child: IDataNode) => this
   set: (...datas: ViItemPart[]) => this
+  extends: { [key: string]: any }
 }
+
 export interface IDataNode<T = any> {
   [k: string]: T | any
 }
