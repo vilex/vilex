@@ -50,8 +50,8 @@ function createRouterView<Root, T>(creator: () => Root, routes: RegRoute<T>[]) {
   if (root) return root
   root = creator()
   routes.forEach(route => {
-    routeMap.set(route.alias || route.path, { ...route, container: root, initialed: false })
-    route.alias && alias.set(route.path, route.alias)
+    routeMap.set(route.path, { ...route, container: root, initialed: false })
+    route.alias && alias.set(route.alias, route.path)
   })
   return root
 }
