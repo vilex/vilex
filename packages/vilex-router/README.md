@@ -31,3 +31,4 @@ createApp(App).use(createRouter()).mount('#app')
 
 ```
 
+document: https://vilex.github.io

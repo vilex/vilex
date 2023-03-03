@@ -17,8 +17,11 @@ const history = createHashHistory()
 
 const location = history.location
 
+// 是不是已经初始化完成
+let isInitialRouter = false
+
 history.listen(({ location }) => {
-  onPathChange(location)
+  isInitialRouter && onPathChange(location)
 })
 
 export const router = history
@@ -27,6 +30,7 @@ export function createRouter() {
   return {
     install() {
       setTimeout(() => {
+        isInitialRouter = true
         history.replace(location.pathname)
       }, 0)
     }
