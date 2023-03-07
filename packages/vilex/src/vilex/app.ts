@@ -31,8 +31,9 @@ class vApp {
       const newApp = this._renderer()
       window.__dev_vilex__app__ = newApp
       root.appendChild(newApp.el)
+      return newApp
     }
-    return this
+    return null
   }
 }
 
