@@ -21,7 +21,18 @@ const location = history.location
 let isInitialRouter = false
 
 history.listen(({ location }) => {
-  isInitialRouter && onPathChange(location)
+  if (isInitialRouter) {
+    const r = routeMap.get(location.pathname)
+    if (r) {
+      if (r.redirect) {
+        router.push(r.redirect)
+      } else {
+        onPathChange(location)
+      }
+    } else {
+      hooks.noMatched && hooks.noMatched(location)
+    }
+  }
 })
 
 export const router = history
@@ -63,6 +74,7 @@ function createRouterView<Root, T>(creator: () => Root, routes: RegRoute<T>[]) {
 interface RegRoute<T> {
   path: string
   alias?: string
+  redirect?: string
   component: () => T
 }
 
