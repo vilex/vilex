@@ -73,7 +73,7 @@ function createRouterView<Root, T>(creator: () => Root, routes: RegRoute<T>[]) {
   return root
 }
 
-interface RegRoute<T> {
+export interface RegRoute<T> {
   path: string
   alias?: string
   redirect?: string
