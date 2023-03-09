@@ -6,7 +6,7 @@ interface Hooks {
 }
 
 type HookCallFn = (from: Location | undefined, to: Location) => Location | Promise<Location>
-type HookNoMatched = (location: Location) => Location
+type HookNoMatched = (location: string) => void
 
 export const hooks: Partial<Hooks> = {}
 

@@ -22,16 +22,18 @@ let isInitialRouter = false
 
 history.listen(({ location }) => {
   if (isInitialRouter) {
-    const r = routeMap.get(location.pathname)
-    if (r) {
-      if (r.redirect) {
-        router.push(r.redirect)
-      } else {
-        onPathChange(location)
-      }
-    } else {
-      hooks.noMatched && hooks.noMatched(location)
-    }
+    onPathChange(location)
+    // const pathname = alias.get(location.pathname) || location.pathname
+    // const r = routeMap.get(pathname)
+    // if (r) {
+    //   if (r.redirect) {
+    //     router.push(r.redirect)
+    //   } else {
+    //     onPathChange(location)
+    //   }
+    // } else {
+    //   hooks.noMatched && hooks.noMatched(location)
+    // }
   }
 })
 
@@ -102,6 +104,10 @@ async function onPathChange(location: Location) {
   currentLocation.pathname != currentPathname && history.push(currentLocation.pathname)
   const pathname = currentLocation.pathname
   const currPath = alias.get(pathname) || pathname
+  // if (!route) {
+  //   hooks.noMatched && hooks.noMatched(currPath)
+  //   return
+  // }
 
   const matched = matchedPath(currPath)
 
@@ -119,6 +125,15 @@ async function onPathChange(location: Location) {
   renderPathView(currPath, matched)
 
   currentMatchedPath = matchedPath(currPath)
+
+  const route = routeMap.get(currPath)
+  if (!route) {
+    hooks.noMatched && hooks.noMatched(currPath)
+    return
+  }
+  if (route.redirect) {
+    router.replace(route.redirect)
+  }
 }
 
 async function renderPathView(path: string, matched: string[]) {
