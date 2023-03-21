@@ -54,8 +54,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
       } else if ((itemNode as IDataNode)?.$?.type) {
         vnode.add(itemNode as IDataNode)
       } else if (isPromise(itemNode)) {
-        // children.push(itemNode as VNode)
-        children[index] = itemNode as VNode
+        children[vnode.children.length] = itemNode
         recordAsyncIndex++
         itemNode
           // @ts-ignore
@@ -63,9 +62,9 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
             if (r.$ && r.$.type) {
               const index = children.findIndex(item => item === itemNode)
               index > -1 ? vnode.insert(r, vnode.children[index]) : vnode.add(r)
-              // @ts-ignore
-              --recordAsyncIndex == 0 && (children = undefined)
             }
+            // @ts-ignore
+            --recordAsyncIndex == 0 && (children = undefined)
           })
           .catch((err: unknown) => console.error(err))
       }
