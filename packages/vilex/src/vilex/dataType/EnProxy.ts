@@ -5,6 +5,9 @@ export function EnProxy(
   handler: ProxyHandler<AnyObject>
   // dataTypeName?: string
 ): AnyObject {
+  if (!target) {
+    debugger
+  }
   target._$_isProxy = true
   const x = new Proxy(target, handler)
   // x[Symbol.toStringTag] = dataTypeName || 'Proxy'

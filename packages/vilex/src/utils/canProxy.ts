@@ -1,4 +1,5 @@
 const effective = ['object', 'function']
 export function canProxy(target: any) {
-  return effective.includes(typeof target)
+  const _type = typeof target
+  return target != null && effective.includes(_type)
 }
