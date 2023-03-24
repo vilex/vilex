@@ -59,10 +59,19 @@ export function UpdateClass(vn: VNode, k: string, v: any) {
   }
 }
 
+/**
+ * 兼容一些属性的值，如果是在这个数组中，并且是 number 的话，转成 px
+ */
+const pxKeys = ['left', 'top', 'right', 'bottom', 'width', 'height']
+
 function UpdateStyle(n: VNode, k: string, v: any) {
   const el = n.el as HTMLElement
-  // @ts-ignore
-  el.style[k] = tryGetValue(v)
+  const value = tryGetValue(v)
+  if (pxKeys.includes(k) && typeof value === 'number') {
+    el.style[k as 'width'] = value + 'px'
+  } else {
+    el.style[k as 'width'] = value
+  }
 }
 
 function UpdateProps(n: VNode, k: string, v: any) {
