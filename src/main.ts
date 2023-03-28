@@ -1,4 +1,5 @@
 import { createApp, div } from 'vilex'
+import { MyButton } from 'vilex/src/v1/MyButton'
 
 createApp(() => {
   return div({
@@ -7,3 +8,6 @@ createApp(() => {
     background: 'red'
   })
 }).mount('#app')
+
+new MyButton('你好')
+new MyButton('不好')
