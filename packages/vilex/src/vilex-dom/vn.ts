@@ -78,6 +78,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
 const handlers: Map<any, any> = new Map()
 handlers.set('hook_mounted', handleHookMounted)
 handlers.set('list-view', handleListView)
+handlers.set('hook_bind_to_var', handleHookBindToVar)
 
 function handleListView(vn: VNode, item: _$_lIST) {
   vn._$_list = item as _$_lIST
@@ -91,4 +92,8 @@ function handleListView(vn: VNode, item: _$_lIST) {
 
 function handleHookMounted(vn: VNode, item: { _$_call: (vn: VNode) => void }) {
   item._$_call(vn)
+}
+
+function handleHookBindToVar(vn: VNode, item: { _$_var: any }) {
+  item._$_var = vn as unknown as ViElement
 }

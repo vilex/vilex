@@ -1,6 +1,6 @@
 {
   "name": "vilex",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "The JavaScript framework for building modern web UI.",
   "main": "./dist/vii.js",
   "module": "./dist/vii.js",

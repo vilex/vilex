@@ -11,3 +11,5 @@ export * from './element'
 export * from './css'
 export * from './utils/replaceNode'
 export * from './utils/extendsElement'
+
+export * as hooks from './hooks'
