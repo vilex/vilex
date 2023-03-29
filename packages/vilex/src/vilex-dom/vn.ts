@@ -13,6 +13,7 @@ import { Styled } from '../css'
 import { watchList } from './listView/watchList'
 import { isRef } from '../vilex/store/isRef'
 import { createElement } from './dom/createElement'
+import { VilexElement } from '../v1/VilexElement'
 
 export type DisplayFactor<T = any> = (...args: T[]) => IDataNode
 
@@ -29,6 +30,23 @@ export function vn(tag: 'text', options: TextComponentOption[]): ViElement
 export function vn(tag: string, options: VnItem[]): ViElement
 
 export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnItem[]) {
+  console.log('vn')
+  console.log(tag)
+  console.log(options)
+  console.log('vn end')
+
+  if (options instanceof VilexElement) {
+    options.el = new options.ComponentConstructor()
+    options.el.append(options.render())
+    return
+  }
+
+  options.forEach(item => {
+    const v1 = item instanceof VilexElement
+    if (v1) {
+    }
+  })
+
   const items = invisibleTypeToDisplayType(options)
   const dataModel = DataModel(tag)
   const vnode = DataNode(dataModel) as VNode
@@ -39,6 +57,19 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
   let children: VNode[] = []
   let recordAsyncIndex = 0
   items.forEach((item: VnItem, index: number) => {
+    /**
+     * 如果是新版本，跳过不处理
+     */
+    if (item instanceof VilexElement) {
+      const _vnode = vn(item.componentName, item)
+      // const el = new item.ComponentConstructor()
+      vnode.add(_vnode)
+      // vnode.add(item)
+
+      // children.push(item)
+    }
+    // end
+
     let itemNode = typeof item === 'function' ? item(vnode) : item
     if (itemNode !== undefined && itemNode !== null) {
       if (typeof itemNode === 'number') {

@@ -30,12 +30,14 @@ function RemoveChild(n: ViElement, child: ViElement) {
 }
 
 function AppendChild(n: VNode, chils: ViElement[]) {
+  console.log('AppendChild', chils)
   const f = document.createDocumentFragment()
   chils.forEach(c => f.appendChild(c.el))
   n.el.appendChild(f)
 }
 
 function InsertChild(n: VNode, child: ViElement, beforeChild: ViElement) {
+  console.log('InsertChild', child)
   n.el.insertBefore(child.el, beforeChild.el)
 }
 

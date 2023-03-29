@@ -56,6 +56,7 @@ export function DataNode(data: IDataModel) {
     return this
   }
   node.add = function (...childs: IDataNode[]) {
+    console.log('node.add', childs)
     const objChilds = childs.filter(isNode)
     objChilds.forEach(item => !item.$parent && Reflect.set(item, '$parent', this))
     this.children.push(...objChilds)

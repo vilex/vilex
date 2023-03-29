@@ -1,11 +1,12 @@
 import { VilexElement } from './VilexElement'
 export class MyButton extends VilexElement {
-  constructor(name: string) {
+  constructor(a: any) {
     super()
   }
 
-  override get root() {
+  render() {
     const btn = document.createElement('button')
-    return super.root
+    btn.textContent = '你好'
+    return btn
   }
 }

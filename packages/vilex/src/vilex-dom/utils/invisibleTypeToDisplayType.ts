@@ -1,4 +1,5 @@
 import { isPromise } from '../../utils/isPromise'
+import { VilexElement } from '../../v1/VilexElement'
 import { isRef } from '../../vilex/store/isRef'
 import { VnItem } from '../vn'
 import { isCssKey } from './isCssKey'
@@ -9,6 +10,15 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
   const list: VnItem[] = []
   for (let option of options) {
     if (!IsValidValue(option)) continue
+
+    /**
+     * 如果是新版本，跳过不处理
+     */
+    if (option instanceof VilexElement) {
+      list.push(option)
+      continue
+    }
+    // end
     if (typeof option === 'function') {
       option = option()
     }

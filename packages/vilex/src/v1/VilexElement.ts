@@ -4,16 +4,22 @@ import { defineElement } from './defineElement'
 export class VilexElement {
   componentName = ''
   ComponentConstructor: CustomElementConstructor
+
+  data: any = {}
+
+  children: any[] = []
+
   constructor() {
     this.componentName = toHyphenCase(this.constructor.name)
-    this.ComponentConstructor = defineElement(this.componentName, this.root)
+    this.ComponentConstructor = defineElement(this.componentName)
+    console.log(this.render())
   }
 
-  get root() {
-    return null
+  render(): any {
+    return ''
   }
 
-  get render() {
-    return new this.ComponentConstructor()
+  haha() {
+    console.log('haha')
   }
 }
