@@ -1,12 +1,16 @@
+import { ButtonElement } from './htmlElements/ButtonElement'
 import { VilexElement } from './VilexElement'
 export class MyButton extends VilexElement {
-  constructor(a: any) {
-    super()
+  textContent = ''
+  constructor(data: Partial<MyButton>) {
+    super(data)
   }
 
   render() {
-    const btn = document.createElement('button')
-    btn.textContent = '你好'
-    return btn
+    return new ButtonElement({
+      textContent: this.textContent
+    })
   }
+
+  
 }

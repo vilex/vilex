@@ -35,17 +35,52 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
   console.log(options)
   console.log('vn end')
 
-  if (options instanceof VilexElement) {
-    options.el = new options.ComponentConstructor()
-    options.el.append(options.render())
-    return
-  }
+  
 
-  options.forEach(item => {
-    const v1 = item instanceof VilexElement
-    if (v1) {
-    }
-  })
+
+
+  // if (options instanceof VilexElement) {
+  //   const renderView = options.render()
+
+  //   if (renderView instanceof VilexElement) {
+
+  //     return vn(renderView.componentName, renderView)
+  //   } else {
+  //     // debugger
+  //     if (options.tagName) {
+  //       options.el = renderView//document.createElement(options.tagName)
+  //     } else {
+  //       options.el = new options.ComponentConstructor(renderView)
+  //     }
+
+  //     // options.el = renderView
+
+  //     options.eventListeners.forEach((val, key) => {
+  //       if (val.length) {
+  //         options.el?.addEventListener(key, (ev) => {
+  //           val.forEach(call => call && call())
+  //         })
+  //       }
+  //     })
+  //   }
+    
+  //   // options.el = new options.ComponentConstructor(options.render())
+  //   // options.el.append(options.render())
+  //   // options.el.append(document.createTextNode(options.data.textContent))
+  //   // if (options.children && options.children.length) {
+  //   //   options.children.forEach(child => {
+  //   //     const _vnode = vn(child.componentName, child)
+  //   //     options.el.append()
+  //   //   })
+  //   // }
+  //   return options
+  // }
+
+  // options.forEach(item => {
+  //   const v1 = item instanceof VilexElement
+  //   if (v1) {
+  //   }
+  // })
 
   const items = invisibleTypeToDisplayType(options)
   const dataModel = DataModel(tag)
@@ -61,12 +96,14 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
      * 如果是新版本，跳过不处理
      */
     if (item instanceof VilexElement) {
-      const _vnode = vn(item.componentName, item)
+      // const _vnode = vn(item.componentName, item)
       // const el = new item.ComponentConstructor()
-      vnode.add(_vnode)
+      // vnode.add(_vnode)
       // vnode.add(item)
 
       // children.push(item)
+
+      
     }
     // end
 

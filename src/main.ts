@@ -1,29 +1,43 @@
-import { createApp, div } from '../packages/vilex/src/vii'
-import { MyButton } from '../packages/vilex/src/v1/MyButton'
+import { ButtonElement, RenderElement, TextElement } from '../packages/new_vilex'
 
-createApp(() => {
-  return div(
-    {
-      width: 100,
-      height: 100,
-      background: 'lightgreen'
-    },
-    div('你好'),
-    new MyButton({
-      textContent: '你好',
-      onclick() {
-        console.log('sdf')
-      },
-      children: [
-        new MyButton({
-          textContent: '点击修改父级按钮的文本内容',
-          onclick() {
-            this.parent.textContent = '不好'
-          }
-        })
-      ]
-    })
-  )
-}).mount('#app')
+// createApp(() => {
+//   return div(
+//     {
+//       width: 100,
+//       height: 100,
+//       background: 'lightgreen'
+//     },
+//     new MyButton({
+//       textContent: 'mybutton',
+//       // onclick() {
+//       //   console.log('sdf')
+//       // },
+//       // children: [
+//       //   new MyButton({
+//       //     textContent: 'childbutton',
+//       //     onclick() {
+//       //       console.log('sdfsdfsdf')
+//       //     },
+//       //   })
+//       // ],
+      
+//     })
+//   )
+// }).mount('#app')
 
-document.body.appendChild(document.createElement('my-button'))
+// document.body.appendChild(document.createElement('my-button'))
+
+const btn = new ButtonElement({
+  onClick() {
+    console.log('click')
+  },
+  children: [
+    new TextElement('你好'),
+  ]
+})
+
+const app = document.querySelector('#app')
+if (app) {
+  app.append(RenderElement(btn))
+}
+

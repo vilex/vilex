@@ -14,10 +14,10 @@ export function invisibleTypeToDisplayType(options: VnItem[]) {
     /**
      * 如果是新版本，跳过不处理
      */
-    if (option instanceof VilexElement) {
-      list.push(option)
-      continue
-    }
+    // if (option instanceof VilexElement) {
+    //   list.push(option)
+    //   continue
+    // }
     // end
     if (typeof option === 'function') {
       option = option()

@@ -1,3 +1,4 @@
+import { VilexElement } from './../../v1/VilexElement';
 import { DataEmit, IDataEmit } from '../dataType/DataEmit'
 import { IDataModel } from '../dataType/DataModel'
 import { Observer } from './Observer'
@@ -30,7 +31,7 @@ export interface IDataNode extends IDataEmit {
   set: (...datas: VnItem[]) => this
 }
 
-const isNode = (value: any) => isObject(value) && value.isVilexNode
+const isNode = (value: any) => isObject(value) && (value.isVilexNode || value instanceof VilexElement)
 
 export function DataNode(data: IDataModel) {
   const node: IDataNode = DataEmit({}) as IDataNode //new Neonate() as unknown as IDataNode//DataEmit({}) as IDataNode
