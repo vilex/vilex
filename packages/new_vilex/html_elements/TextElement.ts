@@ -13,5 +13,5 @@ export class TextElement {
         return document.createTextNode(this.textContent)
     }
 
-    forceUpdate() { }
+    forceUpdate() { /* space */ }
 }

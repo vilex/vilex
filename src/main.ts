@@ -1,4 +1,6 @@
-import { ButtonElement, RenderElement, TextElement } from '../packages/new_vilex'
+import { DivElement } from './../packages/new_vilex/html_elements/DivElement';
+import { ButtonElement, InputElement, RenderElement, TextElement } from '../packages/new_vilex'
+import './style/input.css'
 
 // createApp(() => {
 //   return div(
@@ -27,17 +29,31 @@ import { ButtonElement, RenderElement, TextElement } from '../packages/new_vilex
 
 // document.body.appendChild(document.createElement('my-button'))
 
-const btn = new ButtonElement({
-  onClick() {
-    console.log('click')
-  },
+
+
+const count = myRef(123123)
+
+const test = new DivElement({
   children: [
-    new TextElement('你好'),
+    new DivElement({
+      textContent: count
+    }),
+    new InputElement({
+      placeholder: '请输入...',
+      value: count,
+      classList: ['input-padding']
+    }),
+    new ButtonElement({
+      textContent: '点击',
+      onClick() {
+        count.value ++
+      }
+    })
   ]
 })
 
 const app = document.querySelector('#app')
 if (app) {
-  app.append(RenderElement(btn))
+  app.append(RenderElement(test))
 }
 

@@ -9,7 +9,6 @@ export class BaseElement extends EventListeners {
 
     el: HTMLElement | null  = null
 
-
     initial(data: Partial<BaseElement>) {
         Object.assign(this, data)
     }
@@ -19,22 +18,52 @@ export class BaseElement extends EventListeners {
     }
 
     forceUpdate() {
-        if (this.el) {
+        const _el = this.el
+        if (_el) {
             if (typeof this.textContent === 'string') {
-                this.el.textContent = this.textContent
+                _el.textContent = this.textContent
             }
-            // 事件
+            
             this.listeners.forEach((handlers, key) => {
                 if (handlers.length) {
-                    this.el?.addEventListener(key, (event) => {
-                        handlers.forEach(handler => handler(event))
-                    })
+                    if (!this.hasEventListener(_el, key)) {
+                        this.addEventListener(_el, key, event => {
+                            handlers.forEach(handler => handler(event))
+                        })
+                    }
+                } else {
+                    this.removeEventListeners(_el, key)
                 }
             })
-            // children
-            // this.children.forEach(item => {
-            //     this.el?.appendChild(item.el)
-            // })
+            
+            const _classList = _el.classList
+            _classList.remove(..._classList.values())
+            _classList.add(...this.classList)
+
+        }
+    }
+
+    private eventList: Map<string, ((ev: Event) => void)[]> = new Map()
+    
+    private addEventListener<T extends ((ev: Event) => void)>(el: HTMLElement, key: string, handler: T) {
+        const list = this.eventList.get(key)
+        if (!list) {
+            this.eventList.set(key, [handler])
+        } else {
+            list.push(handler)
+        }
+        el.addEventListener(key, handler)
+    }
+
+    private hasEventListener(el: HTMLElement, key: string) {
+        return this.eventList.has(key)
+    }
+
+    private removeEventListeners(el: HTMLElement, key: string) {
+        const list = this.eventList.get(key)
+        if (list) {
+            list.forEach(call => el.removeEventListener(key, call))
+            this.eventList.delete(key)
         }
     }
 }
