@@ -1,4 +1,4 @@
-import { BaseElement } from "./_base/BseElement";
+import { BaseElement } from "../base/BseElement";
 
 export class ButtonElement extends BaseElement {
     constructor(data: Partial<ButtonElement>) {

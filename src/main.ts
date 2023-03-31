@@ -1,5 +1,5 @@
-import { DivElement } from './../packages/new_vilex/html_elements/DivElement';
-import { ButtonElement, InputElement, RenderElement, TextElement } from '../packages/new_vilex'
+import { DivElement } from '../packages/new_vilex/web-native-elements/DivElement';
+import { ButtonElement, InputElement, MyButton, ref, RenderElement, TextElement } from '../packages/new_vilex/src'
 import './style/input.css'
 
 // createApp(() => {
@@ -31,24 +31,47 @@ import './style/input.css'
 
 
 
-const count = myRef(123123)
+const count = ref(123123)
+
+count.value ++
+count.watch((newValue, oldValue) => {
+  console.log('change', newValue, oldValue)
+})
+
+count.value ++
+
+
+const buttonColor = ref('red')
+
+const inputValue = ref('')
 
 const test = new DivElement({
   children: [
-    new DivElement({
-      textContent: count
+    new MyButton({
+      // textContent: 'mybutton',
+      children: [
+        new DivElement({
+          textContent: count
+        }),
+        new InputElement({
+          placeholder: '请输入...',
+          value: inputValue,
+          classList: ['input-padding'],
+          style: {}
+        }),
+        new ButtonElement({
+          textContent: '点击',
+          style: {  
+            color: buttonColor
+          },
+          onClick() {
+            count.value ++
+            buttonColor.value = 'green'
+            console.log(inputValue.value)
+          }
+        })
+      ]
     }),
-    new InputElement({
-      placeholder: '请输入...',
-      value: count,
-      classList: ['input-padding']
-    }),
-    new ButtonElement({
-      textContent: '点击',
-      onClick() {
-        count.value ++
-      }
-    })
   ]
 })
 
