@@ -1,6 +1,7 @@
-import { TextElement } from '../web-native-elements/elements/TextElement'
-import { BaseElement } from "../web-native-elements/base/BseElement";
-import { VilexElement } from '../custom-web-components/VilexElement';
+import { VilexElement } from "../../custom-web-components"
+import { TextElement } from "../../web-native-elements"
+import { BaseElement } from "../../web-native-elements/base/BseElement"
+
 
 export function RenderElement(baseElement: BaseElement | TextElement | VilexElement) {
     if (baseElement) {

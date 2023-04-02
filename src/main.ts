@@ -1,5 +1,5 @@
-import { DivElement } from '../packages/new_vilex/web-native-elements/DivElement';
-import { ButtonElement, InputElement, MyButton, ref, RenderElement, TextElement } from '../packages/new_vilex/src'
+import { ButtonElement, DivElement, InputElement, MyButton, ref, TextElement } from '../packages/new_vilex/src'
+import { RenderElement } from '../packages/new_vilex/src/web-spa-runtime/renderer-element'
 import './style/input.css'
 
 // createApp(() => {

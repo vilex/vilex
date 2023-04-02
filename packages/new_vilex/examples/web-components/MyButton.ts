@@ -1,6 +1,6 @@
-import { DivElement } from '../../web-native-elements/elements/DivElement';
-import { ButtonElement } from '../../web-native-elements/elements/ButtonElement';
-import { VilexElement } from '../../custom-web-components/VilexElement'
+import { ButtonElement } from "../../src"
+import { VilexElement } from "../../src/custom-web-components"
+
 
 export class MyButton extends VilexElement {
   textContent = ''
