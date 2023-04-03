@@ -1,4 +1,4 @@
-import { ButtonElement, DivElement, InputElement, MyButton, ref, TextElement } from '../packages/new_vilex/src'
+import { ButtonElement, DivElement, InputElement, MyButton, ref, store } from '../packages/new_vilex/src'
 import { RenderElement } from '../packages/new_vilex/src/web-spa-runtime/renderer-element'
 import './style/input.css'
 
@@ -33,12 +33,44 @@ import './style/input.css'
 
 const count = ref(123123)
 
-count.value ++
-count.watch((newValue, oldValue) => {
-  console.log('change', newValue, oldValue)
+// count.value ++
+// count.watch((newValue, oldValue) => {
+//   console.log('change', newValue, oldValue)
+// })
+
+// count.value ++
+
+// console.log(store(1))
+
+const mainStore = store({
+  style: {
+    width: 100
+  },
+  list: [
+    1,2,3,4
+  ],
+  objList: [
+    {
+      name: '123'
+    }
+  ]
 })
 
-count.value ++
+
+
+
+
+console.log(mainStore)
+
+
+// mainStore.list.push(5)
+// mainStore.objList.push({
+//   name: 'q2'
+// })
+debugger
+mainStore.objList[0] = {
+  name: 'new item'
+}
 
 
 const buttonColor = ref('red')
