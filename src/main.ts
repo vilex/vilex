@@ -33,14 +33,13 @@ import './style/input.css'
 
 const count = ref(123123)
 
-// count.value ++
-// count.watch((newValue, oldValue) => {
-//   console.log('change', newValue, oldValue)
-// })
+count.value ++
+count.watch((newValue, oldValue) => {
+  console.log('change', newValue, oldValue)
+})
 
-// count.value ++
+count.value ++
 
-// console.log(store(1))
 
 const mainStore = store({
   style: {
@@ -57,20 +56,30 @@ const mainStore = store({
 })
 
 
+// mainStore.style.width
 
-
+// mainStore.list.watch((a,b) => console.log('sdfsf'))
+mainStore.list.watch((key, j, d) => {
+  console.log(key, j, d)
+  // console.log(key)
+})
+mainStore.list.shift()
 
 console.log(mainStore)
+
+
+
+// console.log(mainStore)
 
 
 // mainStore.list.push(5)
 // mainStore.objList.push({
 //   name: 'q2'
 // })
-debugger
-mainStore.objList[0] = {
-  name: 'new item'
-}
+// debugger
+// mainStore.objList[0] = {
+//   name: 'new item'
+// }
 
 
 const buttonColor = ref('red')

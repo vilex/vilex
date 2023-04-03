@@ -1,17 +1,24 @@
+import { Monitor } from './../utils/Monitor';
 import { ref, unRef } from "../ref/ref"
 import { RefImpl } from "../ref/RefImpl"
 import { beProxed, beRef, defineProperty, isProxy } from "../utils"
 
-type WatchCallback<T> = (newValue: T, oldValue: T) => void;
-type ProxyObjextExtends<T> = {
-    _deps: []
+type StoreExtends = {
     _reactivity: true,
-    watch: WatchCallback<T>
-    unWatch: WatchCallback<T>
+    _monitor: Monitor
+    watch: (callback: WatchCallback) => void
 }
 
+type WatchCallback = (key: string | symbol, newValue: any, oldValue: any) => void
+type Store<T> = {
+    [K in keyof T]: T[K] extends Record<string | symbol, any> ? Stored<T[K], StoreExtends> : RefImpl<T[K]>
+}
 
-export function store<T extends Record<string | symbol, any>>(obj: T) {
+type Stored<V1, V2> = V1 & V2
+
+
+
+export function store<T extends Record<string | symbol, any>>(obj: T): Stored<Store<T>, StoreExtends> {
     if (!beProxed(obj)) return obj
 
     for(const key in obj) {
@@ -28,6 +35,7 @@ export function store<T extends Record<string | symbol, any>>(obj: T) {
     const newObj = defineProxyProperties(obj)
     return new Proxy(newObj, {
         set(target, propertyKey, newValue, receiver) {
+            console.log('set', propertyKey, newValue)
             const _oldValue = target[propertyKey]
             
             if (_oldValue === undefined) {
@@ -44,26 +52,24 @@ export function store<T extends Record<string | symbol, any>>(obj: T) {
                 return true
             }
 
+            target._monitor.fireChanges(propertyKey,newValue, _oldValue)
+
             return Reflect.set(target, propertyKey, newValue, receiver)
         },
         deleteProperty(target, p) {
-            return Reflect.deleteProperty(target, p)
+            Reflect.deleteProperty(target, p)
+            target._monitor.fireDeletes(p as string)
+            return true
         }
     })
 }
 
 function defineProxyProperties<T extends Record<string, any>>(obj:T)  {
     defineProperty(obj, '_reactivity', true)
-    defineProperty(obj, '_deps', [])
-    defineProperty(obj, 'watch', function(callback: WatchCallback<typeof obj>) {
-        obj._deps.push(callback)
+    defineProperty(obj, '_monitor', new Monitor())
+    defineProperty(obj, 'watch', function(callback: WatchCallback) {
+        obj._monitor.onChange(callback)
     })
-    defineProperty(obj, 'unWatch', function(callback: WatchCallback<typeof obj>) {
-        const index = obj._deps.indexOf(callback)
-        if (index >= 0) {
-            obj._deps.splice(index, 1)
-        }
-    })
-    return obj as T & ProxyObjextExtends<T>
+    return obj as Stored<Store<T>, StoreExtends>
 }
 
