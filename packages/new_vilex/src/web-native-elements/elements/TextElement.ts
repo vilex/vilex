@@ -1,12 +1,11 @@
-import { BaseElement } from "../base/BseElement";
+import { WebClientNode } from "../base/WebClientNode"
 
-export class TextElement {
+export class TextElement extends WebClientNode {
 
-    textContent = ''
-    el: Text | null = null
-
+    element: Text
     constructor(textContent: string) {
-        this.textContent = textContent
+        super({ textContent })
+        this.element = null as unknown as Text
     }
 
     render() {

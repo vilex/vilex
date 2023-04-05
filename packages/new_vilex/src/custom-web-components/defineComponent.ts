@@ -1,5 +1,9 @@
+import { toHyphenCase } from "../toHyphenCase"
+
+
 export function defineComponent(componentName: string) {
-  const Constructor = customElements.get(componentName)
+  const _name = toHyphenCase(componentName)
+  const Constructor = customElements.get(_name)
   if (Constructor) {
     return Constructor
   }
@@ -11,6 +15,6 @@ export function defineComponent(componentName: string) {
       shaddow.append(...childs)
     }
   }
-  customElements.define(componentName, CustomElement)
+  customElements.define(_name, CustomElement)
   return CustomElement
 }

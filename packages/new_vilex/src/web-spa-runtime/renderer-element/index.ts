@@ -3,6 +3,11 @@ import { TextElement } from "../../web-native-elements"
 import { BaseElement } from "../../web-native-elements/base/BseElement"
 
 
+/**
+ * 将一个虚拟节点转化为真实的dom
+ * @param baseElement 
+ * @returns 
+ */
 export function RenderElement(baseElement: BaseElement | TextElement | VilexElement) {
     if (baseElement) {
         if (baseElement instanceof BaseElement) {
@@ -42,3 +47,4 @@ export function RenderElement(baseElement: BaseElement | TextElement | VilexElem
         }
     }
 }
+

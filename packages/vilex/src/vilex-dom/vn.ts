@@ -91,7 +91,7 @@ export function vn<K extends keyof HTMLElementTagNameMap>(tag: K, options: VnIte
 
   let children: VNode[] = []
   let recordAsyncIndex = 0
-  items.forEach((item: VnItem, index: number) => {
+  items.forEach((item: VnItem) => {
     /**
      * 如果是新版本，跳过不处理
      */

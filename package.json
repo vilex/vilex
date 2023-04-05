@@ -11,7 +11,7 @@
     "preinstall": "npx only-allow pnpm",
     "bootstrap": "pnpm i -r",
     "build-vilex": "pnpm -F vilex build",
-    "lint:lint-staged": "lint-staged"
+    "lint:lint-staged": ""
   },
   "keywords": [],
   "author": "",

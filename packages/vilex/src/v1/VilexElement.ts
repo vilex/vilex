@@ -1,6 +1,5 @@
 import { BaseHtmlElement } from './htmlElements/BaseHtmlElement';
 import { BaseElement } from './BaseElement';
-import { ElementEvent } from './htmlElements/ElementEvent';
 import { toHyphenCase } from '../utils/toCamelCase'
 import { defineElement } from './defineElement'
 

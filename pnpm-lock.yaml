@@ -43,6 +43,39 @@ importers:
       vite: 4.2.1
       vitest: 0.24.5
 
+  packages/new_vilex:
+    specifiers:
+      '@rollup/plugin-commonjs': ^23.0.2
+      '@rollup/plugin-node-resolve': ^15.0.1
+      '@types/node': ^18.15.11
+      '@types/stylis': ^4.0.2
+      csstype: ^3.1.1
+      esbuild: ^0.15.7
+      nanoid: ^4.0.2
+      rimraf: ^3.0.2
+      rollup: ^2.79.0
+      rollup-plugin-terser: ^7.0.2
+      rollup-plugin-typescript2: ^0.34.1
+      stylis: ^4.1.3
+      ts-node: ^10.9.1
+      typescript: ^4.8.3
+    dependencies:
+      csstype: 3.1.1
+      nanoid: 4.0.2
+      stylis: 4.1.3
+    devDependencies:
+      '@rollup/plugin-commonjs': 23.0.2_rollup@2.79.1
+      '@rollup/plugin-node-resolve': 15.0.1_rollup@2.79.1
+      '@types/node': 18.15.11
+      '@types/stylis': 4.0.2
+      esbuild: 0.15.13
+      rimraf: 3.0.2
+      rollup: 2.79.1
+      rollup-plugin-terser: 7.0.2_rollup@2.79.1
+      rollup-plugin-typescript2: 0.34.1_k35zwyycrckt5xfsejji7kbwn4
+      ts-node: 10.9.1_5vmead2t35erkiyweu7lxbaj5i
+      typescript: 4.9.3
+
   packages/reactivity:
     specifiers: {}
 
@@ -2937,6 +2970,21 @@ packages:
       typescript: 4.8.4
     dev: true
 
+  /rollup-plugin-typescript2/0.34.1_k35zwyycrckt5xfsejji7kbwn4:
+    resolution: {integrity: sha512-P4cHLtGikESmqi1CA+tdMDUv8WbQV48mzPYt77TSTOPJpERyZ9TXdDgjSDix8Fkqce6soYz3+fa4lrC93IEkcw==}
+    peerDependencies:
+      rollup: '>=1.26.3'
+      typescript: '>=2.4.0'
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      find-cache-dir: 3.3.2
+      fs-extra: 10.1.0
+      rollup: 2.79.1
+      semver: 7.3.8
+      tslib: 2.4.1
+      typescript: 4.9.3
+    dev: true
+
   /rollup/2.79.1:
     resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
     engines: {node: '>=10.0.0'}
@@ -3282,6 +3330,37 @@ packages:
       diff: 4.0.2
       make-error: 1.3.6
       typescript: 4.8.4
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    dev: true
+
+  /ts-node/10.9.1_5vmead2t35erkiyweu7lxbaj5i:
+    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.9
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.3
+      '@types/node': 18.15.11
+      acorn: 8.8.1
+      acorn-walk: 8.2.0
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 4.9.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
