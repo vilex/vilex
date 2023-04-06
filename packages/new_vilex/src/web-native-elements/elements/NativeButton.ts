@@ -3,7 +3,12 @@ import { WebNativeElement, WebNativeElementParams } from "../base/WebNativeEleme
 type ButtonType = 'button' | 'reset' | 'submit' | 'checkbox' | 'radio' | 'select'
 type NativeButtonParams = Partial<{
   type: ButtonType
+  /**
+   * 禁用
+   */
+  disabled: boolean
 }> & WebNativeElementParams
+
 
 export class NativeButton<T extends NativeButtonParams = NativeButtonParams > extends WebNativeElement<T> {
   element: HTMLButtonElement
@@ -19,6 +24,10 @@ export class NativeButton<T extends NativeButtonParams = NativeButtonParams > ex
     return this.element
   }
 
+  set disabled(value: boolean) {
+    this.element.disabled = this.params.disabled = value
+  }
+
   set type(type: ButtonType) {
     this.element.type = this.params.type = type  
   }
@@ -27,3 +36,6 @@ export class NativeButton<T extends NativeButtonParams = NativeButtonParams > ex
     return this.params.type || 'button'
   }
 }
+
+
+

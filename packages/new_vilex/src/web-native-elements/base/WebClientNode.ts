@@ -30,6 +30,7 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
         this.textContent = newValue
       })
     }
+    
   }
 
   render(): ElementType {
