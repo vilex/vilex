@@ -21,6 +21,11 @@ export class NativeButton<T extends NativeButtonParams = NativeButtonParams > ex
   render() {
     super.render()
     this.element.type = this.type
+
+
+    // 一种是属性
+
+    
     return this.element
   }
 
