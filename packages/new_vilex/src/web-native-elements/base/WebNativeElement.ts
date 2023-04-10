@@ -1,19 +1,39 @@
+import { ConstantEventNameMapType } from './../../constant';
+import { ConstantEventNameArray, ConstantEventNameMap } from "../../constant"
 import { Fragment } from "../../Fragment"
 import { renderElements } from "../../renderElements"
 import { VarBind } from "../../VarBind"
 import { CustomElement } from "./CustomElement"
-import { ElementEvent, ElementEventNameList, ElementEventParams } from "./ElementEvent"
-import { WebClientNode } from "./WebClientNode"
+import { WebClientNode, WebClientNodeParams } from "./WebClientNode"
+
+
+type addPrefix<TKey, TPrefix extends string> = TKey extends string
+  ? `${TPrefix}${TKey}`
+  : never;
+
+type removePrefix<TPrefixedKey, TPrefix extends string> = TPrefixedKey extends addPrefix<infer TKey, TPrefix>
+  ? TKey
+  : '';
+
+type prefixedValue<TObject extends object, TPrefixedKey extends string, TPrefix extends string> = TObject extends {[K in removePrefix<TPrefixedKey, TPrefix>]: infer TValue}
+  ? TValue
+  : never;
+
+type ElementEventType<T extends object = typeof ConstantEventNameMap> = {
+  [K in addPrefix<keyof T, 'on'>]?: ( evt:  prefixedValue<T, K, 'on'>) => void
+}
+
+
 
 
 export type WebNativeElementParams = Partial<{
   children: (WebNativeElement | CustomElement)[]
   bindVar: VarBind
-}> & ElementEventParams
+}> & WebClientNodeParams & ElementEventType
 
 
-export class WebNativeElement<T extends WebNativeElementParams = WebNativeElementParams> extends ElementEvent<T> {
-  private eListeners: Map<string, ((evt: Event) => void)[]> = new Map(ElementEventNameList.map(n => [n, []]))
+export class WebNativeElement<T extends WebNativeElementParams = WebNativeElementParams> extends WebClientNode<T> {
+  private eListeners: Map<string, ((evt: Event) => void)[]> = new Map(ConstantEventNameArray.map(n => [n, []]))
   constructor(data: T) {
     super(data)
     this.eListeners.forEach((listeners, key) => {
@@ -23,6 +43,10 @@ export class WebNativeElement<T extends WebNativeElementParams = WebNativeElemen
         }
       })
     })
+
+    // Object.assign(this, data)
+    
+    return this as unknown as WebNativeElement<T> & ElementEventType
   }
 
 
@@ -41,19 +65,18 @@ export class WebNativeElement<T extends WebNativeElementParams = WebNativeElemen
 
   initParams(): void {
     super.initParams()
+
+    
     if (!this.params.children) {
       this.params.children = []
     }
-    ElementEventNameList.forEach(key => {
-      const _key = `on${key}` as 'onClick'
-      if (this.params[_key]) {
-        this[_key] = this.params[_key]
-      }
-    })
+    
   }
 
   render() {
     super.render()
+
+    Object.assign(this, this.params)
     this.eListeners.forEach((listeners, key) => {
       if (listeners.length) {
         this.element.addEventListener(key.toLocaleLowerCase(), (evt) => {

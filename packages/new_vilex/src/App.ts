@@ -1,5 +1,6 @@
 import { WebNativeElement } from './web-native-elements/base/WebNativeElement';
-import { renderElement } from "./renderElements"
+import { renderElement, renderElements } from "./renderElements"
+import { CustomElement } from './web-native-elements/base/CustomElement';
 
 export class App {
   selector: string
@@ -10,8 +11,12 @@ export class App {
     if (!root) console.error(`new App(${selector})`)
     this.rootElement = root as HTMLElement
   }
-  render(e: WebNativeElement) {
-    renderElement(e)
-    this.rootElement.appendChild(e.element)
+  render(e: WebNativeElement | CustomElement) {
+    renderElements([e])
+    if (e instanceof CustomElement) {
+      this.rootElement.appendChild(e.rootElement)
+    } else {
+      this.rootElement.appendChild(e.element)
+    }
   }
 }

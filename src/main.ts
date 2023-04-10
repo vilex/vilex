@@ -3,31 +3,64 @@ import { Button1 } from './Button1';
 // import { RenderElement } from '../packages/new_vilex/src/web-spa-runtime/renderer-element'
 import './style/web_component.css'
 
-import { App, WebNative } from "../packages/new_vilex/src"
+import { App, Layout, NativeButton, WebNative } from "../packages/new_vilex/src"
 import { VarBind } from "../packages/new_vilex/src/VarBind"
 import { CustomButton } from "../packages/new_vilex/src/web-native-elements/base/CustomButton"
 import { Styled } from '../packages/new_vilex/src/Styled'
+import { WebNativeElement } from '../packages/new_vilex/src/web-native-elements/base/WebNativeElement';
 
 
+
+
+/**
+ * 卡片
+ */
+function Card() {
+  return new Layout.Row({
+    children: [
+      new NativeButton({
+        textContent: 'card button',
+        children: [
+          new Layout.Row({
+            children: [
+              new NativeButton({
+                textContent: 'inner button'
+              })
+            ]
+          }),
+          new WebNativeElement({
+            tagName: 'img',
+            src: 'https://www.haorooms.com/logo/logo36X36.jpg',
+            onLoad(e) {
+              console.log(e)
+            }
+          }),
+          new WebNativeElement({
+            tagName: 'input',
+            value: 'sdfsdfsdf',
+            onInput(ss) {
+              console.log(ss)
+            }
+          })
+        ]
+      })
+    ]
+  })
+}
 
 const firstButton = new VarBind()
 console.log(firstButton)
 
-// const button = new WebNative.NativeButton({
-//   // textContent: '原生的按钮',
-//   classList: ['web_component_button_padding'],
-//   onClick() {
-//     console.log('click button')
-//   },
-//   children: [
-//     new CustomButton(),
-//   ]
-// })
-
 const button = Button1({
   children: [
-    new CustomButton()
+    new CustomButton(),
+    new NativeButton({
+      textContent: '你好吧',
+      onClick() {
+        console.log('sdfsdfsdf')
+      }
+    })
   ]
 })
 
-new App('#app').render(button)
+new App('#app').render(Card())

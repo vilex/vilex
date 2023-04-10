@@ -22,7 +22,9 @@ const DefinedPropertyKeysArray: string[] = [
   'contentEditable',
   'title',
   'dir',
-  'lang'
+  'lang',
+  'value',
+  'placeholder'
 ]
 
 const DefinedMethodsArray: string[] = [
@@ -39,7 +41,6 @@ const DefinedEventsArray: string[] = [
   'MouseEnter'
 ]
 
-const events = ['click', 'focus', 'blur', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input', 'keydown', 'keyup', 'load', 'error', 'success', 'resize', 'select', 'input']
 
 
 /**
@@ -93,18 +94,15 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
 
     if (_params.textContent instanceof RefImpl) {
       _params.textContent.monitor.watch((newValue) => {
-        this.textContent = newValue
+        // this.textContent = newValue
       })
     }
-
-
-    
 
   }
 
   render(): ElementType {
     this.element = document.createElement(this.tagName)
-    this.textContent = this.params.textContent || ''
+    // this.textContent = this.params.textContent || ''
     const _style = this.params.style
     if (_style) {
       for (const key in _style) {
@@ -127,19 +125,20 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
     return this.element
   }
 
-  set textContent(value: TextContent) {
-    const _value = unRef(value) as string
-    if (this.params.textContent instanceof RefImpl) {
-      this.params.textContent.value = _value
-    } else {
-      this.params.textContent = _value
-    }
-    this.element.textContent = String(value)
-  }
+  // set textContent(value: TextContent) {
+  //   const _value = unRef(value) as string
+  //   if (this.params.textContent instanceof RefImpl) {
+  //     this.params.textContent.value = _value
+  //   } else {
+  //     this.params.textContent = _value
+  //   }
+    
+  //   this.element.textContent = String(value)
+  // }
 
-  get textContent() {
-    return this.params.textContent || ''
-  }
+  // get textContent() {
+  //   return this.params.textContent || ''
+  // }
 
 
   

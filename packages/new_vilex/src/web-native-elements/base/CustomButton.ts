@@ -7,7 +7,7 @@ export class CustomButton extends CustomElement {
     return new NativeButton({
       textContent: '自定义的按钮',
       classList: [b],
-      hidden: true,
+      hidden: false,
       style: {
         color: 'red'
       },

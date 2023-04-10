@@ -1,5 +1,4 @@
-import { VilexElement } from "../../custom-web-components"
-import { TextElement } from "../../web-native-elements"
+// import { VilexElement } from "../../custom-web-components"
 import { BaseElement } from "../../web-native-elements/base/BseElement"
 
 
@@ -8,7 +7,7 @@ import { BaseElement } from "../../web-native-elements/base/BseElement"
  * @param baseElement 
  * @returns 
  */
-export function RenderElement(baseElement: BaseElement | TextElement | VilexElement) {
+export function RenderElement(baseElement: BaseElement  | VilexElement) {
     if (baseElement) {
         if (baseElement instanceof BaseElement) {
             const htmlElement = baseElement.render() as HTMLElement
@@ -24,12 +23,6 @@ export function RenderElement(baseElement: BaseElement | TextElement | VilexElem
             })
             return htmlElement
         }
-        else
-            if (baseElement instanceof TextElement) {
-                const textNode = baseElement.render()
-                baseElement.el = textNode
-                return textNode
-            }
         else
             if (baseElement instanceof VilexElement) {
                 const renderResult = baseElement.render()

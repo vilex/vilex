@@ -12,7 +12,7 @@ export function defineComponent(componentName: string) {
   class CustomElement extends HTMLElement {
     constructor(...childs: any[]) {
       super()
-      const shaddow = this.attachShadow({ mode: 'open' })
+      const shaddow = this.attachShadow({ mode: 'closed' })
       const styled = StyledMap.get(_name)
       if (styled) {
         const style = document.createElement('style')
