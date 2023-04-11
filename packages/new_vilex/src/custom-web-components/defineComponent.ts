@@ -1,4 +1,4 @@
-import { StyledMap } from "../Styled"
+import { appConf } from "../AppConf"
 import { toHyphenCase } from "../toHyphenCase"
 
 
@@ -12,17 +12,23 @@ export function defineComponent(componentName: string) {
   class CustomElement extends HTMLElement {
     constructor(...childs: any[]) {
       super()
-      const shaddow = this.attachShadow({ mode: 'closed' })
-      const styled = StyledMap.get(_name)
-      if (styled) {
-        const style = document.createElement('style')
-        style.append(styled.rules.join('\n'))
-        styled.styleElement = style
-        styled.rules.length = 0
-        shaddow.append(style)
+
+      if (appConf.webComponentsUseShaddow) {
+        /* TODO
+        const styled = StyledMap.get(_name);
+        const shaddow = this.attachShadow({ mode: 'closed' })
+        if (styled) {
+          const style = document.createElement('style')
+          style.append(styled.rules.join('\n'))
+          styled.styleElement = style;
+          shaddow.append(style)
+        }
+        */
+      } else {
+        this.append(...childs)
       }
-      shaddow.append(...childs)
     }
+
   }
   customElements.define(_name, CustomElement)
   return CustomElement

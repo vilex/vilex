@@ -1,12 +1,12 @@
 import { WebNativeElement } from './WebNativeElement';
 import { defineComponent } from "../../custom-web-components/defineComponent"
-import { renderElement } from "../../renderElements"
+import { renderElement, renderElements } from "../../renderElements"
 
 export class CustomElement {
   componentName = ''
   Constructor: CustomElementConstructor
   rootElement: HTMLElement
-  element: WebNativeElement
+  element: WebNativeElement | CustomElement
   constructor() {
     this.componentName = this.constructor.name
     this.Constructor = defineComponent(this.componentName)
@@ -14,14 +14,17 @@ export class CustomElement {
     this.element = null as unknown as WebNativeElement
   }
 
-  render() {
+  render(): WebNativeElement | CustomElement {
     return null as unknown as WebNativeElement
   }
 
   renderRoot() {
-   this.element = this.render() 
-   renderElement(this.element)
-   this.rootElement = new this.Constructor(this.element.element)
+    this.element = this.render()
+    renderElements([this.element])
+    if (this.element instanceof CustomElement) {
+      this.rootElement = this.element.rootElement
+    } else {
+      this.rootElement = new this.Constructor(this.element.element)
+    }
   }
-
 }

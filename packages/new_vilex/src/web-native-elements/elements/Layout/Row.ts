@@ -1,6 +1,5 @@
 import { WebNativeElement } from './../../base/WebNativeElement';
 import { WebNative } from "../..";
-import { Styled } from "../../../Styled";
 import { CustomElement } from "../../base/CustomElement";
 
 
@@ -20,18 +19,12 @@ export class VilexRow extends CustomElement {
     render() {
         return new WebNativeElement({
             tagName: 'div',
-            classList: [ css_row ],
+            classList: [ 'web_component_button_padding'],
             children: this.data.children
         })
     }
 }
 
-const rowStyled = new Styled(VilexRow.name)
-const css = (s: TemplateStringsArray, ...a: any[]) => rowStyled.css(s, ...a)
 
-const css_row = css`
-    display: flex;
-    flex-direction: row;
-`
 
 

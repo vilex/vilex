@@ -14,32 +14,7 @@ export type WebClientNodeParams = Partial<{
 type ElementType<T extends HTMLElement = HTMLElement> = T | Text
 
 
-const DefinedPropertyKeysArray: string[] = [
-  'textContent',
-  'type',
-  'src',
-  'hidden',
-  'contentEditable',
-  'title',
-  'dir',
-  'lang',
-  'value',
-  'placeholder'
-]
 
-const DefinedMethodsArray: string[] = [
-  'blur',
-  'click',
-  'focus',
-]
-
-const DefinedEventsArray: string[] = [
-  'Click',
-  'MouseDown',
-  'MouseMove',
-  'MouseUp',
-  'MouseEnter'
-]
 
 
 
@@ -51,7 +26,6 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
   element: ElementType
   params: T
 
-  private _defineProperKeys: string[] = []
   private _defineMethodKeys: string[] = []
 
 
@@ -68,35 +42,9 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
    */
   initParams() {
 
-    /**
-     * 定义属性
-     */
-    const _self = this
-    const _propertyKeys = DefinedPropertyKeysArray.concat(this._defineProperKeys)
-    _propertyKeys.forEach(k => Reflect.defineProperty(this, k, {
-      get() { return Reflect.get(_self.params, k) },
-      set(v) { 
-        Reflect.set(_self.element, k, v)
-        Reflect.set(_self.params, k, v)
-      }
-    }))
-
-    /**
-     * 定义函数
-     */
-    const _methodKeys = DefinedMethodsArray.concat(this._defineMethodKeys)
-    _methodKeys.forEach(k => Reflect.set(this, k, () => Reflect.get(this.element, k)()))
-
     const _params = this.params
     this.tagName = _params.tagName || 'div'
 
-
-
-    if (_params.textContent instanceof RefImpl) {
-      _params.textContent.monitor.watch((newValue) => {
-        // this.textContent = newValue
-      })
-    }
 
   }
 
@@ -113,40 +61,7 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
     if (_class) {
       this.element.classList.add(..._class)
     }
-
-    /**
-     * 处理属性
-     */
-    this._defineProperKeys.forEach(propertykey => {
-      if (Reflect.has(this.params, propertykey)) {
-        Reflect.set(this.element, propertykey, Reflect.get(this.params, propertykey))
-      }
-    })
     return this.element
   }
 
-  // set textContent(value: TextContent) {
-  //   const _value = unRef(value) as string
-  //   if (this.params.textContent instanceof RefImpl) {
-  //     this.params.textContent.value = _value
-  //   } else {
-  //     this.params.textContent = _value
-  //   }
-    
-  //   this.element.textContent = String(value)
-  // }
-
-  // get textContent() {
-  //   return this.params.textContent || ''
-  // }
-
-
-  
-
-  /**
-   * 添加属性key
-   */
-  definePropertyKey(key: string) {
-    this._defineProperKeys.push(key)
-  }
 }

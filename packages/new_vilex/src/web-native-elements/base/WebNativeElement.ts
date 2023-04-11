@@ -1,4 +1,4 @@
-import { ConstantEventNameMapType } from './../../constant';
+import { ConstantEventNameMapType, ConstantPropertKeyMapType, ConstantPropertKeyArray, ConstantApplyMethodsMapType, ConstantApplyMethodArray } from './../../constant';
 import { ConstantEventNameArray, ConstantEventNameMap } from "../../constant"
 import { Fragment } from "../../Fragment"
 import { renderElements } from "../../renderElements"
@@ -25,11 +25,10 @@ type ElementEventType<T extends object = typeof ConstantEventNameMap> = {
 
 
 
-
 export type WebNativeElementParams = Partial<{
   children: (WebNativeElement | CustomElement)[]
   bindVar: VarBind
-}> & WebClientNodeParams & ElementEventType
+}> & WebClientNodeParams & ElementEventType & ConstantPropertKeyMapType & ConstantApplyMethodsMapType
 
 
 export class WebNativeElement<T extends WebNativeElementParams = WebNativeElementParams> extends WebClientNode<T> {
@@ -43,10 +42,28 @@ export class WebNativeElement<T extends WebNativeElementParams = WebNativeElemen
         }
       })
     })
+    const _self = this;
+    ConstantPropertKeyArray.forEach(key => {
+      Reflect.defineProperty(this, key, {
+        set(val) {
+          data[key as 'children'] = val
+          if (_self.element) {
+            _self.element[key as 'textContent'] = val
+          }
+        }
+      })
+    })
+    ConstantApplyMethodArray.forEach(key => {
+      Reflect.defineProperty(this, key, {
+        value: () => {
+          if (_self.element) {
+            _self.element[key as 'normalize']()
+          }
+        }
+      })
+    })
 
-    // Object.assign(this, data)
-    
-    return this as unknown as WebNativeElement<T> & ElementEventType
+    return this as unknown as WebNativeElement<T> & ElementEventType & ConstantPropertKeyMapType & ConstantApplyMethodsMapType
   }
 
 
