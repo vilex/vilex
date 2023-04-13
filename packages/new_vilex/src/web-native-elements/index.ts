@@ -7,8 +7,8 @@ export * from './elements/Layout'
 
 
 
-export const Button = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'button', ...data})
-export const Div = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'div', ...data})
-export const Img = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'img', ...data})
-export const P = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'p', ...data})
-export const Span = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'span', ...data})
+export const ButtonElement = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'button', ...data})
+export const DivElement = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'div', ...data})
+export const ImgElement = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'img', ...data})
+export const PElement = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'p', ...data})
+export const SpanElement = (data: WebNativeElementParams) => new WebNativeElement({tagName: 'span', ...data})

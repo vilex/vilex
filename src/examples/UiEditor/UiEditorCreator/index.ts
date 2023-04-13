@@ -1,5 +1,6 @@
 
-type ItemData = {
+
+export type ItemData = {
     x: number
     y: number
     width: number
@@ -9,6 +10,7 @@ type ItemData = {
     alpha: number
     hidden: boolean
     disabled: boolean
+    elementType: 'text' | 'img' | 'video' | 'shape-rect' | 'shape-circle'
 }
 
 const ItemDataDefault = (): ItemData => ({
@@ -20,10 +22,11 @@ const ItemDataDefault = (): ItemData => ({
     scaleY: 1,
     alpha: 1,
     hidden: false,
-    disabled: false
+    disabled: false,
+    elementType: 'text',
 })
 
-type TextItemData = ItemData & {
+export type TextItemData = ItemData & {
     fontSize: number
     fontBold: boolean
     fontItalc: boolean
@@ -34,6 +37,7 @@ type TextItemData = ItemData & {
 
 const TextItemDataDefault = ():TextItemData  => ({
     ...ItemDataDefault(),
+    elementType: 'text',
     fontSize: 12,
     fontBold: false,
     fontItalc: false,
@@ -42,13 +46,14 @@ const TextItemDataDefault = ():TextItemData  => ({
     textContent: ''
 })
 
-type ImageItemData = ItemData & {
+export type ImageItemData = ItemData & {
     objectFit: 'fill' | 'contain',
     src: string
 }
 
 const ImageItemDataDefault = (): ImageItemData => ({
     ...ItemDataDefault(),
+    elementType: 'img',
     src: '',
     objectFit: 'contain'
 })
@@ -60,6 +65,7 @@ type VideoItemData = ImageItemData & {
 
 const VideoItemDataDefault = (): VideoItemData => ({
     ...ImageItemDataDefault(),
+    elementType: 'video',
     autoPlay: false,
     controls: false
 })
@@ -83,7 +89,7 @@ const createVideo = (data: Partial<VideoItemData>) => {
 // 图形
 
 
-export const ItemData = { 
+export const UiEditorCreator = { 
     createText,
     createImage,
     createVideo,

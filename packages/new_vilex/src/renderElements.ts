@@ -21,6 +21,7 @@ function renderWebNativeElement(e: WebNativeElement) {
 }
 
 function renderCustomElement(e: CustomElement) {
+  if (!e) debugger
   if (e.rootElement) return
   e.renderRoot()
 }

@@ -1,4 +1,4 @@
-import { Div } from "../../../../packages/new_vilex/src"
+import { DivElement } from "../../../../packages/new_vilex/src"
 import { css } from "../../../../packages/new_vilex/src/styled"
 
 const classname = css`
@@ -26,5 +26,5 @@ const classname = css`
  * @returns 
  */
 export const CheckerBoard = () => {
-    return Div({ classList: [ classname ] })
+    return DivElement({ classList: [ classname ] })
 }

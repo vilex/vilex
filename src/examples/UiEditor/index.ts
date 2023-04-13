@@ -5,10 +5,12 @@ import { WebNativeElement } from "../../../packages/new_vilex/src/web-native-ele
 import { withStyledComponent } from "../../../packages/new_vilex/src/withStyledComponent";
 import { CheckerBoard } from "./components/CheckerBoard";
 import { MainView } from "./components/MainView";
+import { UiEditorElement } from "./components/UiEditorElement";
+import { ImageItemData, ItemData, TextItemData } from "./UiEditorCreator";
 
 
-type UiEditorParamsType = {
-    dataList: any[]
+type UiEditorParamsType<T extends ItemData = ItemData> = {
+    dataList: T[]
 }
 export class UiEditor extends CustomElement {
     data: Partial<UiEditorParamsType>
@@ -19,17 +21,44 @@ export class UiEditor extends CustomElement {
     render () {
         return MainView({
             children: [
-                ...this.data.dataList.map(() => {
-                    return new WebNativeElement({
-                        tagName: 'img',
-                        src: 'https://fanyi-cdn.cdn.bcebos.com/webStatic/translation/asset/product-helper@2x.42313ebc.png'
-                    })
+                ...this.data.dataList.map((dataItem) => {
+                    if (dataItem.elementType === 'text') {
+                        const _data = dataItem as TextItemData
+                        return new UiEditorElement({
+                            data: _data,
+                            children: [
+                                new WebNativeElement({
+                                    tagName: 'span',
+                                    textContent: _data.textContent,
+                                    style: {
+                                        fontSize: _data.fontSize,
+                                        color: _data.fontColor,
+                                        fontFamily: _data.fontFamily,
+                                        fontWeight: _data.fontBold,
+                                        textDecoration: _data.fontItalc
+                                    }
+                                })
+                            ]
+                        })
+                    }
+                    else if (dataItem.elementType === 'img') {
+                        const _data = dataItem as ImageItemData
+                        return new UiEditorElement({
+                            data: _data,
+                            children: [
+                                new WebNativeElement({
+                                    tagName: 'img',
+                                    src: _data.src
+                                })
+                            ]
+                        })
+                    }
                 })
             ]
         })
     }
 }
 
-export * from './ItemData/ItemData'
+export * from './UiEditorCreator'
 
 

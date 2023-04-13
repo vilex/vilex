@@ -5,6 +5,8 @@ import { renderElements } from "../../renderElements"
 import { VarBind } from "../../VarBind"
 import { CustomElement } from "./CustomElement"
 import { WebClientNode, WebClientNodeParams } from "./WebClientNode"
+import { Properties } from 'csstype';
+import { getStyledValue } from '../../getStyledValue';
 
 
 type addPrefix<TKey, TPrefix extends string> = TKey extends string
@@ -28,6 +30,7 @@ type ElementEventType<T extends object = typeof ConstantEventNameMap> = {
 export type WebNativeElementParams = Partial<{
   children: (WebNativeElement | CustomElement)[]
   bindVar: VarBind
+  style: Properties
 }> & WebClientNodeParams & ElementEventType & ConstantPropertKeyMapType & ConstantApplyMethodsMapType
 
 
@@ -101,6 +104,15 @@ export class WebNativeElement<T extends WebNativeElementParams = WebNativeElemen
         })
       }
     })
+
+    const _style = this.params.style
+    if (_style) {
+      for (const key in _style) {
+        const val = getStyledValue(_style, key)
+        this.element.style[key as 'width'] = val as string
+      }
+    }
+    
     if (this.params.bindVar) {
       this.params.bindVar.value = this
     }

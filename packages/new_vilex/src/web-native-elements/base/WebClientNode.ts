@@ -2,28 +2,25 @@ import { unRef } from "../../web-spa-runtime"
 import { RefImpl } from "../../web-spa-runtime/reactivity/ref/RefImpl"
 import { Properties } from 'csstype'
 
+
+
 type TextContent = string | number | RefImpl<string> | RefImpl<number>
 
 export type WebClientNodeParams = Partial<{
   tagName: string
   textContent: TextContent
-  style: Properties
+  
   classList: string[]
 }>
 
-type ElementType<T extends HTMLElement = HTMLElement> = T | Text
-
-
-
-
-
+// type ElementType<T extends HTMLElement = HTMLElement> = T | Text
 
 /**
  * 
  */
 export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> {
   tagName = ''
-  element: ElementType
+  element: HTMLElement
   params: T
 
   private _defineMethodKeys: string[] = []
@@ -51,12 +48,7 @@ export class WebClientNode<T extends WebClientNodeParams = WebClientNodeParams> 
   render(): ElementType {
     this.element = document.createElement(this.tagName)
     // this.textContent = this.params.textContent || ''
-    const _style = this.params.style
-    if (_style) {
-      for (const key in _style) {
-        this.element.style[key as 'width'] = _style[key as 'width'] as string
-      }
-    }
+    
     const _class = this.params.classList
     if (_class) {
       this.element.classList.add(..._class)
