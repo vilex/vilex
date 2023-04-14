@@ -9,12 +9,12 @@ import { UiEditorElement } from "./components/UiEditorElement";
 import { ImageItemData, ItemData, TextItemData } from "./UiEditorCreator";
 
 
-type UiEditorParamsType<T extends ItemData = ItemData> = {
+type UiEditorParamsType<T extends ItemData> = {
     dataList: T[]
 }
-export class UiEditor extends CustomElement {
-    data: Partial<UiEditorParamsType>
-    constructor(data: Partial<UiEditorParamsType>) {
+export class UiEditor<T extends ItemData = ItemData> extends CustomElement {
+    data: Partial<UiEditorParamsType<T>>
+    constructor(data: Partial<UiEditorParamsType<T>>) {
         super()
         this.data = data
     }
@@ -48,7 +48,11 @@ export class UiEditor extends CustomElement {
                             children: [
                                 new WebNativeElement({
                                     tagName: 'img',
-                                    src: _data.src
+                                    src: _data.src,
+                                    classList: [imgElementStyle],
+                                    style: {
+                                        objectFit: _data.objectFit
+                                    }
                                 })
                             ]
                         })
@@ -57,7 +61,37 @@ export class UiEditor extends CustomElement {
             ]
         })
     }
+
+    add(itemData: T) {
+        
+        this.element.add(
+            new UiEditorElement({
+                data: itemData,
+                children: [
+                    new WebNativeElement({
+                        tagName: 'video',
+                        src: itemData.src,
+                        style: {
+                            left: itemData.x,
+                            top: itemData.y,
+                            width: itemData.width,
+                            height: itemData.height,
+                        }
+                    })
+                ]
+            })
+        )
+        console.log(this.element)
+        console.log(this.rootElement)
+    }
 }
+
+
+const imgElementStyle = css`
+    width: 100%;
+    height: 100%;
+    -webkit-user-drag: none;
+`
 
 export * from './UiEditorCreator'
 

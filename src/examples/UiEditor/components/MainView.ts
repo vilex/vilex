@@ -2,6 +2,7 @@ import { css } from "../../../../packages/new_vilex/src/styled"
 import { WebNativeElement } from "../../../../packages/new_vilex/src/web-native-elements/base/WebNativeElement"
 import { withStyledComponent } from "../../../../packages/new_vilex/src/withStyledComponent"
 import { CheckerBoard } from "./CheckerBoard"
+import { UiEditorElement } from "./UiEditorElement"
 
 const Container = withStyledComponent('div', css`
     width: 500px;
@@ -17,11 +18,14 @@ const Contents = withStyledComponent('div', css`
 
 
 type MainViewParams = {
-    children: WebNativeElement[]
+    children: UiEditorElement[]
 }
 
 export const MainView = (data: MainViewParams) => {
-    return Container({
+    return Container({ 
+        onMouseDown(e) {
+            console.log(e)
+        },
         children: [
             CheckerBoard(),
             Contents({

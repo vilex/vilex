@@ -29,15 +29,15 @@ export class UiEditorElement extends CustomElement {
             },
             children: [
                 new WebNativeElement({
-                    classList: [ 'full-layer', 'disabed'],
+                    classList: [ 'full-layer', 'disabled'],
                     children: this.data.children
                 }),
                 new WebNativeElement({
-                    classList: [ 'full-layer' ],
+                    classList: [ 'full-layer', 'disabled' ],
                     children: this.data.upperChildren
                 }),
                 new WebNativeElement({
-                    classList: [ 'outer', 'full-layer' ],
+                    classList: [ 'outer', 'full-layer', 'disabled' ],
                     children: []
                 })
             ]
@@ -48,14 +48,20 @@ export class UiEditorElement extends CustomElement {
 
 const styledElement = css`
     user-select: none;
+    position: absolute;
     .full-layer {
         position: absolute;
-        size: 0;
+        inset: 0;
     }
     .disabled {
         pointer-events: none;
+        & > * {
+            pointer-events: none;
+        }
     }
     .outer {
         border: 1px solid red;
     }
+
+    
 `
